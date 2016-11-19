@@ -1,6 +1,6 @@
 <template lang="html">
   <div id="app">
-    <header-nav></header-nav>
+    <header-bar></header-bar>
     <main class="blog content">
       <transition name="fade">
         <keep-alive>
@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import HeaderNav from 'components/HeaderNav'
+import HeaderBar from 'components/HeaderBar'
 import Post from 'components/Post'
 export default {
   components: {
-    HeaderNav,
+    HeaderBar,
     Post
   }
 }

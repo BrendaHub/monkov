@@ -4,6 +4,9 @@ import Vue from 'vue'
 import Blog from './Blog'
 import VueRouter from 'vue-router'
 import routes from './routes'
+
+import 'normalize.css'
+import './stylus/global.styl'
 /* eslint-disable no-new */
 
 Vue.use(VueRouter)
