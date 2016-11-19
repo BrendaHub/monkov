@@ -61,8 +61,6 @@ a,.social-icon
 a:hover
     color:#7049ba
 
-    
-
 a.selector
   position:relative
   &::after
