@@ -2,23 +2,23 @@
   <div id="app">
     <header-bar></header-bar>
     <main class="blog content">
-      <transition name="fade">
+      <transition name="slide-fade">
         <keep-alive>
           <router-view></router-view>
         </keep-alive>
       </transition>
     </main>
-    <!--<footer class="footer">
-      Copyrights ©️2016 <router-link to="/">Domon ji</router-link>
-    </footer>-->
+    <footer-bar></footer-bar>
   </div>
 </template>
 
 <script>
 import HeaderBar from 'components/HeaderBar'
+import FooterBar from 'components/FooterBar'
 export default {
   components: {
-    HeaderBar
+    HeaderBar,
+    FooterBar
   }
 }
 </script>
@@ -28,4 +28,13 @@ export default {
 .content
   padding:50px 0
   fullWidth()
+
+.slide-fade-enter-active
+  transition: all .3s ease
+.slide-fade-leave-active
+  transition: all .3s ease
+.slide-fade-enter, .slide-fade-leave-active
+  transform:translateX(20px)
+  opacity: 0
+  position:absolute
 </style>
