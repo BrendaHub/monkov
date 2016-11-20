@@ -8,22 +8,24 @@
         </keep-alive>
       </transition>
     </main>
-    <footer class="footer">
+    <!--<footer class="footer">
       Copyrights ©️2016 <router-link to="/">Domon ji</router-link>
-    </footer>
+    </footer>-->
   </div>
 </template>
 
 <script>
 import HeaderBar from 'components/HeaderBar'
-import Post from 'components/Post'
 export default {
   components: {
-    HeaderBar,
-    Post
+    HeaderBar
   }
 }
 </script>
 
 <style lang="stylus">
+@import './stylus/style.styl'
+.content
+  padding:50px 0
+  fullWidth()
 </style>

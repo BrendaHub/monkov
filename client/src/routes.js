@@ -1,11 +1,11 @@
 import Home from 'components/Home.vue'
-import Post from 'components/Post.vue'
+import Blog from 'components/Blog.vue'
 export default [
   {
     path: '/',
     component: Home
   }, {
-    path: '/post',
-    component: Post
+    path: '/blog',
+    component: Blog
   }
 ]
