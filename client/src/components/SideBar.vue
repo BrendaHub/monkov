@@ -14,7 +14,4 @@ export default {
 </script>
 
 <style lang="stylus">
-aside
-  @media screen and (max-width: 801px)
-    display:none
 </style>

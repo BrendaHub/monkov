@@ -1,6 +1,6 @@
 <template>
 <header>
-  <div class="subheader-back">
+  <div class="subheader-back" :class="{scrolled:scrolled}">
     <div class="subheader">
       <div class="subheader-partition left">
         <div class="subheader-cell"><i class="fa fa-phone"></i> <span>+86 15061883140</span></div>
@@ -15,7 +15,7 @@
       </div>
     </div>
   </div>
-  <div class="header-back">
+  <div class="header-back" :class="{scrolled:scrolled}">
     <div class="header">
       <router-link to="/"><div class="logo"></div></router-link>
       <div class="navigator">
@@ -38,7 +38,18 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data(){
+    return {
+      scrolled:false
+    }
+  },
+  mounted(){
+    window.addEventListener('scroll',()=>{
+        this.scrolled = window.scrollY > 60
+    })
+  }
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -47,21 +58,39 @@ export default {}
 subheader_h = 36px
 header_h = 120px
 
+header
+  position:fixed
+  width:100%
+
 .subheader-back
   width:100%
   background:#f5f5f5
+  transition:all .3s
+  height:subheader_h
   @media (max-width:600px)
     display:none
+
+.subheader-back.scrolled
+  height:0
+  overflow:hidden
 
 .header-back
   width:100%
   background:white
   box-shadow:0 1px 1px rgba(0,0,0,.1)
-  
+  height:header_h
+  transition:all .3s
+
+.header-back.scrolled
+  height: (header_h / 1.8)
+
 .header
   fullWidth()
-  height:header_h
   line-height:header_h
+
+.header-back.scrolled .header
+  line-height:(header_h / 1.8)
+  height:(header_h / 1.8)
 
 .logo,.navigator
   display:inline-block
@@ -71,7 +100,7 @@ header_h = 120px
   color:#666
   a
     display:inline-block
-    height:header_h
+    height:100%
     padding:0 20px
 
 .navigator-button div
@@ -82,7 +111,7 @@ header_h = 120px
     content:''
     position:absolute
     left:0
-    bottom:40px
+    bottom:(50% - 15px)
     margin:0 auto -2px
     height:2px
     width:100%
@@ -94,11 +123,15 @@ header_h = 120px
   div
     &::after
       opacity:1
-      bottom:50px
+      bottom:(50% - 8px)
+
+.header-back.scrolled .navigator a:hover
+  div
+    &::after
+      bottom:(50% - 15px)
   
 .subheader
   fullWidth()
-  height:subheader_h
   color:#999
   line-height:subheader_h
   font:14px/1.5 fontawesome
@@ -158,5 +191,5 @@ a.selector
 .logo
   background:white no-repeat center
   width:300px
-  height:header_h
+  height:(header_h/1.8)
 </style>

@@ -28,6 +28,7 @@ export default {
 .content
   padding:50px 0
   fullWidth()
+  margin-top:156px
 
 .slide-fade-enter-active
   transition: all .3s ease

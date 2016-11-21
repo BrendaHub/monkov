@@ -47,8 +47,7 @@ export default {
 <style lang="stylus" scoped>
 
 .post-image
-    width:800px
-    max-width:100%
+    width:100%
     object-fit:cover
 
 .post-title
