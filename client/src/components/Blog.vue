@@ -1,5 +1,6 @@
 <template>
-    <div class="article-list">
+<div class="blog-page col-2">
+    <div class="article-list col-main">
         <article class="blog-post">
             <router-link to="/blog"><img class="post-image" src="../assets/img-1-1024x768.jpg" alt=""></router-link>
             <div class="post-body">
@@ -30,18 +31,20 @@
             </div>
         </article>
     </div>
-    
+    <side-bar></side-bar>
+</div>
 </template>
 
 <script>
-
-export default {}
+import SideBar from 'components/SideBar'
+export default {
+    components:{
+        SideBar
+    }
+}
 </script>
 
 <style lang="stylus" scoped>
-.article-list
-    width:800px
-    max-width:70%
 
 .post-image
     width:800px

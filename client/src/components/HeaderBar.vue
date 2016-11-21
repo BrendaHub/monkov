@@ -107,6 +107,7 @@ header_h = 120px
   display:flex
   align-items:center
   justify-content:space-between
+  padding:0 20px
 
 .subheader-partition
   display:flex
@@ -124,7 +125,7 @@ header_h = 120px
 .subheader-cell
   display:inline-block
   text-align:center
-  margin:0 10px
+  margin:0 20px 0 0
 
 a,.social-icon
   transition:color .3s

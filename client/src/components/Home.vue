@@ -1,7 +1,5 @@
 <template lang="html">
-<div>
-  aaa
-</div>
+  <div>ppp</div>
 </template>
 
 <script>

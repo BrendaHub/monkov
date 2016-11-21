@@ -1,5 +1,4 @@
 @import './social_icons'
-
 a,a:hover,a:visited,a:link,a:active
     text-decoration: none
     color: inherit
@@ -8,3 +7,22 @@ a,a:hover,a:visited,a:link,a:active
 *
     box-sizing: border-box
     font-weight: 400
+
+.col-2
+    display: flex
+    flex-flow:row
+    justify-content: space-around
+
+.col-sub
+    flex:3
+    padding: 5px 20px
+    margin-left: 20px
+    @media screen and (max-width: 901px)
+        display:none
+
+.col-main
+    flex:10
+    padding: 5px 20px
+
+h1,h2,h3,h4,h5,h6
+    margin: 0
