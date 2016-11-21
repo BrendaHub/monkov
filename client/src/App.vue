@@ -37,4 +37,12 @@ export default {
   transform:translateX(20px)
   opacity: 0
   position:absolute
+
+main
+  flex:1
+
+#app
+    display: flex
+    flex-flow:column
+    min-height: 100vh
 </style>

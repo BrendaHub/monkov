@@ -17,7 +17,7 @@
   </div>
   <div class="header-back">
     <div class="header">
-      <div class="logo">Monkov</div>
+      <router-link to="/"><div class="logo"></div></router-link>
       <div class="navigator">
         <router-link class="navigator-button" to="/">
           <div>Home</div>
@@ -154,5 +154,8 @@ a.selector
     a
       color:white
 
-
+.logo
+  background:white no-repeat center
+  width:300px
+  height:header_h
 </style>
