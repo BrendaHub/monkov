@@ -1,6 +1,12 @@
 <template>
 <footer class="footer">
-    <div class="subfooter-top"></div>
+    <div class="subfooter-top">
+        <div class="subfooter-top-container">
+            <footer-widget></footer-widget>
+            <footer-widget></footer-widget>
+            <footer-widget></footer-widget>
+        </div>    
+    </div>
     <div class="subfooter-bottom">
         <div class="subfooter-bottom-container">
             <span>
@@ -26,7 +32,12 @@
 </footer>
 </template>
 <script>
-export default {}
+import FooterWidget from 'components/FooterWidget'
+export default {
+    components:{
+        FooterWidget
+    }
+}
 </script>
 <style lang="stylus" scoped>
 @import  '../stylus/style'
@@ -42,9 +53,16 @@ footer
 
 .subfooter-top
     width:100%
-    padding:2em 0
+    padding:4em 0
     min-height:300px
     background:#1a1a1a
+
+.subfooter-top-container
+    fullWidth()
+    padding:0 20px
+    display:flex
+    justify-content:space-between
+    align-items:flex-start
 
 .subfooter-bottom
     height:38px
@@ -53,6 +71,7 @@ footer
 
 .subfooter-bottom-container
     fullWidth()
+    padding:0 20px
 
 .menu-list
     display:inline-block
