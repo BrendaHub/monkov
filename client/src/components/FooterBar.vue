@@ -11,13 +11,13 @@
                     <router-link to="/">Home</router-link>
                 </span>
                 <span>
-                    <router-link to="/">Blog</router-link>
+                    <router-link to="/blog">Blog</router-link>
                 </span>
                 <span>
-                    <router-link to="/">About</router-link>
+                    <router-link to="/about">About</router-link>
                 </span>
                 <span>
-                    <router-link to="/">Photograph</router-link>
+                    <router-link to="/photograph">Photograph</router-link>
                 </span>
             </div>
         </div>

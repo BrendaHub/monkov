@@ -11,14 +11,14 @@
       <div class="subheader-partition right">
         <div class="social-icon instagram"><a href="https://www.instagram.com/domonji95/" target="_blank"><i class="fa fa-instagram fa-2" aria-hidden="true"></i></a></div>
         <div class="social-icon github"><a href="https://github.com/domonji" target="_blank"><i class="fa fa-github fa-2" aria-hidden="true"></i></a></div>
-        <div class="social-icon weibo"><a href="/" target="_blank"><i class="fa fa-weibo fa-2" aria-hidden="true"></i></a></div>
+        <!--<div class="social-icon weibo"><a href="/" target="_blank"><i class="fa fa-weibo fa-2" aria-hidden="true"></i></a></div>-->
       </div>
     </div>
   </div>
   <div class="header-back" :class="{scrolled:scrolled}">
     <div class="header">
       <router-link to="/"><div class="logo"></div></router-link>
-      <div class="navigator">
+      <nav class="navigator">
         <router-link class="navigator-button" to="/">
           <div>Home</div>
         </router-link>
@@ -31,7 +31,7 @@
         <router-link class="navigator-button" to="/photograph">
           <div>Photograph</div>
         </router-link>
-      </div>
+      </nav>
     </div>
   </div>
 </header>
@@ -61,6 +61,7 @@ header_h = 120px
 header
   position:fixed
   width:100%
+  z-index:1
 
 .subheader-back
   width:100%
@@ -87,6 +88,8 @@ header
 .header
   fullWidth()
   line-height:header_h
+  padding-left:20px
+  transition:all .3s
 
 .header-back.scrolled .header
   line-height:(header_h / 1.8)
@@ -144,7 +147,7 @@ header
 
 .subheader-partition
   display:flex
-  width:500px
+  width:650px
   justify-content:flex-start
   align-items:center
   
@@ -184,12 +187,20 @@ a.selector
   width:@height
   font-size:1.5rem
   text-align:center
+  background:transparent
+  transition:all .5s
+  a
+    transition:all .3s
   &:hover
     a
       color:white
 
 .logo
-  background:white no-repeat center
-  width:300px
+  background:url('../assets/logo_impreza.png') no-repeat center /contain
+  width:180px
+  height:header_h
+  transition:all .3s
+
+.scrolled .logo
   height:(header_h/1.8)
 </style>

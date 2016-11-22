@@ -1,20 +1,20 @@
 <template>
 <div class="blog-page col-2">
-    <div class="article-list col-main">
+    <section class="article-list col-main">
         <article class="blog-post">
             <router-link to="/blog"><img class="post-image" src="../assets/img-1-1024x768.jpg" alt=""></router-link>
             <div class="post-body">
                 <h2 class="post-title">
                     <router-link to="/post/1">This is an example post</router-link>
                 </h2>
-                <div class="post-meta">
+                <div class="post-meta hover-purple">
                     <time class="last-update">November 15,2016</time>
                     <span class="author"><router-link to="/">Domon Ji</router-link></span>
                     <span class="category"><router-link to="/">Web Design</router-link></span>
                     <span class="tags">
                         <router-link to="/">design</router-link>,
                         <router-link to="/">web</router-link>,
-                        <router-link to="/">front end</router-link>
+                        <router-link to="/">front-end</router-link>
                     </span>
                     <span class="comments"><router-link to="/">8 comments</router-link></span>
                 </div>
@@ -30,7 +30,12 @@
                 </router-link>
             </div>
         </article>
-    </div>
+        <nav class="pagination">
+            <span class="current-page page-numbers">1</span>
+            <router-link to="/" class="page-numbers">2</router-link>
+            <router-link to="/" class="page-numbers next-page">></router-link>
+        </nav>
+    </section>
     <side-bar></side-bar>
 </div>
 </template>
@@ -77,27 +82,22 @@ export default {
     content:'\f017'
     font:14px fontawesome
     margin:0 5px 0 0
-    vertical-align:top
 .category::before
     content:'\f07c'
     font:14px fontawesome
     margin:0 5px 0 0
-    vertical-align:top
 .tags::before
     content:'\f02c'
     font:14px fontawesome
     margin:0 5px 0 0
-    vertical-align:top
 .comments::before
     content:'\f086'
     font:14px fontawesome
     margin:0 5px 0 0
-    vertical-align:top
 .author::before
     content:'\f007'
     font:14px fontawesome
     margin:0 5px 0 0
-    vertical-align:top
 
 .excerpt
     color:#666
@@ -109,7 +109,8 @@ export default {
     display:inline-block
     margin:10px 0 0 0
     color:#666
-    font-weight:bold
+    font-weight:800
+    font-family:Verdana
     font-size:15px
     line-height:2.8
     padding:0 1.8em
@@ -134,4 +135,44 @@ export default {
 .readmore:hover
     &::before
         height:42px
+
+.pagination
+    margin:56px 0 0 0
+    .page-numbers
+        background:white
+        color:#666
+        display: inline-block
+        vertical-align: top
+        text-align: center
+        font-size: 17px
+        line-height: 50px
+        height: 50px
+        width: 50px
+        margin: 3px
+        position: relative
+        overflow: hidden
+        z-index: 1
+        border-radius: 50%
+        box-shadow: 0 0 0 2px #e8e8e8 inset
+        transition:all .3s
+        &::before
+            display: block
+            content: ''
+            position: absolute
+            background:#e95095
+            top: 0
+            left: 0
+            height: 0
+            width: 100%
+            transition: height 0.3s
+            z-index:-1
+        &:hover
+            color:white
+            &::before
+                height:100%
+
+    .current-page
+        color:white
+        background:#e95095
+        box-shadow:none
 </style>
