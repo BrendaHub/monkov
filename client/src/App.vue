@@ -2,7 +2,7 @@
   <div id="app">
     <header-bar></header-bar>
     <main class="blog content">
-      <transition name="slide-fade">
+      <transition name="component-fade">
         <keep-alive>
           <router-view></router-view>
         </keep-alive>
@@ -30,14 +30,6 @@ export default {
   fullWidth()
   margin-top:156px
 
-.slide-fade-enter-active
-  transition: all .3s ease
-.slide-fade-leave-active
-  transition: all .3s ease
-.slide-fade-enter, .slide-fade-leave-active
-  transform:translateX(20px)
-  opacity: 0
-  position:absolute
 
 main
   flex:1

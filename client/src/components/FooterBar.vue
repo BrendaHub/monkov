@@ -3,8 +3,8 @@
     <div class="subfooter-top">
         <div class="subfooter-top-container">
             <footer-widget></footer-widget>
-            <footer-widget></footer-widget>
-            <footer-widget></footer-widget>
+            <footer-widget-gallery></footer-widget-gallery>
+            <footer-widget-about></footer-widget-about>
         </div>    
     </div>
     <div class="subfooter-bottom">
@@ -33,9 +33,13 @@
 </template>
 <script>
 import FooterWidget from 'components/FooterWidget'
+import FooterWidgetAbout from 'components/FooterWidgetAbout'
+import FooterWidgetGallery from 'components/FooterWidgetGallery'
 export default {
     components:{
-        FooterWidget
+        FooterWidget,
+        FooterWidgetAbout,
+        FooterWidgetGallery
     }
 }
 </script>
@@ -63,6 +67,8 @@ footer
     display:flex
     justify-content:space-between
     align-items:flex-start
+    @media (max-width:901px)
+        flex-flow:column
 
 .subfooter-bottom
     height:38px
@@ -75,6 +81,8 @@ footer
 
 .menu-list
     display:inline-block
+    @media (max-width:601px)
+        display:none
     float:right
     span
         margin:0 8px

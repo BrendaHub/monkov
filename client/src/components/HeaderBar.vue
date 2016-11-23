@@ -31,6 +31,7 @@
         <router-link class="navigator-button" to="/photograph">
           <div>Photograph</div>
         </router-link>
+        <span class="search"><i class="fa fa-search" aria-hidden="true"></i></span>
       </nav>
     </div>
   </div>
@@ -61,7 +62,7 @@ header_h = 120px
 header
   position:fixed
   width:100%
-  z-index:1
+  z-index:2
 
 .subheader-back
   width:100%
@@ -88,7 +89,7 @@ header
 .header
   fullWidth()
   line-height:header_h
-  padding-left:20px
+  padding:0 20px
   transition:all .3s
 
 .header-back.scrolled .header
@@ -101,10 +102,16 @@ header
 .navigator
   float:right
   color:#666
-  a
+  a,span
     display:inline-block
     height:100%
     padding:0 20px
+    @media (max-width:901px)
+      line-height:66px
+      display:block
+      potition:relative
+      background:white
+      box-shadow: 0 1px 2px rgba(0,0,0,.1)
 
 .navigator-button div
   display:inline-block
@@ -114,7 +121,7 @@ header
     content:''
     position:absolute
     left:0
-    bottom:(50% - 15px)
+    bottom:(50% - 20px)
     margin:0 auto -2px
     height:2px
     width:100%
@@ -126,19 +133,19 @@ header
   div
     &::after
       opacity:1
-      bottom:(50% - 8px)
+      bottom:(50% - 10px)
 
 .header-back.scrolled .navigator a:hover
   div
     &::after
-      bottom:(50% - 15px)
+      bottom:(50% - 18px)
   
 .subheader
   fullWidth()
   color:#999
   line-height:subheader_h
   font:14px/1.5 fontawesome
-  @media (max-width: 1000px) and (min-width: 601px)
+  @media (max-width: 901px)
     font-size:11px
   display:flex
   align-items:center
@@ -147,15 +154,13 @@ header
 
 .subheader-partition
   display:flex
-  width:650px
+  width:auto
   justify-content:flex-start
   align-items:center
   
 .right
   justify-content:flex-end
   align-items:center
-  &:last-child
-    margin-right:20px
   
   
 .subheader-cell
@@ -163,11 +168,11 @@ header
   text-align:center
   margin:0 20px 0 0
 
-a,.social-icon
+a,.social-icon,.search
   transition:color .3s
   cursor:pointer
   
-a:hover
+a:hover,.search:hover
     color:#e95095
 
 a.selector

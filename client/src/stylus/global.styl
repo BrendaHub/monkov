@@ -13,17 +13,19 @@ a,a:hover,a:visited,a:link,a:active
     display: flex
     flex-flow:row
     justify-content: space-around
+    @media (max-width: 901px)
+        flex-flow:column
 
 .col-sub
     flex:3
     padding: 15px 20px
     margin-left: 20px
-    @media screen and (max-width: 901px)
-        display:none
 
 .col-main
     flex:8
     padding: 5px 20px
+    @media (max-width: 901px)
+        margin: 0 20px
 
 h1,h2,h3,h4,h5,h6
     margin: 0
@@ -39,3 +41,19 @@ li
         transition: color .3s
         &:hover
             color:#7049ba
+
+.slide-fade-enter-active
+  transition: all .3s ease
+.slide-fade-leave-active
+  transition: all .3s ease
+.slide-fade-enter, .slide-fade-leave-active
+  transform:translateX(20px)
+  opacity: 0
+  position:absolute
+
+.component-fade-enter-active, .component-fade-leave-active 
+  transition: all .3s ease
+
+.component-fade-enter, .component-fade-leave-active 
+  opacity: 0
+  position:absolute
