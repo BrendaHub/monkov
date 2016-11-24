@@ -1,5 +1,5 @@
 <template lang="html">
-  <aside class="col-sub" >
+  <aside class="col-sub" v-scroll="scrollcallback">
     <widget-recentpost :style="{marginTop:offsetY + 'px'}"></widget-recentpost>
     <widget-mostcomment></widget-mostcomment>
     <widget-tags></widget-tags>
@@ -12,27 +12,31 @@ import WidgetRecentpost from 'components/WidgetRecentPost'
 import WidgetMostcomment from 'components/WidgetMostComment'
 import WidgetTags from 'components/WidgetTags'
 import WidgetCategories from 'components/WidgetCategories'
+import scrollDirective from '../directives/scroll'
 export default {
-  data(){
+  data () {
     return {
       offsetY:0
     }
   },
-  components:{
+  components: {
     WidgetRecentpost,
     WidgetMostcomment,
     WidgetTags,
     WidgetCategories
   },
-  mounted(){
-    window.addEventListener('scroll',()=>{
-      if (window.scrollY>60 && document.documentElement.clientWidth>900) {
+  methods: {
+    scrollcallback () {
+      if (window.scrollY > 60 && document.documentElement.clientWidth > 900) {
         this.offsetY = window.scrollY - 120
       }
       else
         this.offsetY = 0
       this.offsetY = Math.min(this.offsetY, 190)
-    })
+    }
+  },
+  directives: {
+    scroll: scrollDirective
   }
 }
 </script>

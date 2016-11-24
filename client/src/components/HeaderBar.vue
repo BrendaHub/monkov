@@ -1,5 +1,5 @@
 <template>
-<header>
+<header v-scroll="scrollcallback">
   <div class="subheader-back" :class="{scrolled:scrolled}">
     <div class="subheader">
       <div class="subheader-partition left">
@@ -39,16 +39,20 @@
 </template>
 
 <script>
+import scrollDirective from '../directives/scroll'
 export default {
   data(){
     return {
       scrolled:false
     }
   },
-  mounted(){
-    window.addEventListener('scroll',()=>{
-        this.scrolled = window.scrollY > 60
-    })
+  methods:{
+    scrollcallback () {
+      this.scrolled = window.scrollY > 60
+    }
+  },
+  directives: {
+    scroll: scrollDirective
   }
 }
 </script>
