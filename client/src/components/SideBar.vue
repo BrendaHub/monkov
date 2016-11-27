@@ -14,10 +14,10 @@ import WidgetTags from 'components/widgets/WidgetTags'
 import WidgetCategories from 'components/widgets/WidgetCategories'
 import scrollDirective from '../directives/scroll'
 export default {
-  data () {
+  data() {
     return {
-      offsetY:0,
-      scrollLimit:0
+      offsetY: 0,
+      scrollLimit: 0
     }
   },
   components: {
@@ -27,20 +27,20 @@ export default {
     WidgetCategories
   },
   methods: {
-    scrollcallback () {
-      this.offsetY = document.documentElement.clientWidth <= 900? 35 : window.scrollY > 60 ? window.scrollY - 120 : 0
+    scrollcallback() {
+      this.offsetY = document.documentElement.clientWidth <= 900 ? 35 : window.scrollY > 60 ? window.scrollY - 120 : 0
       this.offsetY = Math.min(this.offsetY, this.scrollLimit)
     }
   },
   directives: {
     scroll: scrollDirective
   },
-  mounted(){
+  mounted() {
     setTimeout(() => {
-      this.scrollLimit = document.querySelector('.blog-page').offsetHeight - 174
-        - Array.prototype.reduce.call(document.querySelectorAll('.widget-container'), (a,b) => {
+      this.scrollLimit = document.querySelector('.blog-page').offsetHeight - 174 - Array.prototype.reduce.call(document.querySelectorAll('.widget-container'), (a, b) => {
         return b.offsetHeight + a
-      }, 0)},0)
+      }, 0)
+    }, 0)
   }
 }
 </script>

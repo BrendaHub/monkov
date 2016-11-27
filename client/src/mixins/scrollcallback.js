@@ -1,7 +1,5 @@
 export default {
-    methods:{
-        scrollcallback(){
-
-        }
-    }
+  methods : {
+    scrollcallback() {}
+  }
 }

@@ -2,7 +2,7 @@
   <div class="footer-widget">
       <h4>About Me</h4>
       <p>
-         A guy interesed in front-end and game development 
+         A guy interesed in front-end and game development
       </p>
   </div>
 </template>

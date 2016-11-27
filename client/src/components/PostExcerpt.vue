@@ -52,7 +52,7 @@ export default {}
     font-weight:700
     a
         color:#444
-.post-meta 
+.post-meta
     display:flex
     justify-content:flex-start
     flex-wrap:wrap

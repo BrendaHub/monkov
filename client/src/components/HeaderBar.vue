@@ -5,19 +5,22 @@
       <div class="subheader-partition left">
         <div class="subheader-cell"><i class="fa fa-phone"></i> <span>+86 15061883140</span></div>
         <div class="subheader-cell"><i class="fa fa-envelope"></i> <a href="mailto:domonji95@gmail.com">domonji95@gmail.com</a></div>
-        <div class="subheader-cell"><i class="fa fa-lock"></i> <router-link to="/login">Login</router-link></div>
+        <div class="subheader-cell"><i class="fa fa-lock"></i>
+          <router-link to="/login">Login</router-link>
+        </div>
         <div class="subheader-cell"><a class="selector" href="javascript:void(0)">English</a></div>
       </div>
       <div class="subheader-partition right">
         <div class="social-icon instagram"><a href="https://www.instagram.com/domonji95/" target="_blank"><i class="fa fa-instagram fa-2" aria-hidden="true"></i></a></div>
         <div class="social-icon github"><a href="https://github.com/domonji" target="_blank"><i class="fa fa-github fa-2" aria-hidden="true"></i></a></div>
-        <!--<div class="social-icon weibo"><a href="/" target="_blank"><i class="fa fa-weibo fa-2" aria-hidden="true"></i></a></div>-->
-      </div>
+        <!--<div class="social-icon weibo"><a href="/" target="_blank"><i class="fa fa-weibo fa-2" aria-hidden="true"></i></a></div>--></div>
     </div>
   </div>
   <div class="header-back" :class="{scrolled:scrolled}">
     <div class="header">
-      <router-link to="/"><div class="logo"></div></router-link>
+      <router-link to="/">
+        <div class="logo"></div>
+      </router-link>
       <nav class="navigator">
         <router-link class="navigator-button" to="/">
           <div>Home</div>
@@ -30,9 +33,7 @@
         </router-link>
         <router-link class="navigator-button" to="/photograph">
           <div>Photograph</div>
-        </router-link>
-        <span class="search"><i class="fa fa-search" aria-hidden="true"></i></span>
-      </nav>
+        </router-link> <span class="search"><i class="fa fa-search" aria-hidden="true"></i></span> </nav>
     </div>
   </div>
 </header>
@@ -41,13 +42,13 @@
 <script>
 import scrollDirective from '../directives/scroll'
 export default {
-  data(){
+  data() {
     return {
-      scrolled:false
+      scrolled: false
     }
   },
-  methods:{
-    scrollcallback () {
+  methods: {
+    scrollcallback() {
       this.scrolled = window.scrollY > 60
     }
   },
@@ -143,7 +144,7 @@ header
   div
     &::after
       bottom:(50% - 18px)
-  
+
 .subheader
   fullWidth()
   color:#999
@@ -161,12 +162,12 @@ header
   width:auto
   justify-content:flex-start
   align-items:center
-  
+
 .right
   justify-content:flex-end
   align-items:center
-  
-  
+
+
 .subheader-cell
   display:inline-block
   text-align:center
@@ -175,7 +176,7 @@ header
 a,.social-icon,.search
   transition:color .3s
   cursor:pointer
-  
+
 a:hover,.search:hover
     color:#e95095
 

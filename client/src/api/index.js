@@ -1,19 +1,19 @@
 import service from './service.js'
 
 export default {
-  getPostList (params) {
-    return service.get('postlist', params)       
+  getPostList(params) {
+    return service.get('postlist', params)
   },
-  getPost (id) {
+  getPost(id) {
     return service.get(`post/${id}`)
   },
-  getAllTags () {
+  getAllTags() {
     return service.get('tags')
   },
-  getPostsByTag (tagId) {
+  getPostsByTag(tagId) {
     return service.get('postlist', {tag: tagId})
   },
-  getAbout () {
+  getAbout() {
     return service.get('about')
   }
 }

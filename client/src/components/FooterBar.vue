@@ -1,34 +1,27 @@
 <template>
 <footer class="footer">
-    <div class="subfooter-top">
-        <div class="subfooter-top-container">
-            <footer-widget></footer-widget>
-            <footer-widget-gallery></footer-widget-gallery>
-            <footer-widget-about></footer-widget-about>
-        </div>    
+  <div class="subfooter-top">
+    <div class="subfooter-top-container">
+      <footer-widget></footer-widget>
+      <footer-widget-gallery></footer-widget-gallery>
+      <footer-widget-about></footer-widget-about>
     </div>
-    <div class="subfooter-bottom">
-        <div class="subfooter-bottom-container">
-            <span>
+  </div>
+  <div class="subfooter-bottom">
+    <div class="subfooter-bottom-container"> <span>
             Copyrights <i class="fa fa-copyright" aria-hidden="true"></i> 2016 <router-link to="/">Domon ji</router-link>
             </span>
-            <div class="menu-list">
-                <span>
+      <div class="menu-list"> <span>
                     <router-link to="/">Home</router-link>
-                </span>
-                <span>
+                </span> <span>
                     <router-link to="/blog">Blog</router-link>
-                </span>
-                <span>
+                </span> <span>
                     <router-link to="/about">About</router-link>
-                </span>
-                <span>
+                </span> <span>
                     <router-link to="/photograph">Photograph</router-link>
-                </span>
-            </div>
-        </div>
+                </span> </div>
     </div>
-    
+  </div>
 </footer>
 </template>
 <script>
@@ -36,11 +29,11 @@ import FooterWidget from 'components/footerwidgets/FooterWidget'
 import FooterWidgetAbout from 'components/footerwidgets/FooterWidgetAbout'
 import FooterWidgetGallery from 'components/footerwidgets/FooterWidgetGallery'
 export default {
-    components:{
-        FooterWidget,
-        FooterWidgetAbout,
-        FooterWidgetGallery
-    }
+  components: {
+    FooterWidget,
+    FooterWidgetAbout,
+    FooterWidgetGallery
+  }
 }
 </script>
 <style lang="stylus" scoped>
