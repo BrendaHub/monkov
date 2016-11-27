@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="widget-containter hover-purple">
+  <div class="widget-container hover-purple">
     <h3>Categories</h3>
     <ul>
       <li>
@@ -29,5 +29,5 @@ export default {}
 </script>
 
 <style lang="stylus" scoped>
-@import  '../stylus/widget.styl'
+@import  '../../stylus/widget.styl'
 </style>

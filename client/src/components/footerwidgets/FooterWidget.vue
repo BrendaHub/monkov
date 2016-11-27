@@ -13,5 +13,5 @@ export default {}
 </script>
 
 <style lang="stylus" scoped>
-@import  '../stylus/widget.styl'
+@import  '../../stylus/widget.styl'
 </style>

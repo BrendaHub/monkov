@@ -32,9 +32,9 @@
 </footer>
 </template>
 <script>
-import FooterWidget from 'components/FooterWidget'
-import FooterWidgetAbout from 'components/FooterWidgetAbout'
-import FooterWidgetGallery from 'components/FooterWidgetGallery'
+import FooterWidget from 'components/footerwidgets/FooterWidget'
+import FooterWidgetAbout from 'components/footerwidgets/FooterWidgetAbout'
+import FooterWidgetGallery from 'components/footerwidgets/FooterWidgetGallery'
 export default {
     components:{
         FooterWidget,

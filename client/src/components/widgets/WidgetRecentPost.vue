@@ -1,6 +1,6 @@
 <template lang="html">
-  <div class="widget-containter hover-purple">
-    <h3>Most Comments</h3>
+  <div class="widget-container hover-purple">
+    <h3>Recent Post</h3>
     <ul>
       <li>
         <router-link to="/">This is an example post</router-link>
@@ -15,9 +15,10 @@
 </template>
 
 <script>
-export default {}
+export default {
+}
 </script>
 
 <style lang="stylus" scoped>
-@import  '../stylus/widget.styl'
+@import  '../../stylus/widget.styl'
 </style>

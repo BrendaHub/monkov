@@ -17,7 +17,7 @@ export default {}
 </script>
 
 <style lang="stylus" scoped>
-@import  '../stylus/widget.styl'
+@import  '../../stylus/widget.styl'
 .photos-container
     margin:15px -1px
 
@@ -25,7 +25,7 @@ export default {}
     display:inline-block
     margin:0
     padding:30% 0 0 0
-    background:url('../assets/img-1-1024x768.jpg') no-repeat center / cover
+    background:url('../../assets/img-1-1024x768.jpg') no-repeat center / cover
     width:30%
     height:30px
 </style>

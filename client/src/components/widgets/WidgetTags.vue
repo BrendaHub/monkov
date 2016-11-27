@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="widget-containter hover-purple">
+  <div class="widget-container hover-purple">
     <h3>Tags</h3>
     <div class="tagcloud">
         <router-link to="/" :style="{fontSize: '13px'}">web</router-link>
@@ -17,7 +17,7 @@ export default {}
 </script>
 
 <style lang="stylus" scoped>
-@import  '../stylus/widget.styl'
+@import  '../../stylus/widget.styl'
 
 .tagcloud
     margin:16px 0
