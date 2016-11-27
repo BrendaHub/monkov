@@ -16,10 +16,45 @@
 <script>
 import SideBar from 'components/SideBar'
 import PostExcerpt from 'components/PostExcerpt'
+import api from '../api'
 export default {
+  props: {
+    postLimit: {
+      type: Number,
+      default: 10
+    }
+  },
+  data() {
+    return {
+      postList: [],
+      totalPage: 0,
+      currentPage: 1
+    }
+  },
   components: {
     SideBar,
     PostExcerpt
+  },
+  create() {
+    this.fetchPostList()
+  },
+  methods: {
+    fetchPostList() {
+      api.getPostList({
+        page: this.currentPage,
+        limit: this.postLimit
+      }).then(res => {
+        if (res.success) {
+          this.postList = res.data.postList;
+          this.totalPage = Math.ceil(res.data.total / limit);
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  watch: {
+    '$route': 'fetchPostList'
   }
 }
 </script>

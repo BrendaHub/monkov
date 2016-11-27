@@ -1,19 +1,15 @@
-import Home from 'components/Home.vue'
-import Blog from 'components/Blog.vue'
-import About from 'components/About'
-import Photograph from 'components/Photograph'
 export default[
   {
     path : '/',
-    component : Home
+    component : resolve => require(['components/Home'], resolve)
   }, {
     path : '/blog',
-    component : Blog
+    component : resolve => require(['components/Blog'], resolve)
   }, {
     path : '/about',
-    component : About
+    component : resolve => require(['components/About'], resolve)
   }, {
     path : '/photograph',
-    component : Photograph
+    component : resolve => require(['components/Photograph'], resolve)
   }
 ]

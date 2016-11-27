@@ -31,7 +31,34 @@
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    title: {
+      type: String,
+      required: true
+    },
+    author: {
+      type: String,
+      default: 'Domon Ji'
+    },
+    category: {
+      type: String,
+      default: ''
+    },
+    tags: {
+      type: Array,
+      default: []
+    },
+    comments: {
+      type: Number,
+      default: 0
+    },
+    excerpt: {
+      type: String,
+      default: ''
+    }
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

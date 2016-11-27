@@ -25,7 +25,28 @@
 </template>
 
 <script>
-export default {}
+import api from 'src/api'
+export default {
+  data() {
+    return {
+      tags: []
+    }
+  },
+  create() {
+    this.fetTags()
+  },
+  methods: {
+    fetTags() {
+      api.fetTags().then(res => {
+        if (res.success) {
+          this.$set(this.tags, res.data.tags)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

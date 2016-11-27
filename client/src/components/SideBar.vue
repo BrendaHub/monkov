@@ -40,7 +40,7 @@ export default {
       this.scrollLimit = document.querySelector('.blog-page').offsetHeight - 174 - Array.prototype.reduce.call(document.querySelectorAll('.widget-container'), (a, b) => {
         return b.offsetHeight + a
       }, 0)
-    }, 1000)
+    }, 100)
   }
 }
 </script>
