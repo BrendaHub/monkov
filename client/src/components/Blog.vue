@@ -2,11 +2,12 @@
 <div class="blog-page col-2">
   <section class="article-list col-main">
     <article class="blog-post">
-      <post-excerpt v-for="n in 5"></post-excerpt>
+      <post-excerpt v-for="post in postList" :imagesrc="post.imagesrc" :title="post.title" :time="post.time" :tags="post.tags" :comments="post.comments" :excerpt="post.excerpt" :category="post.category"></post-excerpt>
     </article>
-    <nav class="pagination"> <span class="current-page page-numbers">1</span>
-      <router-link to="/" class="page-numbers">2</router-link>
-      <router-link to="/" class="page-numbers next-page">></router-link>
+    <nav class="pagination">
+      <a href="javascript:void(0)" @click="toPage(currentPage-1)" class="page-numbers next-page" v-show="currentPage > 1">&lt;</a>
+      <a href="javascript:void(0)" @click="toPage(n)" v-for="n in totalPage" :class="[{'current-page':n==currentPage},'page-numbers']">{{n}}</a>
+      <a href="javascript:void(0)" @click="toPage(currentPage+1)" class="page-numbers next-page" v-show="currentPage < totalPage">&gt;</a>
     </nav>
   </section>
   <side-bar></side-bar>
@@ -26,9 +27,25 @@ export default {
   },
   data() {
     return {
-      postList: [],
-      totalPage: 0,
-      currentPage: 1
+      postList: [{
+        imagesrc: 'http://attachments.gfan.com/forum/attachments2/day_111219/111219103029495151192482e6.jpg',
+        title: 'This is an example post',
+        time: 'November 2016',
+        category: 'web',
+        tags: ['web', 'js', 'vue'],
+        comments: 8,
+        excerpt: '<p>this is an example post made with vuejs and koa<p/>'
+      }, {
+        imagesrc: 'http://attachments.gfan.com/forum/attachments2/day_111219/111219103029495151192482e6.jpg',
+        title: 'This is an example post',
+        time: 'November 2016',
+        category: 'web',
+        tags: ['web', 'js', 'vue'],
+        comments: 8,
+        excerpt: '<p>this is an example post made with vuejs and koa<p/>'
+      }],
+      totalPage: 2,
+      currentPage: parseInt(this.$route.query.page) || 1
     }
   },
   components: {
@@ -51,6 +68,15 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    },
+    toPage(n){
+      this.$router.push({
+        path:'blog',
+        query:{
+          page:n
+        }
+      })
+      this.currentPage = n
     }
   },
   watch: {

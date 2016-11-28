@@ -1,28 +1,20 @@
 <template lang="html">
 <div class="post-excerpt">
-    <router-link to="/blog"><img class="post-image" src="../assets/img-1-1024x768.jpg" alt=""></router-link>
+    <router-link to="/blog"><img class="post-image" :src="imagesrc" alt=""></router-link>
     <div class="post-body">
         <h2 class="post-title">
-            <router-link to="/post/1">This is an example post</router-link>
+            <router-link to="/post/1">{{title}}</router-link>
         </h2>
         <div class="post-meta hover-purple">
-            <time class="last-update">November 15,2016</time>
-            <span class="author"><router-link to="/">Domon Ji</router-link></span>
-            <span class="category"><router-link to="/">Web Design</router-link></span>
+            <time class="last-update">{{time}}</time>
+            <span class="author"><router-link to="/">{{author}}</router-link></span>
+            <span class="category"><router-link to="/">{{category}}</router-link></span>
             <span class="tags">
-                <router-link to="/">design</router-link>,
-                <router-link to="/">web</router-link>,
-                <router-link to="/">front-end</router-link>
+                <router-link to="/" v-for="tag in tags"> {{tag}} </router-link>
             </span>
-            <span class="comments"><router-link to="/">8 comments</router-link></span>
+            <span class="comments"><router-link to="/">{{comments}} comments</router-link></span>
         </div>
-        <div class="excerpt">
-            <p>
-                This is my blog made with vuejs,koa and mongodb!
-                This is my blog made with vuejs,koa and mongodb!
-                This is my blog made with vuejs,koa and mongodb…
-            </p>
-        </div>
+        <div class="excerpt" v-html="excerpt"></div>
         <router-link to="/" class="readmore">
             <span>read more</span>
         </router-link>
@@ -33,6 +25,9 @@
 <script>
 export default {
   props: {
+    imagesrc: {
+      type: String
+    },
     title: {
       type: String,
       required: true
@@ -40,6 +35,10 @@ export default {
     author: {
       type: String,
       default: 'Domon Ji'
+    },
+    time:{
+      type:String,
+      required:true
     },
     category: {
       type: String,
