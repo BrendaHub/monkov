@@ -2,7 +2,15 @@
 <div class="blog-page col-2">
   <section class="article-list col-main">
     <article class="blog-post">
-      <post-excerpt v-for="post in postList" :imagesrc="post.imagesrc" :title="post.title" :time="post.time" :tags="post.tags" :comments="post.comments" :excerpt="post.excerpt" :category="post.category"></post-excerpt>
+      <post-excerpt v-for="post in postList" 
+                    :imagesrc="post.imagesrc"
+                    :title="post.title" 
+                    :time="post.time" 
+                    :tags="post.tags" 
+                    :comments="post.comments" 
+                    :excerpt="post.excerpt" 
+                    :category="post.category">
+      </post-excerpt>
     </article>
     <nav class="pagination">
       <a href="javascript:void(0)" @click="toPage(currentPage-1)" class="page-numbers next-page" v-show="currentPage > 1">&lt;</a>
@@ -53,7 +61,7 @@ export default {
     PostExcerpt
   },
   create() {
-    this.fetchPostList()
+    // this.fetchPostList()
   },
   methods: {
     fetchPostList() {

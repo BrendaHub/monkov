@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="widget-container hover-purple">
+  <div class="widget-container">
     <h3>Most Comments</h3>
     <ul>
       <li>

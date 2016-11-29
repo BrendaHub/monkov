@@ -5,7 +5,7 @@
         <h2 class="post-title">
             <router-link to="/post/1">{{title}}</router-link>
         </h2>
-        <div class="post-meta hover-purple">
+        <div class="post-meta">
             <time class="last-update">{{time}}</time>
             <span class="author"><router-link to="/">{{author}}</router-link></span>
             <span class="category"><router-link to="/">{{category}}</router-link></span>
@@ -61,18 +61,18 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+@import '../stylus/style.styl'
 .post-image
     width:100%
     object-fit:cover
 
 .post-title
-    margin:10px 0 0 0
+    margin:20px 0
     color:#444
     display:inline-block
     width:100%
-    height:64px
-    line-height:64px
-    font:32px/2 Verdana
+    // height:64px
+    font:32px/1.2 Verdana
     letter-spacing:-1px
     color:inherit
     font-weight:700
@@ -87,6 +87,8 @@ export default {
         display:inline-block
         font-size:.7rem
         color:#999
+    a
+        hoverPurple()
 
 .last-update::before
     content:'\f017'

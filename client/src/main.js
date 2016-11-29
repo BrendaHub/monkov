@@ -4,15 +4,13 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import routes from './routes'
-
 import 'normalize.css'
 import './stylus/global.styl'
 /* eslint-disable no-new */
-
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  routes: routes,
+  routes,
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
       return savedPosition

@@ -1,3 +1,5 @@
+const apihost = 'http://localhost:8080/'
+
 function parseResponse(response) {
   return Promise.all([response.status, response.statusText, response.json()])
 }
@@ -14,7 +16,7 @@ function checkStatus([status, statusText, data]) {
 }
 
 export default {
-  get(url, param = {}, headers = {}, host = process.env.api) {
+  get(url, param = {}, headers = {}, host = apihost) {
 
     let reqHeaders = new Headers()
     reqHeaders.append('Accept', 'application/json');
@@ -36,7 +38,7 @@ export default {
     }
     return fetch(url, init).then(parseResponse).then(checkStatus)
   },
-  patch(url, param = {}, headers = {}, host = process.env.api) {
+  patch(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
     reqHeaders.append('Content-Type', 'application/json')
     reqHeaders.append('Accept', 'application/json')
@@ -53,7 +55,7 @@ export default {
 
     return fetch(url, init).then(parseResponse).then(checkStatus)
   },
-  post(url, param = {}, headers = {}, host = process.env.api) {
+  post(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
     reqHeaders.append('Content-Type', 'application/json')
     reqHeaders.append('Accept', 'application/json')
@@ -69,7 +71,7 @@ export default {
 
     return fetch(url, init).then(parseResponse).then(checkStatus)
   },
-  put(url, param = {}, headers = {}, host = process.env.api) {
+  put(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
     reqHeaders.append('Content-Type', 'application/json')
     reqHeaders.append('Accept', 'application/json')
@@ -86,7 +88,7 @@ export default {
 
     return fetch(url, init).then(parseResponse).then(checkStatus)
   },
-  delete(url, param = {}, headers = {}, host = process.env.api) {
+  delete(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
     reqHeaders.append('Content-Type', 'application/json')
     reqHeaders.append('Accept', 'application/json')

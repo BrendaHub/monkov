@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="widget-container hover-purple">
+  <div class="widget-container">
     <h3>Tags</h3>
     <div class="tagcloud">
         <router-link to="/" :style="{fontSize: '13px'}">web</router-link>
