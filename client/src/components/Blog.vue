@@ -2,13 +2,13 @@
 <div class="blog-page col-2">
   <section class="article-list col-main">
     <article class="blog-post">
-      <post-excerpt v-for="post in postList" 
+      <post-excerpt v-for="post in postList"
                     :imagesrc="post.imagesrc"
-                    :title="post.title" 
-                    :time="post.time" 
-                    :tags="post.tags" 
-                    :comments="post.comments" 
-                    :excerpt="post.excerpt" 
+                    :title="post.title"
+                    :time="post.time"
+                    :tags="post.tags"
+                    :comments="post.comments"
+                    :excerpt="post.excerpt"
                     :category="post.category">
       </post-excerpt>
     </article>
@@ -53,7 +53,7 @@ export default {
         excerpt: '<p>this is an example post made with vuejs and koa<p/>'
       }],
       totalPage: 2,
-      currentPage: parseInt(this.$route.query.page) || 1
+      currentPage: ~~this.$route.query.page || 1
     }
   },
   components: {
