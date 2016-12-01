@@ -39,21 +39,22 @@ const postSchema = mongoose.Schema({
   versionKey: false,
   skipVersioning: {
     tags: true
+  },
+  toJSON: {
+    getters: true
+  },
+  toObject: {
+    getters: true
   }
 })
-
-postSchema.set('toJSON', {
-  getters: true,
-  virtuals: true
-});
-postSchema.set('toObject', {
-  getters: true,
-  virtuals: true
-});
-postSchema.path('createTime').get(function(v) {
-  return new Date(v).format('yyyy-MM-dd hh:mm:ss');
-});
-postSchema.path('lastEditTime').get(function(v) {
-  return new Date(v).format('yyyy-MM-dd hh:mm:ss');
-});
+postSchema
+  .path('createTime')
+  .get(v => {
+    return new Date(v).format('yyyy-MM-dd hh:mm:ss')
+  })
+postSchema
+  .path('lastEditTime')
+  .get(v => {
+    return new Date(v).format('yyyy-MM-dd hh:mm:ss')
+  })
 export default mongoose.model('post', postSchema)

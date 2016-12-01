@@ -1,11 +1,8 @@
 import Post from '../models/post.js'
+import '../utils'
 
 export default init = router => {
-  router
-    .post('/post')
-    .get('postlist')
-    .get('post/:id')
-    .patch('post/:id')
+  router.get('postlist', postlist)
 }
 
 async function postlist(next) {
@@ -29,5 +26,40 @@ async function postlist(next) {
     }
   } else {
     const limit = ~~this.query.limit || 10
+    const page = ~~this.query.page || 1
+    let skip = limit * (page - 1)
+    const {postArr, totalNumber} = await {
+      postArr: Post
+        .find()
+        .populate('tags')
+        .select('title visit tags createTime lastEditTime excerpt comments')
+        .sort({createTime: -1})
+        .limit(limit)
+        .skip(skip)
+        .exec()
+        .catch(err => {
+          this.throw(500, 'internal error')
+        }),
+      totalNumber: Post
+        .count()
+        .exec()
+        .catch(err => {
+          this.throw(500, 'internal error')
+        })
+    }
+    this.status = 200
+    const resultArr = []
+    if (postArr) {
+      postArr.forEach(post => {
+        resultArr.push(post.toObject())
+      })
+    }
+    this.body = {
+      success: true,
+      data: {
+        postArr,
+        totalNumber
+      }
+    }
   }
 }
