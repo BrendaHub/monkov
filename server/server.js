@@ -8,12 +8,16 @@ import serve from 'koa-static';
 import finalHandler from './lib/middlewares/finalHandler';
 import router from './router';
 import mongoose from 'mongoose'
-import controller from './controllers'
+
+import initController from './controllers'
 import co from 'co'
+import config from './config'
 
 const app = new Koa()
+mongoose.Promise = global.Promise
 
 co(async() => {
+  mongoose.connect(config.mongoConfig.url, config.mongoConfig.opts)
   app.use(finalHandler())
   app.use(views(`${__dirname}/views`, {
     map: {
@@ -25,10 +29,11 @@ co(async() => {
   app.keys = ['some secret hurr']
   app.use(convert(session(app)))
   app.use(serve(__dirname + '/public'))
-  await controller.init(router)
+  await initController(router)
   app
     .use(router.routes())
     .use(router.allowedMethods())
-})
-
+}).catch(err => {
+  console.log(err)
+});
 export default app

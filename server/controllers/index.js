@@ -1,5 +1,5 @@
-import post from './post.js'
+import initPost from './post.js'
 
-export default init = async(router) => {
-  await post.init(router)
+export default async(router) => {
+  await initPost(router)
 }

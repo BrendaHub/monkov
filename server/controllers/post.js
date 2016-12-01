@@ -1,12 +1,12 @@
 import Post from '../models/post.js'
 import '../utils'
 
-export default init = router => {
-  router.get('postlist', postlist)
+export default router => {
+  router.get('/postlist', postlist)
 }
 
-async function postlist(next) {
-  const tag = this.query.tag
+let postlist = async(ctx, next) => {
+  const tag = ctx.query.tag
   if (tag) {
     let postArr = await Post
       .find({
@@ -18,15 +18,15 @@ async function postlist(next) {
       .sort({createTime: -1})
       .exec()
       .catch(err => {
-        this.throw(500, 'internal error')
+        ctx.throw(500, 'internal error')
       });
-    this.body = {
+    ctx.body = {
       success: true,
       data: postArr
     }
   } else {
-    const limit = ~~this.query.limit || 10
-    const page = ~~this.query.page || 1
+    const limit = ~~ctx.query.limit || 10
+    const page = ~~ctx.query.page || 1
     let skip = limit * (page - 1)
     const {postArr, totalNumber} = await {
       postArr: Post
@@ -38,23 +38,26 @@ async function postlist(next) {
         .skip(skip)
         .exec()
         .catch(err => {
-          this.throw(500, 'internal error')
+          ctx.throw(500, 'internal error')
         }),
       totalNumber: Post
         .count()
         .exec()
         .catch(err => {
-          this.throw(500, 'internal error')
+          ctx.throw(500, 'internal error')
         })
     }
-    this.status = 200
+    ctx.status = 200
     const resultArr = []
-    if (postArr) {
-      postArr.forEach(post => {
-        resultArr.push(post.toObject())
-      })
+    if (postArr.length) {
+      Array
+        .prototype
+        .forEach
+        .call(postArr, post => {
+          resultArr.push(post.toObject())
+        })
     }
-    this.body = {
+    ctx.body = {
       success: true,
       data: {
         postArr,
