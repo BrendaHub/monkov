@@ -1,0 +1,203 @@
+2016-12-03 18:12:34.204 nodejs.ValidationErrorException: ValidationError: post validation failed
+    at ValidationError (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/error/validation.js:23:11)
+    at model.Document.invalidate (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:1473:32)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:740:10)
+    at model._handleIndex (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:583:14)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:544:24)
+    at model.Document (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:68:10)
+    at model.Model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:48:12)
+    at new model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:3229:13)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/server.js:32:14)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+    at tryModuleLoad (module.js:449:12)
+    at Function.Module._load (module.js:441:3)
+    at Module.require (module.js:500:17)
+    at require (internal/module.js:20:19)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/bin/run:4:15)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+pid: 6609
+Host: promote.cache-dns.local
+URL: 
+Data: ''
+2016-12-03 18:12:34.204
+
+2016-12-03 18:13:49.214 nodejs.ValidationErrorException: ValidationError: post validation failed
+    at ValidationError (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/error/validation.js:23:11)
+    at model.Document.invalidate (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:1473:32)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:740:10)
+    at model._handleIndex (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:583:14)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:544:24)
+    at model.Document (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:68:10)
+    at model.Model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:48:12)
+    at new model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:3229:13)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/server.js:32:14)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+    at tryModuleLoad (module.js:449:12)
+    at Function.Module._load (module.js:441:3)
+    at Module.require (module.js:500:17)
+    at require (internal/module.js:20:19)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/bin/run:4:15)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+pid: 6632
+Host: promote.cache-dns.local
+URL: 
+Data: ''
+2016-12-03 18:13:49.214
+
+2016-12-03 18:14:23.904 nodejs.ValidationErrorException: ValidationError: post validation failed
+    at ValidationError (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/error/validation.js:23:11)
+    at model.Document.invalidate (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:1473:32)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:740:10)
+    at model._handleIndex (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:583:14)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:544:24)
+    at model.Document (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:68:10)
+    at model.Model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:48:12)
+    at new model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:3229:13)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/server.js:32:14)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+    at tryModuleLoad (module.js:449:12)
+    at Function.Module._load (module.js:441:3)
+    at Module.require (module.js:500:17)
+    at require (internal/module.js:20:19)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/bin/run:4:15)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+pid: 6660
+Host: promote.cache-dns.local
+URL: 
+Data: ''
+2016-12-03 18:14:23.904
+
+2016-12-03 18:17:27.406 nodejs.ValidationErrorException: ValidationError: post validation failed
+    at ValidationError (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/error/validation.js:23:11)
+    at model.Document.invalidate (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:1473:32)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:740:10)
+    at model._handleIndex (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:583:14)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:544:24)
+    at model.Document (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:68:10)
+    at model.Model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:48:12)
+    at new model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:3229:13)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/server.js:32:14)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+    at tryModuleLoad (module.js:449:12)
+    at Function.Module._load (module.js:441:3)
+    at Module.require (module.js:500:17)
+    at require (internal/module.js:20:19)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/bin/run:4:15)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+pid: 6715
+Host: promote.cache-dns.local
+URL: 
+Data: ''
+2016-12-03 18:17:27.406
+
+2016-12-03 18:39:33.391 nodejs.ValidationErrorException: ValidationError: post validation failed
+    at ValidationError (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/error/validation.js:23:11)
+    at model.Document.invalidate (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:1473:32)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:740:10)
+    at model._handleIndex (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:583:14)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:544:24)
+    at model.Document (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:68:10)
+    at model.Model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:48:12)
+    at new model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:3229:13)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/server.js:32:14)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+    at tryModuleLoad (module.js:449:12)
+    at Function.Module._load (module.js:441:3)
+    at Module.require (module.js:500:17)
+    at require (internal/module.js:20:19)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/bin/run:4:15)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+pid: 7017
+Host: promote.cache-dns.local
+URL: 
+Data: ''
+2016-12-03 18:39:33.391
+
+2016-12-03 18:40:48.703 nodejs.ValidationErrorException: ValidationError: post validation failed
+    at ValidationError (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/error/validation.js:23:11)
+    at model.Document.invalidate (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:1473:32)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:740:10)
+    at model._handleIndex (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:583:14)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:544:24)
+    at model.Document (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:68:10)
+    at model.Model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:48:12)
+    at new model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:3229:13)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/server.js:32:14)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+    at tryModuleLoad (module.js:449:12)
+    at Function.Module._load (module.js:441:3)
+    at Module.require (module.js:500:17)
+    at require (internal/module.js:20:19)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/bin/run:4:15)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+pid: 7045
+Host: promote.cache-dns.local
+URL: 
+Data: ''
+2016-12-03 18:40:48.703
+
+2016-12-03 18:42:10.874 nodejs.ValidationErrorException: ValidationError: post validation failed
+    at ValidationError (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/error/validation.js:23:11)
+    at model.Document.invalidate (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:1473:32)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:740:10)
+    at model._handleIndex (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:583:14)
+    at model.Document.set (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:544:24)
+    at model.Document (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/document.js:68:10)
+    at model.Model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:48:12)
+    at new model (/Users/XmacZone/Desktop/monkov/server/node_modules/.4.7.0@mongoose/lib/model.js:3229:13)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/server.js:32:14)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+    at tryModuleLoad (module.js:449:12)
+    at Function.Module._load (module.js:441:3)
+    at Module.require (module.js:500:17)
+    at require (internal/module.js:20:19)
+    at Object.<anonymous> (/Users/XmacZone/Desktop/monkov/server/bin/run:4:15)
+    at Module._compile (module.js:573:32)
+    at loader (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:144:5)
+    at Object.require.extensions.(anonymous function) [as .js] (/Users/XmacZone/Desktop/monkov/server/node_modules/babel-register/lib/node.js:154:7)
+    at Module.load (module.js:490:32)
+pid: 7076
+Host: promote.cache-dns.local
+URL: 
+Data: ''
+2016-12-03 18:42:10.874
+
