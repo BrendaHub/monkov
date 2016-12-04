@@ -5,7 +5,7 @@
       <post-excerpt v-for="post in postList"
                     :imagesrc="post.imagesrc"
                     :title="post.title"
-                    :time="post.time"
+                    :time="post.lastEditTime"
                     :tags="post.tags"
                     :comments="post.comments"
                     :excerpt="post.excerpt"
@@ -35,23 +35,25 @@ export default {
   },
   data() {
     return {
-      postList: [{
-        imagesrc: 'http://attachments.gfan.com/forum/attachments2/day_111219/111219103029495151192482e6.jpg',
-        title: 'This is an example post',
-        time: 'November 2016',
-        category: 'web',
-        tags: ['web', 'js', 'vue'],
-        comments: 8,
-        excerpt: '<p>this is an example post made with vuejs and koa<p/>'
-      }, {
-        imagesrc: 'http://attachments.gfan.com/forum/attachments2/day_111219/111219103029495151192482e6.jpg',
-        title: 'This is an example post',
-        time: 'November 2016',
-        category: 'web',
-        tags: ['web', 'js', 'vue'],
-        comments: 8,
-        excerpt: '<p>this is an example post made with vuejs and koa<p/>'
-      }],
+      postList: [
+      //   {
+      //   imagesrc: 'http://attachments.gfan.com/forum/attachments2/day_111219/111219103029495151192482e6.jpg',
+      //   title: 'This is an example post',
+      //   time: 'November 2016',
+      //   category: 'web',
+      //   tags: ['web', 'js', 'vue'],
+      //   comments: 8,
+      //   excerpt: '<p>this is an example post made with vuejs and koa<p/>'
+      // }, {
+      //   imagesrc: 'http://attachments.gfan.com/forum/attachments2/day_111219/111219103029495151192482e6.jpg',
+      //   title: 'This is an example post',
+      //   time: 'November 2016',
+      //   category: 'web',
+      //   tags: ['web', 'js', 'vue'],
+      //   comments: 8,
+      //   excerpt: '<p>this is an example post made with vuejs and koa<p/>'
+      // }
+    ],
       totalPage: 2,
       currentPage: ~~this.$route.query.page || 1
     }
@@ -60,8 +62,8 @@ export default {
     SideBar,
     PostExcerpt
   },
-  create() {
-    // this.fetchPostList()
+  created() {
+    this.fetchPostList()
   },
   methods: {
     fetchPostList() {
@@ -70,8 +72,8 @@ export default {
         limit: this.postLimit
       }).then(res => {
         if (res.success) {
-          this.postList = res.data.postList;
-          this.totalPage = Math.ceil(res.data.total / limit);
+          this.postList = res.data.postArr
+          this.totalPage = Math.ceil(res.data.totalNumber / this.postLimit)
         }
       }).catch(err => {
         console.log(err)

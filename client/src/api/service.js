@@ -1,7 +1,9 @@
-const apihost = 'http://localhost:8080/'
+const apihost = 'http://localhost:3000/'
 
 function parseResponse(response) {
-  return Promise.all([response.status, response.statusText, response.json()])
+  return Promise.all([
+    response.status, response.statusText, response.json()
+  ])
 }
 
 function checkStatus([status, statusText, data]) {
@@ -21,9 +23,11 @@ export default {
     let reqHeaders = new Headers()
     reqHeaders.append('Accept', 'application/json');
     var query = []
-    Object.keys(param).forEach((item) => {
-      query.push(`${item}=${encodeURIComponent(param[item])}`)
-    })
+    Object
+      .keys(param)
+      .forEach((item) => {
+        query.push(`${item}=${encodeURIComponent(param[item])}`)
+      })
     var params = query.length
       ? '?' + query.join('&')
       : '' // fixme
@@ -36,7 +40,9 @@ export default {
       cache: 'default',
       mode: 'cors'
     }
-    return fetch(url, init).then(parseResponse).then(checkStatus)
+    return fetch(url, init)
+      .then(parseResponse)
+      .then(checkStatus)
   },
   patch(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
@@ -53,7 +59,9 @@ export default {
       body: JSON.stringify(param)
     }
 
-    return fetch(url, init).then(parseResponse).then(checkStatus)
+    return fetch(url, init)
+      .then(parseResponse)
+      .then(checkStatus)
   },
   post(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
@@ -69,7 +77,9 @@ export default {
       body: JSON.stringify(param)
     }
 
-    return fetch(url, init).then(parseResponse).then(checkStatus)
+    return fetch(url, init)
+      .then(parseResponse)
+      .then(checkStatus)
   },
   put(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
@@ -86,7 +96,9 @@ export default {
       body: JSON.stringify(param)
     }
 
-    return fetch(url, init).then(parseResponse).then(checkStatus)
+    return fetch(url, init)
+      .then(parseResponse)
+      .then(checkStatus)
   },
   delete(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
@@ -102,7 +114,9 @@ export default {
       mode: 'cors'
     }
 
-    return fetch(url, init).then(parseResponse).then(checkStatus)
+    return fetch(url, init)
+      .then(parseResponse)
+      .then(checkStatus)
   }
 
 }
