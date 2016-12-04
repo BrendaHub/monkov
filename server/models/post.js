@@ -6,6 +6,7 @@ const postSchema = mongoose.Schema({
     type: Number,
     default: 0
   },
+  imagesrc: String,
   tags: [
     {
       type: mongoose.Schema.Types.ObjectId,

@@ -46,7 +46,7 @@ let postlist = async(ctx, next) => {
         "$all": [tag]
       }
     })
-      .select('title visit createTime lastEditTime comments excerpt')
+      .select('title imagesrc lastEditTime excerpt')
       .sort({createTime: -1})
       .exec()
       .catch(err => {
@@ -67,7 +67,7 @@ let postlist = async(ctx, next) => {
       postArr: await Post
         .find()
         .populate('tags ')
-        .select('title visit createTime lastEditTime excerpt')
+        .select('title imagesrc lastEditTime excerpt')
         .sort({createTime: -1})
         .limit(limit)
         .skip(skip)
