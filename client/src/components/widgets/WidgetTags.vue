@@ -2,18 +2,32 @@
   <div class="widget-container">
     <h3>Tags</h3>
     <div class="tagcloud">
-        <router-link to="/" :style="{fontSize: '13px'}">web</router-link>
-        <router-link to="/" :style="{fontSize: '20px'}">design</router-link>
-        <router-link to="/" :style="{fontSize: '16px'}">front-end</router-link>
-        <router-link to="/" :style="{fontSize: '23px'}">nodejs</router-link>
-        <router-link to="/" :style="{fontSize: '29px'}">javascript</router-link>
-        <router-link to="/" :style="{fontSize: '22px'}">python</router-link>
+        <router-link v-for="tag in tags" to="/tags/tag.name" :style="{fontSize: '23px'}">{{tag.name}} </router-link>
     </div>
   </div>
 </template>
 
 <script>
-export default {}
+import api from 'src/api'
+export default {
+  data() {
+    return {
+      tags: []
+    }
+  },
+  methods: {
+    fetchTags() {
+      api.getAllTags().then(res => {
+        this.tags = res.data
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  created() {
+    this.fetchTags()
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

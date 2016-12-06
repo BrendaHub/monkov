@@ -1,7 +1,8 @@
 import initPost from './post.js'
-import './tag.js'
-import './comment.js'
+import initTag from './tag.js'
+import initComment from './comment.js'
 
 export default async(router) => {
   await initPost(router)
+  await initTag(router)
 }

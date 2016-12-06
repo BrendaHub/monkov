@@ -28,9 +28,7 @@ export default {
   },
   methods: {
     scrollcallback() {
-      this.offsetY = document.documentElement.clientWidth <= 900 ? 
-                     35 : window.scrollY > 60 ? 
-                          window.scrollY - 120 : 0
+      this.offsetY = document.documentElement.clientWidth <= 900 ? 35 : window.scrollY > 60 ? window.scrollY - 120 : 0
       this.offsetY = Math.min(this.offsetY, this.scrollLimit)
     }
   },
@@ -39,14 +37,10 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.scrollLimit = document.querySelector('.blog-page').offsetHeight 
-                         - 174 
-                         - Array.prototype.reduce.call(
-                            document.querySelectorAll('.widget-container'), 
-                            (a, b) => {
-                              return b.offsetHeight + a
-                            }, 0)
-                         }, 100)
+      this.scrollLimit = document.querySelector('.blog-page').offsetHeight - 174 - Array.prototype.reduce.call(document.querySelectorAll('.widget-container'), (a, b) => {
+        return b.offsetHeight + a
+      }, 0)
+    }, 100)
   }
 }
 </script>

@@ -5,9 +5,9 @@ import mw from '../middlewares'
 export default router => {
   router
     .get('/posts', postlist)
-    .post('/posts', mw.verifyToken, create)
+    .post('/posts', create)
     .get('/posts/:id', postDetail)
-    .path('/posts/:id', mw.verifyToken, modify)
+    .patch('/posts/:id', modify)
 }
 
 let create = async(ctx, next) => {
@@ -111,20 +111,24 @@ let postDetail = async(ctx, next) => {
     .catch(utils.internalErrHandler);
   ctx.status = 200
   if (post) {
-    post = post.toObject()
-    {
-      prevPost : post.prevPost,
-      nextPost : post.nextPost
-    } = {
+    post = post.toObject();
+    ({prevPost: post.prevPost, nextPost: post.nextPost} = {
       prevPost: await post.findOne({
         _id: {
           $gt: post._id
-        },
-          'title _id'
-        })
+        }
+      }, 'title _id')
+        .exec()
+        .catch(utils.internalErrHandler),
+      nextPost: await post.findOne({
+        _id: {
+          $lt: post._id
+        }
+      }, 'title _id')
+        .sort({_id: -1})
         .exec()
         .catch(utils.internalErrHandler)
-    }
+    })
   }
   ctx.body = {
     success: true,

@@ -4,10 +4,10 @@ import mw from '../middlewares'
 
 export default router => {
   router
-    .post('/tags', mw.verifyToken, create)
+    .post('/tags', create)
     .get('/tags', tagList)
-    .patch('/tags/:id', mw.verifyToken, modify)
-    .delete('/tags/:id', mw.verifyToken, deleteTag)
+    .patch('/tags/:id', modify)
+    .delete('/tags/:id', deleteTag)
 }
 
 let tagList = async(ctx, next) => {
@@ -64,7 +64,7 @@ let create = async(ctx, next) => {
   await next()
 }
 
-let modify = async(ctx.next) => {
+let modify = async(ctx, next) => {
   const tagName = ctx.request.body.name
   const tagId = ctx.params.id
   const tag = await Tag

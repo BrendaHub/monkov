@@ -15,7 +15,12 @@
 </template>
 
 <script>
-export default {}
+import api from 'src/api'
+export default {
+  data() {
+    return {}
+  }
+}
 </script>
 
 <style lang="stylus" scoped>

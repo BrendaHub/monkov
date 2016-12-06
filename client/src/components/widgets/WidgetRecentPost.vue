@@ -2,20 +2,43 @@
   <div class="widget-container">
     <h3>Recent Post</h3>
     <ul>
-      <li>
-        <router-link to="/">This is an example post</router-link>
-        <span class="post-date">November 21,2016</span>
+      <li v-for="rp in rencentPost">
+        <router-link :to="rp._id">{{rp.title}}</router-link>
+        <span class="post-date">{{rp.lastEditTime}}</span>
       </li>
-       <li>
+       <!-- <li>
         <router-link to="/">This is an example post,This is an example post,This is an example post</router-link>
         <span class="post-date">November 21,2016</span>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>
 
 <script>
+import api from 'src/api'
 export default {
+  data() {
+    return {
+      rencentPost: []
+    }
+  },
+  methods: {
+    fetchRecentPost() {
+      api.getPostList({
+        page: 1,
+        limit: 5
+      }).then(res => {
+        if (res.success) {
+          this.rencentPost = res.data.postArr
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+  },
+  created() {
+    this.fetchRecentPost()
+  }
 }
 </script>
 
