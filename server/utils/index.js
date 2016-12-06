@@ -24,5 +24,11 @@ Date.prototype.format = function (fmt) {
 
 export default {
   logger : logger({dir: config.dir.log, format: 'YYYY-MM-DD-[{category}][.log]'}),
-  debug
+  debug,
+  internalErrHandler : err => {
+    this
+      .logger
+      .error(err)
+    ctx && ctx.throw(500, 'internal error')
+  }
 }

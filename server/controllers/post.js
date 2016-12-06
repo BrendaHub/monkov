@@ -1,10 +1,13 @@
 import Post from '../models/post.js'
 import utils from '../utils'
+import mw from '../middlewares'
 
 export default router => {
   router
     .get('/posts', postlist)
-    .post('/posts', create)
+    .post('/posts', mw.verifyToken, create)
+    .get('/posts/:id', postDetail)
+    .path('/posts/:id', mw.verifyToken, modify)
 }
 
 let create = async(ctx, next) => {
@@ -24,17 +27,13 @@ let create = async(ctx, next) => {
   })
   const result = await post
     .save()
-    .catch(err => {
-      utils
-        .logger
-        .error(err)
-      ctx.throw(500, 'internal error')
-    });
+    .catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true,
     data: result._id
   }
+  await next()
 }
 
 let postlist = async(ctx, next) => {
@@ -72,21 +71,11 @@ let postlist = async(ctx, next) => {
         .limit(limit)
         .skip(skip)
         .exec()
-        .catch(err => {
-          utils
-            .logger
-            .error(err)
-          ctx.throw(500, 'internal error')
-        }),
+        .catch(utils.internalErrHandler),
       totalNumber: await Post
         .count()
         .exec()
-        .catch(err => {
-          utils
-            .logger
-            .error(err)
-          ctx.throw(500, 'internal error')
-        })
+        .catch(utils.internalErrHandler)
     }
     ctx.status = 200
     const resultArr = []
@@ -106,4 +95,56 @@ let postlist = async(ctx, next) => {
       }
     }
   }
+  await next()
+}
+
+let postDetail = async(ctx, next) => {
+  const id = ctx.params.id
+  if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+    ctx.throw(400, 'invalid id')
+  }
+  let post = await Post
+    .findById(id)
+    .populate('tags')
+    .select('title visit tags createTime lastEditTime excerpt content')
+    .exec()
+    .catch(utils.internalErrHandler);
+  ctx.status = 200
+  if (post) {
+    post = post.toObject()
+    {
+      prevPost : post.prevPost,
+      nextPost : post.nextPost
+    } = {
+      prevPost: await post.findOne({
+        _id: {
+          $gt: post._id
+        },
+          'title _id'
+        })
+        .exec()
+        .catch(utils.internalErrHandler)
+    }
+  }
+  ctx.body = {
+    success: true,
+    data: post
+  }
+  await next()
+}
+
+let modify = async(ctx, next) => {
+  const id = ctx.params.id
+  let post = await Post.findByIdAndUpdate(id, {
+    $set: ctx.request.body
+  }, {new: true})
+    .exec()
+    .catch(utils.internalErrHandler);
+  post = post.toObject()
+  ctx.status = 200
+  ctx.body = {
+    success: true,
+    data: post
+  }
+  await next()
 }
