@@ -1,0 +1,20 @@
+{
+  "name": "monkov",
+  "version": "0.0.1",
+  "description": "a blog system made with vuejs and koa",
+  "main": "index.js",
+  "repository": {
+    "url": "https://github.com/domonji/monkov",
+    "type": "git"
+  },
+  "author": "domon <domonji95@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "cz-conventional-changelog": "^1.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
