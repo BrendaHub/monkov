@@ -8,7 +8,7 @@
         <div class="post-meta">
             <time class="last-update">{{time}}</time>
             <span class="author"><router-link to="/">{{author}}</router-link></span>
-            <span class="category" v-if="category"><router-link to="/">{{category}}</router-link></span>
+            <span class="category" v-if="category"><router-link :to="'/category/'+category._id">{{category.name}}</router-link></span>
             <span class="tags" v-if="tags.length>0">
                 <router-link :to="'/tags/'+tag._id" v-for="tag in tags"> {{tag.name}} </router-link>
             </span>
@@ -44,10 +44,7 @@ export default {
       type: String,
       required: true
     },
-    category: {
-      type: String,
-      default: ''
-    },
+    category: Object,
     tags: {
       type: Array,
       default: () => []

@@ -17,7 +17,7 @@ export default {
   data() {
     return {
       offsetY: 0,
-      scrollLimit: 0
+      blogEle: null
     }
   },
   components: {
@@ -28,19 +28,18 @@ export default {
   },
   methods: {
     scrollcallback() {
+      let limit = this.blogEle.offsetHeight - 174 - Array.prototype.reduce.call(document.querySelectorAll('.widget-container'), (a, b) => {
+        return b.offsetHeight + a
+      }, 0)
       this.offsetY = document.documentElement.clientWidth <= 900 ? 35 : window.scrollY > 60 ? window.scrollY - 120 : 0
-      this.offsetY = Math.min(this.offsetY, this.scrollLimit)
+      this.offsetY = Math.min(this.offsetY, limit)
     }
   },
   directives: {
     scroll: eventDirective('scroll')
   },
   mounted() {
-    setTimeout(() => {
-      this.scrollLimit = document.querySelector('.blog-page').offsetHeight - 174 - Array.prototype.reduce.call(document.querySelectorAll('.widget-container'), (a, b) => {
-        return b.offsetHeight + a
-      }, 0)
-    }, 100)
+    this.blogEle = document.querySelector('.blog-page')
   }
 }
 </script>

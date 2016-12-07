@@ -2,23 +2,15 @@
   <div class="widget-container">
     <h3>Categories</h3>
     <ul>
-      <li>
-        <router-link to="/">Python</router-link>
+      <li v-for="cat in plainCats">
+        <router-link :to="'/categories/'+cat._id">{{cat.name}}</router-link>
         <span class="post-number">(3)</span>
-      </li>
-      <li>
-        <router-link to="/">Javascript</router-link>
-        <span class="post-number">(2)</span>
-        <ul>
+        <ul v-if="cat.sub" v-for="sub in cat.sub">
             <li>
-            <router-link to="/">ES6</router-link>
+            <router-link :to="'/categories/'+sub._id">{{sub.name}}</router-link>
             <span class="post-number">(1)</span>
             </li>
         </ul>
-      </li>
-      <li>
-        <router-link to="/">Unity</router-link>
-        <span class="post-number">(1)</span>
       </li>
     </ul>
   </div>
@@ -29,17 +21,30 @@ import api from 'src/api'
 export default {
   data() {
     return {
-      tags: []
+      categories: []
     }
   },
-  create() {
-    this.fetTags()
+  computed: {
+    plainCats() {
+      let result = this.categories.slice()
+      this.categories.forEach((cat, index, arr) => {
+        if (cat.sub) {
+          for (let sub in cat.sub) {
+            result.splice(result.indexOf(sub))
+          }
+        }
+      })
+      return result
+    }
+  },
+  created() {
+    this.fetCategory()
   },
   methods: {
-    fetTags() {
-      api.fetTags().then(res => {
+    fetCategory() {
+      api.getCategories().then(res => {
         if (res.success) {
-          this.$set(this.tags, res.data.tags)
+          this.categories = res.data
         }
       }).catch(err => {
         console.log(err)

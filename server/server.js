@@ -34,17 +34,9 @@ app
 
 export default app
 
-// import Post from './models/post.js'
+// import Category from './models/category.js'
 // import utils from './utils'
-// const post = new Post({
-//   title: 'test',
-//   content: 'hahaha',
-//   excerpt: 'excerpt',
-//   visit: 0,
-//   createTime: new Date(),
-//   lastEditTime: new Date(),
-//   comments: []
-// })
+// const post = new Category({name: 'javascript'})
 // const result = post
 //   .save()
 //   .catch(err => {

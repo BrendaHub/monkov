@@ -2,7 +2,7 @@
   <div class="widget-container">
     <h3>Tags</h3>
     <div class="tagcloud">
-        <router-link v-for="tag in tags" to="/tags/tag.name" :style="{fontSize: '23px'}">{{tag.name}} </router-link>
+        <router-link v-for="tag in tags" :to="'/tags/'+tag._id" :style="{fontSize: '23px'}">{{tag.name}} </router-link>
     </div>
   </div>
 </template>

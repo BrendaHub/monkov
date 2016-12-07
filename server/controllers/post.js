@@ -5,9 +5,9 @@ import mw from '../middlewares'
 export default router => {
   router
     .get('/posts', postlist)
-    .post('/posts', create)
+    .post('/posts', mw.verifyToken, create)
     .get('/posts/:id', postDetail)
-    .patch('/posts/:id', modify)
+    .patch('/posts/:id', mw.verifyToken, modify)
 }
 
 let create = async(ctx, next) => {
@@ -45,7 +45,7 @@ let postlist = async(ctx, next) => {
         "$all": [tag]
       }
     })
-      .select('title tags imagesrc lastEditTime excerpt')
+      .select('title tags category imagesrc lastEditTime excerpt')
       .sort({createTime: -1})
       .exec()
       .catch(err => {
@@ -65,8 +65,9 @@ let postlist = async(ctx, next) => {
     const {postArr, totalNumber} = {
       postArr: await Post
         .find()
-        .populate('tags ')
-        .select('title imagesrc tags lastEditTime excerpt')
+        .populate('tags')
+        .populate('category')
+        .select('title imagesrc category tags lastEditTime excerpt')
         .sort({createTime: -1})
         .limit(limit)
         .skip(skip)

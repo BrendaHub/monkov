@@ -15,5 +15,8 @@ export default {
   },
   getAbout() {
     return service.get('about')
+  },
+  getCategories(params) {
+    return service.get('categories', params)
   }
 }

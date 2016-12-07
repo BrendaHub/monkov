@@ -13,12 +13,10 @@ const postSchema = mongoose.Schema({
       ref: 'tag'
     }
   ],
-  category: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'category'
-    }
-  ],
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'category'
+  },
   createTime: {
     type: Date,
     default: Date.now
