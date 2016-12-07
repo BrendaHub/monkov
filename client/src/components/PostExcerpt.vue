@@ -1,16 +1,16 @@
 <template lang="html">
 <div class="post-excerpt">
-    <router-link to="/blog" v-if="imagesrc"><img class="post-image" :src="imagesrc" alt=""></router-link>
+    <router-link :to="'/posts/'+id" v-if="imagesrc"><img class="post-image" :src="imagesrc" alt=""></router-link>
     <div class="post-body">
         <h2 class="post-title">
-            <router-link to="/post/1">{{title}}</router-link>
+            <router-link :to="'/posts/'+id">{{title}}</router-link>
         </h2>
         <div class="post-meta">
             <time class="last-update">{{time}}</time>
             <span class="author"><router-link to="/">{{author}}</router-link></span>
             <span class="category" v-if="category"><router-link to="/">{{category}}</router-link></span>
             <span class="tags" v-if="tags.length>0">
-                <router-link to="/" v-for="tag in tags"> {{tag}} </router-link>
+                <router-link :to="'/tags/'+tag._id" v-for="tag in tags"> {{tag.name}} </router-link>
             </span>
             <span class="comments" v-if="comments"><router-link to="/">{{comments}} comments</router-link></span>
         </div>
@@ -25,6 +25,10 @@
 <script>
 export default {
   props: {
+    id: {
+      type: String,
+      required: true
+    },
     imagesrc: {
       type: String
     },
@@ -36,9 +40,9 @@ export default {
       type: String,
       default: 'Domon Ji'
     },
-    time:{
-      type:String,
-      required:true
+    time: {
+      type: String,
+      required: true
     },
     category: {
       type: String,
@@ -46,7 +50,7 @@ export default {
     },
     tags: {
       type: Array,
-      default: ()=>[]
+      default: () => []
     },
     comments: {
       type: Number,

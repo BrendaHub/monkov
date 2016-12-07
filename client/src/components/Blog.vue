@@ -3,6 +3,7 @@
   <section class="article-list col-main">
     <article class="blog-post">
       <post-excerpt v-for="post in postList"
+                    :id="post._id"
                     :imagesrc="post.imagesrc"
                     :title="post.title"
                     :time="post.lastEditTime"
@@ -35,25 +36,7 @@ export default {
   },
   data() {
     return {
-      postList: [
-      //   {
-      //   imagesrc: 'http://attachments.gfan.com/forum/attachments2/day_111219/111219103029495151192482e6.jpg',
-      //   title: 'This is an example post',
-      //   time: 'November 2016',
-      //   category: 'web',
-      //   tags: ['web', 'js', 'vue'],
-      //   comments: 8,
-      //   excerpt: '<p>this is an example post made with vuejs and koa<p/>'
-      // }, {
-      //   imagesrc: 'http://attachments.gfan.com/forum/attachments2/day_111219/111219103029495151192482e6.jpg',
-      //   title: 'This is an example post',
-      //   time: 'November 2016',
-      //   category: 'web',
-      //   tags: ['web', 'js', 'vue'],
-      //   comments: 8,
-      //   excerpt: '<p>this is an example post made with vuejs and koa<p/>'
-      // }
-    ],
+      postList: [],
       totalPage: 2,
       currentPage: ~~this.$route.query.page || 1
     }
