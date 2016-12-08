@@ -13,11 +13,15 @@ import WidgetMostcomment from 'components/widgets/WidgetMostComment'
 import WidgetTags from 'components/widgets/WidgetTags'
 import WidgetCategories from 'components/widgets/WidgetCategories'
 import eventDirective from 'src/directives/eventListener'
+const {
+  reduce
+} = Array.prototype
 export default {
   data() {
     return {
       offsetY: 0,
-      blogEle: null
+      blogEle: null,
+      widgets: null
     }
   },
   components: {
@@ -28,7 +32,7 @@ export default {
   },
   methods: {
     scrollcallback() {
-      let limit = this.blogEle.offsetHeight - 174 - Array.prototype.reduce.call(document.querySelectorAll('.widget-container'), (a, b) => {
+      let limit = this.blogEle.offsetHeight - 174 - this.widgets::reduce((a, b) => {
         return b.offsetHeight + a
       }, 0)
       this.offsetY = document.documentElement.clientWidth <= 900 ? 35 : window.scrollY > 60 ? window.scrollY - 120 : 0
@@ -40,6 +44,7 @@ export default {
   },
   mounted() {
     this.blogEle = document.querySelector('.blog-page')
+    this.widgets = document.querySelectorAll('.widget-container')
   }
 }
 </script>
