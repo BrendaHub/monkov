@@ -5,19 +5,17 @@
       <div class="subheader-partition left">
         <div class="subheader-cell"><i class="fa fa-phone"></i> <span>+86 15061883140</span></div>
         <div class="subheader-cell"><i class="fa fa-envelope"></i> <a href="mailto:domonji95@gmail.com">domonji95@gmail.com</a></div>
-        <div class="subheader-cell"><i class="fa fa-lock"></i> <router-link to="/login">Login</router-link></div>
+        <div class="subheader-cell"><i class="fa fa-lock"></i>
+          <router-link to="/login">Login</router-link>
+        </div>
         <div class="subheader-cell"><a class="selector" href="javascript:void(0)">English</a></div>
       </div>
       <div class="subheader-partition right">
         <div class="social-icon instagram">
-          <a href="https://www.instagram.com/domonji95/" target="_blank">
-            <i class="fa fa-instagram fa-2" aria-hidden="true"></i>
-          </a>
+          <a href="https://www.instagram.com/domonji95/" target="_blank"> <i class="fa fa-instagram fa-2" aria-hidden="true"></i> </a>
         </div>
         <div class="social-icon github">
-          <a href="https://github.com/domonji" target="_blank">
-            <i class="fa fa-github fa-2" aria-hidden="true"></i>
-          </a>
+          <a href="https://github.com/domonji" target="_blank"> <i class="fa fa-github fa-2" aria-hidden="true"></i> </a>
         </div>
       </div>
     </div>
@@ -27,11 +25,11 @@
       <router-link to="/">
         <div class="logo"></div>
       </router-link>
-      <nav :class="[{'showup':menuShowUp},'navigator']"  v-scroll="menuClickHandler">
+      <nav :class="[{'showup':menuShowUp},'navigator']" v-scroll="menuClickHandler">
         <router-link class="navigator-button" to="/" @click="menuShowUp=false">
           <div>Home</div>
         </router-link>
-        <router-link class="navigator-button" to="/blog" @click="menuShowUp=false">
+        <router-link class="navigator-button" to="/posts" @click="menuShowUp=false">
           <div>Blog</div>
         </router-link>
         <router-link class="navigator-button" to="/about" @click="menuShowUp=false">
@@ -39,9 +37,7 @@
         </router-link>
         <router-link class="navigator-button" to="/photograph" @click="menuShowUp=false">
           <div>Photograph</div>
-        </router-link> <span class="search"><i class="fa fa-search" aria-hidden="true"></i></span> 
-        <i class="fa fa-bars fa-2 nav-mobile" aria-hidden="true" @mouseover="inMenuArea=true" @mouseout="inMenuArea=false" v-click="menuClickHandler" v-show="!menuShowUp"></i>
-      </nav>
+        </router-link> <span class="search"><i class="fa fa-search" aria-hidden="true"></i></span> <i class="fa fa-bars fa-2 nav-mobile" aria-hidden="true" @mouseover="inMenuArea=true" @mouseout="inMenuArea=false" v-click="menuClickHandler" v-show="!menuShowUp"></i>        </nav>
     </div>
   </div>
 </header>
@@ -53,21 +49,21 @@ export default {
   data() {
     return {
       scrolled: false,
-      inMenuArea:false,
-      menuShowUp:false
+      inMenuArea: false,
+      menuShowUp: false
     }
   },
   methods: {
     scrollcallback() {
       this.scrolled = window.scrollY > 60
     },
-    menuClickHandler(){
-        this.menuShowUp = this.inMenuArea
+    menuClickHandler() {
+      this.menuShowUp = this.inMenuArea
     }
   },
   directives: {
     scroll: eventDirective('scroll'),
-    click : eventDirective('click')
+    click: eventDirective('click')
   }
 }
 </script>
@@ -157,7 +153,7 @@ header
   }
 }
 
-.navigator.showup 
+.navigator.showup
   a,span
     @media (max-width:901px)
       display:block

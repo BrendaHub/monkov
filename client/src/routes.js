@@ -3,7 +3,7 @@ export default[
     path : '/',
     component : resolve => require(['components/Home'], resolve)
   }, {
-    path : '/blog',
+    path : '/posts',
     component : resolve => require(['components/Blog'], resolve)
   }, {
     path : '/about',

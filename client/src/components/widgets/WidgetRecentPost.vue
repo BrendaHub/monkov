@@ -4,7 +4,7 @@
     <ul>
       <li v-for="rp in rencentPost">
         <router-link :to="'/posts/'+rp._id">{{rp.title}}</router-link>
-        <span class="post-date">{{rp.lastEditTime}}</span>
+        <span class="post-date">{{rp.createTime}}</span>
       </li>
        <!-- <li>
         <router-link to="/">This is an example post,This is an example post,This is an example post</router-link>

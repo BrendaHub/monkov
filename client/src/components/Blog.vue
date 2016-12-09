@@ -2,22 +2,9 @@
 <div class="blog-page col-2">
   <section class="article-list col-main">
     <article class="blog-post">
-      <post-excerpt v-for="post in postList"
-                    :id="post._id"
-                    :imagesrc="post.imagesrc"
-                    :title="post.title"
-                    :time="post.lastEditTime"
-                    :tags="post.tags"
-                    :comments="post.comments"
-                    :excerpt="post.excerpt"
-                    :category="post.category">
-      </post-excerpt>
+      <post-excerpt v-for="post in postList" :id="post._id" :imagesrc="post.imagesrc" :title="post.title" :time="post.createTime" :tags="post.tags" :comments="post.comments" :excerpt="post.excerpt" :category="post.category"> </post-excerpt>
     </article>
-    <nav class="pagination">
-      <a href="javascript:void(0)" @click="toPage(currentPage-1)" class="page-numbers next-page" v-show="currentPage > 1">&lt;</a>
-      <a href="javascript:void(0)" @click="toPage(n)" v-for="n in totalPage" :class="[{'current-page':n==currentPage},'page-numbers']">{{n}}</a>
-      <a href="javascript:void(0)" @click="toPage(currentPage+1)" class="page-numbers next-page" v-show="currentPage < totalPage">&gt;</a>
-    </nav>
+    <nav class="pagination"> <a href="javascript:void(0)" @click="toPage(currentPage-1)" class="page-numbers next-page" v-show="currentPage > 1">&lt;</a> <a href="javascript:void(0)" @click="toPage(n)" v-for="n in totalPage" :class="[{'current-page':n==currentPage},'page-numbers']">{{n}}</a>      <a href="javascript:void(0)" @click="toPage(currentPage+1)" class="page-numbers next-page" v-show="currentPage < totalPage">&gt;</a> </nav>
   </section>
   <side-bar></side-bar>
 </div>
@@ -52,7 +39,9 @@ export default {
     fetchPostList() {
       api.getPostList({
         page: this.currentPage,
-        limit: this.postLimit
+        limit: this.postLimit,
+        tag: this.$route.query.tag || '',
+        category: this.$route.query.category || ''
       }).then(res => {
         if (res.success) {
           this.postList = res.data.postArr
@@ -62,11 +51,14 @@ export default {
         console.log(err)
       })
     },
-    toPage(n){
+    toPage(n) {
       this.$router.push({
-        path:'blog',
-        query:{
-          page:n
+        path: 'blog',
+        query: {
+          page: n,
+          limit: this.postLimit,
+          tag: this.$route.query.tag,
+          category: this.$route.query.category
         }
       })
       this.currentPage = n

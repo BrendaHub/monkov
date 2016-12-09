@@ -3,11 +3,11 @@
     <h3>Categories</h3>
     <ul>
       <li v-for="cat in plainCats">
-        <router-link :to="'/categories/'+cat._id">{{cat.name}}</router-link>
+        <router-link :to="'/posts?category='+cat._id">{{cat.name}}</router-link>
         <span class="post-number">(3)</span>
         <ul v-if="cat.sub" v-for="sub in cat.sub">
             <li>
-            <router-link :to="'/categories/'+sub._id">{{sub.name}}</router-link>
+            <router-link :to="'/posts?category='+sub._id">{{sub.name}}</router-link>
             <span class="post-number">(1)</span>
             </li>
         </ul>

@@ -1,4 +1,5 @@
 import Tag from '../models/tag'
+import Post from '../models/post.js'
 import utils from '../utils'
 import mw from '../middlewares'
 

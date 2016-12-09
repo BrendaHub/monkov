@@ -21,14 +21,13 @@ Date.prototype.format = function (fmt) {
         : (('00' + o[k]).substr(('' + o[k]).length)))
   return fmt
 }
+let _logger = logger({dir: config.dir.log, format: 'YYYY-MM-DD-[{category}][.log]'})
 
 export default {
-  logger : logger({dir: config.dir.log, format: 'YYYY-MM-DD-[{category}][.log]'}),
+  logger : _logger,
   debug,
   internalErrHandler : err => {
-    this
-      .logger
-      .error(err)
-    ctx && ctx.throw(500, 'internal error')
+    _logger.error(err)
+    // ctx && ctx.throw(500, 'internal error')
   }
 }

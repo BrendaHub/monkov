@@ -1,7 +1,7 @@
 import Category from '../models/category.js'
+import Post from '../models/post.js'
 import utils from '../utils'
 import mw from '../middlewares'
-
 export default router => {
   router
     .post('/categories', create)
@@ -11,15 +11,8 @@ export default router => {
 }
 
 let allCategory = async(ctx, next) => {
-  const queryStart = ctx.query['start-with']
-  const queryOption = {}
-  if (queryStart) {
-    queryOption.name = {
-      $regex: '^' + queryStart
-    }
-  }
   const categories = await Category
-    .find(queryOption)
+    .find()
     .populate('sub')
     .exec()
     .catch(utils.internalErrHandler);
@@ -29,6 +22,57 @@ let allCategory = async(ctx, next) => {
     data: categories
   }
   await next()
+  // let result = []
+  // let categories = await Post
+  //   .aggregate([
+  //   {
+  //     '$group': {
+  //       _id: '$category',
+  //       count: {
+  //         '$sum': 1
+  //       }
+  //     }
+  //   }
+  // ])
+  //   .exec()
+  //   .catch(utils.internalErrHandler);
+  // await Promise.all(categories.map(async(cat) => {
+  //   const res = await Category
+  //     .findById(cat._id)
+  //     .populate('sub')
+  //     .select('name sub')
+  //     .exec()
+  //     .catch(utils.internalErrHandler);
+  //   cat.name = res
+  //     ? res.name
+  //     : 'Uncategoried'
+  //   cat.sub = res
+  //     ? res.sub
+  //     : ''
+  //   result.push(cat)
+  // }))
+  // let orderedResult = result.slice()
+  // result.forEach((cat, index, arr) => {
+  //   if (cat.sub.length) {
+  //     for (let sub of cat.sub) {
+  //       for (let subcat of result) {
+  //         if (subcat._id.toString() == sub._id.toString()) {
+  //           sub.count = subcat.count
+  //           console.log(sub)
+  //           cat.count += subcat.count
+  //           orderedResult.splice(orderedResult.indexOf(subcat), 1)
+  //           break
+  //         }
+  //       }
+  //     }
+  //   }
+  // })
+  // ctx.status = 200
+  // ctx.body = {
+  //   success: true,
+  //   data: orderedResult
+  // }
+  // await next()
 }
 
 let create = async(ctx, next) => {

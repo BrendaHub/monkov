@@ -22,7 +22,7 @@ let create = async(ctx, next) => {
     excerpt,
     visit: 0,
     createTime: new Date(),
-    lastEditTime: new Date(),
+    createTime: new Date(),
     comments: []
   })
   const result = await post
@@ -38,62 +38,40 @@ let create = async(ctx, next) => {
 
 let postlist = async(ctx, next) => {
   const tag = ctx.query.tag
-  if (tag) {
-    let postArr = await Post
-      .find({
-      tags: {
-        "$all": [tag]
-      }
-    })
-      .select('title tags category imagesrc lastEditTime excerpt')
+  const category = ctx.query.category
+  const limit = ~~ctx.query.limit || 10
+  const page = ~~ctx.query.page || 1
+  let skip = limit * (page - 1)
+  let findOpt = {}
+  tag && Object.assign(findOpt, {
+    tags: {
+      '$all': [tag]
+    }
+  })
+  category && Object.assign(findOpt, {category})
+  const {postArr, totalNumber} = {
+    postArr: await Post
+      .find(findOpt)
+      .populate('tags')
+      .populate('category')
+      .select('title imagesrc category tags createTime excerpt')
       .sort({createTime: -1})
+      .limit(limit)
+      .skip(skip)
       .exec()
-      .catch(err => {
-        utils
-          .logger
-          .error(err)
-        ctx.throw(500, 'internal error')
-      });
-    ctx.body = {
-      success: true,
-      data: postArr
-    }
-  } else {
-    const limit = ~~ctx.query.limit || 10
-    const page = ~~ctx.query.page || 1
-    let skip = limit * (page - 1)
-    const {postArr, totalNumber} = {
-      postArr: await Post
-        .find()
-        .populate('tags')
-        .populate('category')
-        .select('title imagesrc category tags lastEditTime excerpt')
-        .sort({createTime: -1})
-        .limit(limit)
-        .skip(skip)
-        .exec()
-        .catch(utils.internalErrHandler),
-      totalNumber: await Post
-        .count()
-        .exec()
-        .catch(utils.internalErrHandler)
-    }
-    ctx.status = 200
-    const resultArr = []
-    if (postArr.length) {
-      Array
-        .prototype
-        .forEach
-        .call(postArr, post => {
-          resultArr.push(post.toObject())
-        })
-    }
-    ctx.body = {
-      success: true,
-      data: {
-        postArr,
-        totalNumber
-      }
+      .catch(utils.internalErrHandler),
+    totalNumber: await Post
+      .find(findOpt)
+      .count()
+      .exec()
+      .catch(utils.internalErrHandler)
+  }
+  ctx.status = 200
+  ctx.body = {
+    success: true,
+    data: {
+      postArr,
+      totalNumber
     }
   }
   await next()
@@ -107,7 +85,7 @@ let postDetail = async(ctx, next) => {
   let post = await Post
     .findById(id)
     .populate('tags')
-    .select('title visit tags createTime lastEditTime excerpt content')
+    .select('title visit tags createTime createTime excerpt content')
     .exec()
     .catch(utils.internalErrHandler);
   ctx.status = 200
