@@ -88,9 +88,6 @@ export default {
   padding:50px 0
   fullWidth()
 
-main
-  flex:1
-
 .placeholder
   height:156px
   position:relative

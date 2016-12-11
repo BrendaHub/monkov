@@ -11,5 +11,8 @@ export default[
   }, {
     path : '/photograph',
     component : resolve => require(['components/Photograph'], resolve)
+  }, {
+    path : '/posts/:title',
+    component : resolve => require(['components/Home'], resolve)
   }
 ]

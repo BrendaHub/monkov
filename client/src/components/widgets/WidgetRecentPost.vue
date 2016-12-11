@@ -3,7 +3,7 @@
     <h3>Recent Post</h3>
     <ul>
       <li v-for="rp in rencentPost">
-        <router-link :to="'/posts/'+rp._id">{{rp.title}}</router-link>
+        <router-link :to="'/posts/'+rp.title">{{rp.title}}</router-link>
         <span class="post-date">{{rp.createTime}}</span>
       </li>
        <!-- <li>

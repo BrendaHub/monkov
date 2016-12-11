@@ -1,21 +1,21 @@
 <template lang="html">
 <div class="post-excerpt">
-    <router-link :to="'/posts/'+id" v-if="imagesrc"><img class="post-image" :src="imagesrc" alt=""></router-link>
+    <router-link :to="'/posts/'+title" v-if="imagesrc"><img class="post-image" :src="imagesrc" alt=""></router-link>
     <div class="post-body">
         <h2 class="post-title">
-            <router-link :to="'/posts/'+id">{{title}}</router-link>
+            <router-link :to="'/posts/'+title">{{title}}</router-link>
         </h2>
         <div class="post-meta">
             <time class="last-update">{{time}}</time>
             <span class="author"><router-link to="/">{{author}}</router-link></span>
-            <span class="category" v-if="category"><router-link :to="'/posts?category='+category._id">{{category.name}}</router-link></span>
+            <span class="category" v-if="category"><router-link :to="'/posts?category='+category.name">{{category.name}}</router-link></span>
             <span class="tags" v-if="tags.length>0">
-                <router-link :to="'/posts?tag='+tag._id" v-for="tag in tags"> {{tag.name}} </router-link>
+                <router-link :to="'/posts?tag='+tag.name" v-for="tag in tags"> {{tag.name}} </router-link>
             </span>
             <span class="comments" v-if="comments"><router-link to="/">{{comments}} comments</router-link></span>
         </div>
         <div class="excerpt" v-html="excerpt"></div>
-        <router-link :to="'/posts/'+id" class="readmore">
+        <router-link :to="'/posts/'+title" class="readmore">
             <span>read more</span>
         </router-link>
     </div>
