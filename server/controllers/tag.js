@@ -12,15 +12,9 @@ export default router => {
 }
 
 let tagList = async(ctx, next) => {
-  const queryStart = ctx.query['start-with']
-  const queryOption = {}
-  if (queryStart) {
-    queryOption.name = {
-      $regex: '^' + queryStart
-    }
-  }
   const taglist = await Tag
-    .find(queryOption)
+    .find()
+    .select('name')
     .exec()
     .catch(utils.internalErrHandler);
   ctx.status = 200

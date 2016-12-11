@@ -1,4 +1,6 @@
 import Post from '../models/post.js'
+import Tag from '../models/tag.js'
+import Category from '../models/category.js'
 import utils from '../utils'
 import mw from '../middlewares'
 
@@ -43,12 +45,30 @@ let postlist = async(ctx, next) => {
   const page = ~~ctx.query.page || 1
   let skip = limit * (page - 1)
   let findOpt = {}
-  tag && Object.assign(findOpt, {
-    tags: {
-      '$all': [tag]
-    }
-  })
-  category && Object.assign(findOpt, {category})
+  if (tag) {
+    let tagId = await Tag
+      .find({name: tag})
+      .exec()
+      .catch(utils.internalErrHandler);
+    tagId = tagId.map((t) => {
+      return t.id
+    })
+    Object.assign(findOpt, {
+      tags: {
+        '$all': [tagId]
+      }
+    })
+  }
+  if (category) {
+    let catId = await Category
+      .find({name: category})
+      .exec()
+      .catch(utils.internalErrHandler());
+    catId = catId.map((c) => {
+      return c.id
+    })
+    Object.assign(findOpt, {category: catId})
+  }
   const {postArr, totalNumber} = {
     postArr: await Post
       .find(findOpt)
