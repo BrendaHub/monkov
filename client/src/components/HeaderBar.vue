@@ -262,4 +262,6 @@ a.selector
 
 .scrolled .logo
   height:(header_h/1.8)
+
+
 </style>
