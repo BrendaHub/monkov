@@ -36,7 +36,7 @@ export default {
         return b.offsetHeight + a
       }, 0)
       this.offsetY = document.documentElement.clientWidth <= 900 ? 35 : window.scrollY > 60 ? window.scrollY - 120 : 0
-      this.offsetY = Math.min(this.offsetY, limit)
+      this.offsetY = Math.max(Math.min(this.offsetY, limit), 0)
     }
   },
   directives: {

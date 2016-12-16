@@ -8,8 +8,8 @@ export default router => {
   router
     .get('/posts', postlist)
     .post('/posts', mw.verifyToken, create)
-    .get('/posts/:id', postDetail)
-    .patch('/posts/:id', mw.verifyToken, modify)
+    .get('/posts/:title', postDetail)
+    .patch('/posts/:title', mw.verifyToken, modify)
 }
 
 let create = async(ctx, next) => {
@@ -98,32 +98,28 @@ let postlist = async(ctx, next) => {
 }
 
 let postDetail = async(ctx, next) => {
-  const id = ctx.params.id
-  if (!id.match(/^[0-9a-fA-F]{24}$/)) {
-    ctx.throw(400, 'invalid id')
-  }
+  const title = ctx.params.title
   let post = await Post
-    .findById(id)
-    .populate('tags')
-    .select('title visit tags createTime createTime excerpt content')
+    .findOne({title})
+    .populate('tags category')
+    .select('title imagesrc category tags createTime content')
     .exec()
     .catch(utils.internalErrHandler);
   ctx.status = 200
   if (post) {
-    post = post.toObject();
     ({prevPost: post.prevPost, nextPost: post.nextPost} = {
-      prevPost: await post.findOne({
+      prevPost: await Post.findOne({
         _id: {
           $gt: post._id
         }
-      }, 'title _id')
+      }, 'title imagesrc _id')
         .exec()
         .catch(utils.internalErrHandler),
-      nextPost: await post.findOne({
+      nextPost: await Post.findOne({
         _id: {
           $lt: post._id
         }
-      }, 'title _id')
+      }, 'title imagesrc _id')
         .sort({_id: -1})
         .exec()
         .catch(utils.internalErrHandler)
@@ -137,8 +133,10 @@ let postDetail = async(ctx, next) => {
 }
 
 let modify = async(ctx, next) => {
-  const id = ctx.params.id
-  let post = await Post.findByIdAndUpdate(id, {
+  const title = ctx.params.title
+  let post = await Post.findAndUpdate({
+    title
+  }, {
     $set: ctx.request.body
   }, {new: true})
     .exec()

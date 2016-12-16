@@ -6,6 +6,7 @@ import VueRouter from 'vue-router'
 import routes from './routes'
 import 'normalize.css'
 import './stylus/global.styl'
+import 'github-markdown-css'
 /* eslint-disable no-new */
 Vue.use(VueRouter)
 

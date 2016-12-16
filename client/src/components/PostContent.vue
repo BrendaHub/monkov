@@ -1,5 +1,5 @@
 <template lang="html">
-<div class="post-excerpt">
+<div class="post-content">
     <router-link :to="'/posts/'+title" v-if="imagesrc"><img class="post-image" :src="imagesrc" alt=""></router-link>
     <div class="post-body">
         <h2 class="post-title">
@@ -14,8 +14,8 @@
             </span>
             <span class="comments" v-if="comments"><router-link to="/">{{comments}} comments</router-link></span>
         </div>
-        <div class="excerpt" v-html="excerpt"></div>
-        <router-link :to="'/posts/'+title" class="readmore">
+        <div class="markdown-body" v-md="content"></div>
+        <router-link :to="'/posts/'+title" class="readmore" v-if="detailmode=='false'">
             <span>read more</span>
         </router-link>
     </div>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import markdownDirective from 'src/directives/markdown'
 export default {
   props: {
     id: {
@@ -53,10 +54,17 @@ export default {
       type: Number,
       default: 0
     },
-    excerpt: {
+    content: {
       type: String,
       default: ''
+    },
+    detailmode: {
+      type: String,
+      default: 'false'
     }
+  },
+  directives: {
+    md: markdownDirective
   }
 }
 </script>
@@ -112,11 +120,11 @@ export default {
     font:14px fontawesome
     margin:0 5px 0 0
 
-.excerpt
-    color:#666
+.markdown-body
+    color:#444
     font-size:.9rem
-    p
-        line-height:24px
+    margin:12px 0
+    padding:12px 0
 
 .readmore
     display:inline-block
@@ -149,6 +157,6 @@ export default {
     &::before
         height:42px
 
-.post-excerpt
+.post-content
     margin:0 0 56px 0
 </style>
