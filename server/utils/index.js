@@ -26,8 +26,10 @@ let _logger = logger({dir: config.dir.log, format: 'YYYY-MM-DD-[{category}][.log
 export default {
   logger : _logger,
   debug,
-  internalErrHandler : err => {
+  internalErrHandler : function (err) {
     _logger.error(err)
-    // ctx && ctx.throw(500, 'internal error')
+    this.ctx && this
+      .ctx
+      .throw(500, 'internal error')
   }
 }
