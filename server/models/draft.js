@@ -1,43 +1,34 @@
 import mongoose from 'mongoose'
-
-const postSchema = mongoose.Schema({
+const draftSchema = mongoose.Schema({
   title: String,
-  visit: {
-    type: Number,
-    default: 0
-  },
-  imagesrc: String,
   tags: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'tag'
     }
   ],
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'category'
-  },
   createTime: {
-    type: Date,
-    default: Date.now
+    type: Date
   },
   lastEditTime: {
     type: Date,
     default: Date.now
   },
-  hidden: Boolean,
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'category'
+  },
   excerpt: String,
   content: String,
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'comment'
-    }
-  ]
+  post: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'post'
+  },
+  published: Boolean
 }, {
   versionKey: false,
   skipVersioning: {
-    tags: true
+    tags: false
   },
   toJSON: {
     getters: true
@@ -46,10 +37,12 @@ const postSchema = mongoose.Schema({
     getters: true
   }
 })
-postSchema
+
+draftSchema
   .path('createTime')
   .get(v => new Date(v).format('yyyy-MM-dd hh:mm:ss'))
-postSchema
+draftSchema
   .path('lastEditTime')
   .get(v => new Date(v).format('yyyy-MM-dd hh:mm:ss'))
-export default mongoose.model('post', postSchema)
+
+export default mongoose.model('draft', draftSchema)

@@ -47,12 +47,10 @@ let postlist = async(ctx, next) => {
   let findOpt = {}
   if (tag) {
     let tagId = await Tag
-      .find({name: tag})
+      .findOne({name: tag})
       .exec()
       .catch(utils.internalErrHandler);
-    tagId = tagId.map((t) => {
-      return t.id
-    })
+    tagId = tagId.id
     Object.assign(findOpt, {
       tags: {
         '$all': [tagId]
@@ -61,12 +59,10 @@ let postlist = async(ctx, next) => {
   }
   if (category) {
     let catId = await Category
-      .find({name: category})
+      .findOne({name: category})
       .exec()
       .catch(utils.internalErrHandler());
-    catId = catId.map((c) => {
-      return c.id
-    })
+    catId = catId.id
     Object.assign(findOpt, {category: catId})
   }
   const {postArr, totalNumber} = {
@@ -107,6 +103,7 @@ let postDetail = async(ctx, next) => {
     .catch(utils.internalErrHandler);
   ctx.status = 200
   if (post) {
+    post = post.toObject();
     ({prevPost: post.prevPost, nextPost: post.nextPost} = {
       prevPost: await Post.findOne({
         _id: {
@@ -141,7 +138,6 @@ let modify = async(ctx, next) => {
   }, {new: true})
     .exec()
     .catch(utils.internalErrHandler);
-  post = post.toObject()
   ctx.status = 200
   ctx.body = {
     success: true,
