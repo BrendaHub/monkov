@@ -1,5 +1,6 @@
 import Category from '../models/category.js'
 import Post from '../models/post.js'
+import Draft from '../models/draft.js'
 import utils from '../utils'
 import mw from '../middlewares'
 export default router => {
@@ -143,7 +144,25 @@ let modify = async(ctx, next) => {
 }
 
 let deleteCat = async(ctx, next) => {
-  const id = ctx.params.id
-  //unfinished
+  const name = ctx.params.name
+  const category = await Category
+    .findOne({name})
+    .exec()
+    .catch(utils.internalErrHandler);
+  await Promise.all([
+    Draft.update({}, {
+      $pull: {
+        category: category.id
+      }
+    }).exec(),
+    Post.update({}, {
+      $pull: {
+        category: category.id
+      }
+    }).exec(),
+    Category
+      .remove({_id: category.id})
+      .exec()
+  ]).catch(utils.internalErrHandler);
   await next()
 }

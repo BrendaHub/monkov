@@ -1,4 +1,5 @@
 import Tag from '../models/tag'
+import Draft from '../models/draft.js'
 import Post from '../models/post.js'
 import utils from '../utils'
 import mw from '../middlewares'
@@ -93,7 +94,25 @@ let modify = async(ctx, next) => {
 }
 
 let deleteTag = async(ctx, next) => {
-  const id = ctx.params.id
-  //unfinished
+  const name = ctx.params.name
+  const tag = await Tag
+    .findOne({name})
+    .exec()
+    .catch(utils.internalErrHandler);
+  await Promise.all([
+    Draft.update({}, {
+      $pull: {
+        tags: tag.id
+      }
+    }).exec(),
+    Post.update({}, {
+      $pull: {
+        tags: tag.id
+      }
+    }).exec(),
+    Tag
+      .remove({_id: tag.id})
+      .exec()
+  ]).catch(utils.internalErrHandler);
   await next()
 }
