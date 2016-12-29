@@ -8,7 +8,7 @@ export default async(ctx, next) => {
   const token = authorization.split(' ')[1]
   let tokenContent
   try {
-    tokenContent = await jwt.co_verify(token, ctx.config.jwt.cert)
+    tokenContent = await jwt.verify(token, ctx.config.jwt.cert)
   } catch (err) {
     if (err.name === 'TokenExpiredError') {
       ctx.throw(401, 'token expried')

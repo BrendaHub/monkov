@@ -18,7 +18,6 @@ mongoose.connect(config.mongoConfig.url, config.mongoConfig.opts)
 app.keys = ['some secret hurr']
 app.context.config = config
 app
-// .use(finalHandler())
   .use(cors({
   maxAge: 7 * 24 * 60 * 60,
   credentials: true,
@@ -33,18 +32,3 @@ app
   .use(router.allowedMethods())
 
 export default app
-
-// import Category from './models/category.js'
-// import utils from './utils'
-// const post = new Category({name: 'javascript'})
-// const result = post
-//   .save()
-//   .catch(err => {
-//     utils
-//       .logger
-//       .error(err)
-//     console.log(err)
-//     app
-//       .context
-//       .throw(500, 'internal error')
-//   });
