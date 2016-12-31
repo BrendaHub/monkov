@@ -3,7 +3,7 @@ import mw from '../middlewares'
 import Draft from '../models/draft.js'
 import Post from '../models/post.js'
 
-export default router => router.post('/publish', mw.verifyToken, publish)
+export default router => router.post('/publication', mw.verifyToken, publish)
 
 let publish = async(ctx, next) => {
   const draftTitle = ctx.request.body.title
