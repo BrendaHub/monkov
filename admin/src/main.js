@@ -1,10 +1,21 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
-import App from './App'
+import Admin from './Admin'
+import store from 'src/store'
+import MessageBox from 'vue-msgbox'
+import VueRouter from 'vue-router'
+import routes from '.routes'
 
+Vue.use(VueRouter)
+
+const router = new VueRouter({routes})
 /* eslint-disable no-new */
+window.alert = MessageBox
+
 new Vue({
   el: '#app',
-  render: h => h(App)
+  store,
+  router,
+  render: h => h(Admin)
 })
