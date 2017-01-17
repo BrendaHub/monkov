@@ -1,6 +1,6 @@
 <template lang="html">
   <ul class="draft-list reset-list">
-      <li class="draft-list-item" v-for="(draft,index) in draftList" @click="focus(index)">
+      <li class="draft-list-item" v-for="(draft,index) in all" @click="focus(index)">
           <article class="draft-thumb" :class="[ draft['draftPublished']?'published':draft['post']?'updated':'',
           {'active':draft['id'] === currentId} ]">
             <h3 class="draft-title">{{draft['title']}}</h3>

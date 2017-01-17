@@ -18,7 +18,7 @@
       <draft-list></draft-list>
     </section>
     <div class="draft-edit">
-      <draft-editor v-if="null !== currentdraftId"></draft-editor>
+      <draft-editor v-if="currentId"></draft-editor>
     </div>
   </div>
 </template>

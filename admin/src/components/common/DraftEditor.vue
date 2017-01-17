@@ -28,18 +28,23 @@ import api from 'src/api'
 import SimpleMDE from 'simplemde'
 import md2html from 'src/markdown'
 import {
-  maoGetters,
+  mapGetters,
   mapActions
 } from 'vuex'
 import {
   _debounce,
   trim
 } from 'src/utils'
-const updateTitleWithDebounce = _debounce((title) => {
+// const updateTitleWithDebounce = _debounce(title => {
+//   this.submitTitle(title).then(() => {
+//     this.saveTitle()
+//   }).catch(err => window.alert('Network Error'))
+// })
+const updateTitleWithDebounce = title => {
   this.submitTitle(title).then(() => {
     this.saveTitle()
   }).catch(err => window.alert('Network Error'))
-})
+}
 let smde
 export default {
   data() {
