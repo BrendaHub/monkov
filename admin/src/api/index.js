@@ -54,5 +54,8 @@ export default {
   },
   deleteCatefory(name) {
     return service.delete(`categories/${name}`)
+  },
+  searchTagWithWord(keyword) {
+    return service.get('tags', {'start-with': keyword})
   }
 }

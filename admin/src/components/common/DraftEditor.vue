@@ -38,10 +38,7 @@ import {
 const updateTitleWithDebounce = _debounce((title) => {
   this.submitTitle(title).then(() => {
     this.saveTitle()
-  }).catch(err => {
-    console.log(err)
-    window.alert('Network Error')
-  })
+  }).catch(err => window.alert('Network Error'))
 })
 let smde
 export default {
@@ -70,17 +67,14 @@ export default {
         } else {
           return Promise.reject()
         }
-      }).catch(err => {
-        console.log(err)
-        window.alert('Network error, please try again')
-      })
+      }).catch(err => window.alert('Network error, please try again'))
     }, 2000)
     smde.codemirror.on('change', () => {
       if (this.change) {
         this.change = false
         return
       }
-      this.saved && this.editorDraft()
+      this.saved && this.editDraft()
       postDraft()
     })
     this.change = true
@@ -93,14 +87,82 @@ export default {
           smde.value(res.data.content)
         })
       }
-    }).catch(err => {
-      console.log(err)
-      window.alert('Network error')
-    })
+    }).catch(err => window.alert('Network error'))
   },
   computed: { ...mapGetters(['currentId', 'saved', 'titleSaved', 'title', 'postId'])
   },
-  methods: { ...mapActions(['editDraft', 'saveDraft', 'editTitle', 'saveTitle', 'deleteDraft', 'publish', 'submitTitle', 'submitExcerpt', 'modifyTags'])
+  methods: { ...mapActions(['editDraft', 'saveDraft', 'editTitle', 'saveTitle', 'deleteDraft', 'publish', 'submitTitle', 'submitExcerpt', 'modifyTags']),
+    submitTag(val) {
+      this.tagInput = false
+      const tag = typeof val === 'string' ? val : trim(this.tagNew)
+      this.tagNew = ''
+      tag && api.createTag(tag).then(res => {
+        const name = res.data.name
+        if (this.tags.some(item => item.name === name)) return
+        let newTagsArr = this.tags.map(item => item.name)
+        newTagsArr.push(name)
+        return api.modifyDraftTags(this.title, newTagsArr)
+      }).then(res => {
+        if (res.success) {
+          this.tags = res.data.tags
+          this.modifyTags(res.data.lastEditTime)
+        }
+      }).catch(err => window.alert('Network error'))
+    },
+    deleteTag(name) {
+      let newTagsArr = []
+      this.tags.forEach(t => {
+        t.name !== name && newTagsArr.push(name)
+      })
+      api.modifyDraftTags(this.currentId, newTagsArr).then(res => {
+        if (res.success) {
+          this.tags = res.data.tags
+          this.modifyTags(res.data.lastEditTime)
+        }
+      }).catch(err => window.alert('Network error'))
+    },
+    publish() {
+      if (!this.saved || !this.titleSaved) {
+        window.alert('Draft is saving, please try again')
+        return
+      }
+      this.publish().then(() => window.alert('Success!')).catch(err => window.alert(err.error_message && err.error_message.console.error()))
+    },
+    updateTitle(e) {
+      this.editTitle
+      updateTitleWithDebounce.call(this, e.target.value)
+    },
+    addTag() {
+      this.tagInput = true
+      this.tagNew = ''
+      this.searchTags('')
+    },
+    searchTags(val) {
+      api.searchTagWithWord(val).then(res => {
+        if (res.success) this.tagsToAdd = res.data
+      })
+    }
+  },
+  watch: {
+    currentId(val) {
+      this.change = true
+      val && api.getDraft(val).then(res => {
+        if (res.success) {
+          this.tagNew = ''
+          this.tagInput = false
+          this.tags = res.data.tags
+          this.$nextTick(() => {
+            smde.value(res.data.content)
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+        window.alert('Network error')
+      })
+    },
+    tagNew(val) {
+      this.searchTags(val)
+    }
   }
 }
 </script>
