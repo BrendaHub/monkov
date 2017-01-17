@@ -5,9 +5,7 @@ import Admin from './Admin'
 import store from 'src/store'
 import MessageBox from 'vue-msgbox'
 import VueRouter from 'vue-router'
-import routes from '.routes'
-
-Vue.use(VueRouter)
+import routes from './routes'
 
 const router = new VueRouter({routes})
 /* eslint-disable no-new */

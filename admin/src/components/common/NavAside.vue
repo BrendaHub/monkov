@@ -1,6 +1,6 @@
 <template lang="html">
   <aside class="sidebar">
-      <img src="../../assets/image/logo.png" alt="" class="sidebar-logo">
+      <!-- <img src="../../assets/image/logo.png" alt="" class="sidebar-logo"> -->
       <nav class="aside-nav">
           <ul class="aside-nav-list">
               <li class="aside-nav-item"><router-link class="aside-nav-button" to="/drafts"><i class="icon-wenzhang iconfont"></i></router-link></li>

@@ -1,6 +1,6 @@
 <template lang="html">
   <section :class="{'editor-active':!saved}">
-      <div :class="'title-active':!titleSaved">
+      <div :class="{'title-active':!titleSaved}">
           <input type="text" class="form-control big only-border-bottom" :value="draftTitle" @input="updateTitle">
       </div>
       <div class="clearfix">

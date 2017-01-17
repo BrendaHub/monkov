@@ -1,12 +1,17 @@
 export default[
   {
     path : '/drafts',
-    component : resolve => require(['components/draftList'], resolve)
+    component : resolve => require(['components/drafts'], resolve)
   }, {
     path : '/tags',
-    component : resolve => require(['components/TagList'], resolve)
-  }, {
-    path : '/categories',
-    component : resolve => require(['components/Categorylist'], resolve)
+    component : resolve => require(['components/Tags'], resolve)
+  },
+  //  {
+  //   path : '/categories',
+  //   component : resolve => require(['components/Categories'], resolve)
+  // },
+  {
+    path : '/login',
+    component : resolve => require(['components/login'], resolve)
   }
 ]

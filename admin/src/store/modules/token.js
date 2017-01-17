@@ -1,7 +1,7 @@
 import * as types from '../mutation-types'
 
 const getters = {
-  token = state => state.token
+  token: state => state.token
 }
 
 const state = {
