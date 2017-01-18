@@ -35,16 +35,11 @@ import {
   _debounce,
   trim
 } from 'src/utils'
-// const updateTitleWithDebounce = _debounce(title => {
-//   this.submitTitle(title).then(() => {
-//     this.saveTitle()
-//   }).catch(err => window.alert('Network Error'))
-// })
-const updateTitleWithDebounce = title => {
+const updateTitleWithDebounce = _debounce(title => {
   this.submitTitle(title).then(() => {
     this.saveTitle()
   }).catch(err => window.alert('Network Error'))
-}
+}, 500)
 let smde
 export default {
   data() {

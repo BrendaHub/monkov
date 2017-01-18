@@ -31,20 +31,21 @@ export default {
     this.fetchPostList()
   },
   methods: {
-    fetchPostList() {
-      api.getPostList({
-        page: this.currentPage,
-        limit: this.postLimit,
-        tag: this.$route.query.tag || '',
-        category: this.$route.query.category || ''
-      }).then(res => {
+    async fetchPostList() {
+      try {
+        const res = await api.getPostList({
+          page: this.currentPage,
+          limit: this.postLimit,
+          tag: this.$route.query.tag || '',
+          category: this.$route.query.category || ''
+        })
         if (res.success) {
           this.postList = res.data.postArr
           this.totalPage = Math.ceil(res.data.totalNumber / this.postLimit)
         }
-      }).catch(err => {
-        console.log(err)
-      })
+      } catch (e) {
+        console.log(e)
+      }
     },
     toPage(n) {
       this.$router.push({

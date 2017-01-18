@@ -1,61 +1,61 @@
 import service from './service.js'
 
 export default {
-  createToken(username, password) {
-    return service.post('tokens', {username, password})
+  async createToken(username, password) {
+    return await service.post('tokens', {username, password})
   },
-  getDraftList(tag) {
-    return service.get('drafts', {tag})
+  async getDraftList(tag) {
+    return await service.get('drafts', {tag})
   },
-  getDraft(title) {
-    return service.get(`drafts/${title}`)
+  async getDraft(title) {
+    return await service.get(`drafts/${title}`)
   },
-  modifyDraftContent(title, content) {
-    return service.patch(`drafts/${title}`, {content})
+  async modifyDraftContent(title, content) {
+    return await service.patch(`drafts/${title}`, {content})
   },
-  modifyDraftTitle(title, newTitle) {
-    return service.patch(`drafts/${title}`, {newTitle})
+  async modifyDraftTitle(title, newTitle) {
+    return await service.patch(`drafts/${title}`, {newTitle})
   },
-  modifyDraftTags(title, tags) {
-    return service.patch(`drafts/${title}`, {tags})
+  async modifyDraftTags(title, tags) {
+    return await service.patch(`drafts/${title}`, {tags})
   },
-  modifyDraftCategory(title, category) {
-    return service.patch(`drafts/${title}`, {category})
+  async modifyDraftCategory(title, category) {
+    return await service.patch(`drafts/${title}`, {category})
   },
-  createTag(name) {
-    return service.post('tags', {name})
+  async createTag(name) {
+    return await service.post('tags', {name})
   },
-  createCategory(name) {
-    return service.post('categories', {name})
+  async createCategory(name) {
+    return await service.post('categories', {name})
   },
-  createDraft(title) {
-    return service.post('drafts', {title})
+  async createDraft(title) {
+    return await service.post('drafts', {title})
   },
-  publish(title) {
-    return service.post('publication', {draftTitle: title})
+  async publish(title) {
+    return await service.post('publication', {draftTitle: title})
   },
-  deleteDraft(title) {
-    return service.delete(`drafts/${title}`)
+  async deleteDraft(title) {
+    return await service.delete(`drafts/${title}`)
   },
-  getAllTags() {
-    return service.get('tags')
+  async getAllTags() {
+    return await service.get('tags')
   },
-  modifyTag(name, newName) {
-    return service.patch(`tags/${name}`, {name: newName})
+  async modifyTag(name, newName) {
+    return await service.patch(`tags/${name}`, {name: newName})
   },
-  deleteTag(name) {
-    return service.delete(`tags/${name}`)
+  async deleteTag(name) {
+    return await service.delete(`tags/${name}`)
   },
-  getAllCategories() {
-    return service.get('categories')
+  async getAllCategories() {
+    return await service.get('categories')
   },
-  modifyCategory(name, newName) {
-    return service.patch(`categories/${name}`, {name: newName})
+  async modifyCategory(name, newName) {
+    return await service.patch(`categories/${name}`, {name: newName})
   },
-  deleteCatefory(name) {
-    return service.delete(`categories/${name}`)
+  async deleteCatefory(name) {
+    return await service.delete(`categories/${name}`)
   },
-  searchTagWithWord(keyword) {
-    return service.get('tags', {'start-with': keyword})
+  async searchTagWithWord(keyword) {
+    return await service.get('tags', {'start-with': keyword})
   }
 }

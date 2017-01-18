@@ -23,17 +23,16 @@ export default {
     }
   },
   methods: {
-    fetchRecentPost() {
-      api.getPostList({
-        page: 1,
-        limit: 5
-      }).then(res => {
-        if (res.success) {
-          this.rencentPost = res.data.postArr
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+    async fetchRecentPost() {
+      try {
+        const res = await api.getPostList({
+          page: 1,
+          limit: 5
+        })
+        if (res.success) this.rencentPost = res.data.postArr
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   created() {

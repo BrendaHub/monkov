@@ -1,16 +1,16 @@
 import service from './service.js'
 
 export default {
-  getPostList(params) {
-    return service.get('posts', params)
+  async getPostList(params) {
+    return await service.get('posts', params)
   },
-  getPost(title) {
-    return service.get(`posts/${title}`)
+  async getPost(title) {
+    return await service.get(`posts/${title}`)
   },
-  getAllTags() {
-    return service.get('tags')
+  async getAllTags() {
+    return await service.get('tags')
   },
-  getCategories(params) {
-    return service.get('categories', params)
+  async getCategories(params) {
+    return await service.get('categories', params)
   }
 }

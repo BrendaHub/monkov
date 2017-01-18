@@ -19,12 +19,13 @@ export default {
     PostContent
   },
   methods: {
-    fetchPostDetail() {
-      api.getPost(this.$route.params.title).then(res => {
+    async fetchPostDetail() {
+      try {
+        const res = await api.getPost(this.$route.params.title)
         if (res.success) this.post = res.data
-      }).catch(err => {
-        console.log(err)
-      })
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   created() {

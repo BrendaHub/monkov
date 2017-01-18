@@ -41,14 +41,13 @@ export default {
     this.fetCategory()
   },
   methods: {
-    fetCategory() {
-      api.getCategories().then(res => {
-        if (res.success) {
-          this.categories = res.data
-        }
-      }).catch(err => {
-        console.log(err)
-      })
+    async fetCategory() {
+      try {
+        const res = await api.getCategories()
+        if (res.success) this.categories = res.data
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

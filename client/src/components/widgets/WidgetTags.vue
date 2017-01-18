@@ -16,12 +16,13 @@ export default {
     }
   },
   methods: {
-    fetchTags() {
-      api.getAllTags().then(res => {
-        this.tags = res.data
-      }).catch(err => {
-        console.log(err)
-      })
+    async fetchTags() {
+      try {
+        const res = await api.getAllTags()
+        if (res.success) this.tags = res.data
+      } catch (e) {
+        console.log(e)
+      }
     }
   },
   created() {
