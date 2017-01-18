@@ -1,5 +1,6 @@
 import * as types from '../mutation-types'
-
+import api from 'src/api'
+import router from 'src/router'
 const getters = {
   token: state => state.token
 }
@@ -20,11 +21,16 @@ const mutations = {
 }
 
 const actions = {
-  createToken(store, username, password) {
-    //
+  async createToken(store, username, password) {
+    const res = await api.createToken(username, password)
+    if (res.success) {
+      store.commit(types.TOKEN_CREATE, res.data.token)
+      this.$router.replace('drafts')
+    }
   },
   deleteToken({dispatch}) {
-    //
+    store.dispatch(type.TOKEN_DELETE)
+    router.replace('login')
   }
 }
 

@@ -12,8 +12,8 @@
             </h3>
           </div>
           <div class="login-body">
-            <input type="text" class="form-control top" placeholder="username" v-model="username">
-            <input type="password" class="form-control bottom" placeholder="password" v-model="password" @keyup.13="login">
+            <input type="text" class="form-control top" placeholder="Username" v-model="username">
+            <input type="password" class="form-control bottom" placeholder="Password" v-model="password" @keyup.13="login">
           </div>
           <div class="login-footer">
             <div class="login-button-Container">
@@ -43,12 +43,14 @@ export default {
     }
   },
   methods: { ...mapActions(['createToken']),
-    login() {
-      this.createToken(this.username, md5(this.password).toUpperCase()).catch(err => {
-        console.log(err)
+    async login() {
+      try {
+        await this.createToken(this.username, md5(this.password).toUpperCase())
+      } catch (e) {
+        console.log(e)
         this.loginErr = true
-        this.loginErrMsg = err.error_message.error
-      })
+        this.loginErrMsg = e.error_message ? e.error_message.error : ''
+      }
     }
   }
 }

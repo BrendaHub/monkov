@@ -1,4 +1,5 @@
 import * as types from '../mutation-types'
+import api from 'src/api'
 const state = {
   all: [],
   currentId: null,
@@ -53,6 +54,11 @@ const mutations = {
       state.saved = false
     }
   },
+  [types.TITLE_SAVE](state) {
+    if (!state.titleSaved) {
+      state.titleSaved = true;
+    }
+  },
   [types.DELETE](state) {
     if (state.saved && state.titleSaved) {
       state.all.splice(state.currentIndex, 1)
@@ -97,22 +103,59 @@ const mutations = {
 }
 
 const actions = {
-  getAllDrafts(store, tags, category) {
-    //
+  async getAllDrafts(store, tags, category) {
+    const res = await api.getDraftList(tags)
+    if (res.success) {
+      store.commit(types.RECEIVE_ALL, res.data)
+      res.data.length && store.commit(types.FOCUS, 0)
+    }
   },
   focusOnDraft(store, index) {
-    //
+    store.commit(types.FOCUS, index)
   },
-  editDraft(store) {},
-  saveDraft(store) {},
-  editTitle(store) {},
-  saveTitle(store) {},
-  deleteDraft(store) {},
-  publish(store) {},
-  submitTitle(store, title) {},
-  submitExcerpt(store, excerpt, time) {},
-  createDraft(store) {},
-  modifyTags(store, time) {}
+  editDraft(store) {
+    store.commit(types.EDIT)
+  },
+  saveDraft(store) {
+    store.commit(types.SAVE)
+  },
+  editTitle(store) {
+    store.commit(types.TITLE_EDIT)
+  },
+  saveTitle(store) {
+    store.commit(types.TITLE_SAVE)
+  },
+  async deleteDraft(store) {
+    if (store.state.drafts.saved) {
+      const res = await api.deleteDraft(store.state.drafts.currentId)
+      res.success && store.commit(types.DELETE)
+    }
+  },
+  async publish(store) {
+    const res = await api.publish(store.state.drafts.currentId)
+    res.success && store.commit(types.PUBLISH, res.data.draft.id)
+  },
+  async submitTitle(store, title) {
+    const res = await api.modifyDraftTitle(store.state.drafts.currentId, title)
+    if (res.success) {
+      store.commit(types.TITLE_MODIFY, title)
+      store.commit(types.LAST_EDIT_TIME, res.data.lastEditTime)
+    }
+  },
+  submitExcerpt(store, excerpt, time) {
+    store.commit(types.EXCERPT_MODIFY, excerpt)
+    store.commit(types.LAST_EDIT_TIME, time)
+  },
+  async createDraft(store) {
+    const res = await api.createDraft('New Draft')
+    if (!res.success)
+      return Promise.reject()
+    store.commit(types.CREATE, res.data)
+  },
+  modifyTags(store, time) {
+    store.commit(types.TAG_MODIFY)
+    store.commit(types.LAST_EDIT_TIME, time)
+  }
 }
 
 export default {

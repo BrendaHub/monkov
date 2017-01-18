@@ -4,10 +4,7 @@ import Vue from 'vue'
 import Admin from './Admin'
 import store from 'src/store'
 import MessageBox from 'vue-msgbox'
-import VueRouter from 'vue-router'
-import routes from './routes'
-Vue.use(VueRouter)
-const router = new VueRouter({routes})
+import router from './router'
 /* eslint-disable no-new */
 window.alert = MessageBox
 
