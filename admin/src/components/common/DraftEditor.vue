@@ -31,14 +31,14 @@ import {
   mapGetters,
   mapActions
 } from 'vuex'
-import {
-  _debounce,
-  trim
-} from 'src/utils'
-const updateTitleWithDebounce = _debounce(title => {
-  this.submitTitle(title).then(() => {
+import utils from 'src/utils'
+const updateTitleWithDebounce = utils._debounce(async function(title) {
+  try {
+    await this.submitTitle(title)
     this.saveTitle()
-  }).catch(err => window.alert('Network Error'))
+  } catch (e) {
+    window.alert('Network error')
+  }
 }, 500)
 let smde
 export default {
@@ -52,23 +52,25 @@ export default {
       tagInput: false
     }
   },
-  ready() {
+  mounted() {
+    console.log('asdasd')
     smde = new SimpleMDE({
       autoDownloadFontAwesome: false,
       element: document.getElementById('editor'),
       previewRender: txt => md2html(txt),
       spellChecker: false
     })
-    let postDraft = _debounce(() => {
-      api.modifyDraftContent(this.currentId, smde.value()).then(res => {
+    const postDraft = utils._debounce(async function() {
+      try {
+        const res = await api.modifyDraftContent(this.currentId, smde.value())
         if (res.success) {
-          this.submitExcerpt(res.data.excerpt, res.data.lastEditTime)
+          await this.submitExcerpt(res.data.excerpt, res.data.lastEditTime)
           this.saveDraft()
-        } else {
-          return Promise.reject()
-        }
-      }).catch(err => window.alert('Network error, please try again'))
-    }, 2000)
+        } else return Promise.reject()
+      } catch (e) {
+        window.alert('Network error')
+      }
+    }, 1000)
     smde.codemirror.on('change', () => {
       if (this.change) {
         this.change = false
@@ -78,55 +80,53 @@ export default {
       postDraft()
     })
     this.change = true
-    this.currentId && api.getDraft(this.currentId).then(res => {
-      if (res.success) {
-        this.tagNew = ''
-        this.tagInput = false
-        this.tags = res.data.tags
-        this.$nextTick(() => {
-          smde.value(res.data.content)
-        })
-      }
-    }).catch(err => window.alert('Network error'))
+    this.currentId && this.fetchDraft(this.currentId)
   },
   computed: { ...mapGetters(['currentId', 'saved', 'titleSaved', 'title', 'postId'])
   },
   methods: { ...mapActions(['editDraft', 'saveDraft', 'editTitle', 'saveTitle', 'deleteDraft', 'publish', 'submitTitle', 'submitExcerpt', 'modifyTags']),
-    submitTag(val) {
+    async submitTag(val) {
       this.tagInput = false
-      const tag = typeof val === 'string' ? val : trim(this.tagNew)
+      const tag = typeof val === 'string' ? val : utils.trim(this.tagNew)
       this.tagNew = ''
-      tag && api.createTag(tag).then(res => {
-        const name = res.data.name
+      if (!tag) return
+      try {
+        const res1 = await api.createTag(tag)
+        const name = res1.data.name
         if (this.tags.some(item => item.name === name)) return
         let newTagsArr = this.tags.map(item => item.name)
         newTagsArr.push(name)
-        return api.modifyDraftTags(this.title, newTagsArr)
-      }).then(res => {
-        if (res.success) {
+        const res2 = await api.modifyDraftTags(this.title, newTagsArr)
+        if (res2.success) {
           this.tags = res.data.tags
           this.modifyTags(res.data.lastEditTime)
         }
-      }).catch(err => window.alert('Network error'))
+      } catch (e) {
+        window.alert('Network error')
+      }
     },
-    deleteTag(name) {
+    async deleteTag(name) {
       let newTagsArr = []
       this.tags.forEach(t => {
         t.name !== name && newTagsArr.push(name)
       })
-      api.modifyDraftTags(this.currentId, newTagsArr).then(res => {
+      try {
+        const res = await api.modifyDraftTags(this.currentId, newTagsArr)
         if (res.success) {
           this.tags = res.data.tags
           this.modifyTags(res.data.lastEditTime)
         }
-      }).catch(err => window.alert('Network error'))
+      } catch (e) {
+        window.alert('Network error')
+      }
     },
-    publish() {
+    async publish() {
       if (!this.saved || !this.titleSaved) {
         window.alert('Draft is saving, please try again')
         return
       }
-      this.publish().then(() => window.alert('Success!')).catch(err => window.alert(err.error_message && err.error_message.console.error()))
+      const res = await this.publish()
+      window.alert(res.success ? 'Success!' : 'Failed')
     },
     updateTitle(e) {
       this.editTitle
@@ -137,16 +137,13 @@ export default {
       this.tagNew = ''
       this.searchTags('')
     },
-    searchTags(val) {
-      api.searchTagWithWord(val).then(res => {
-        if (res.success) this.tagsToAdd = res.data
-      })
-    }
-  },
-  watch: {
-    currentId(val) {
-      this.change = true
-      val && api.getDraft(val).then(res => {
+    async searchTags(val) {
+      const res = await api.searchTagWithWord(val)
+      if (res.success) this.tagsToAdd = res.data
+    },
+    async fetchDraft(id) {
+      try {
+        const res = await api.getDraft(id)
         if (res.success) {
           this.tagNew = ''
           this.tagInput = false
@@ -155,10 +152,15 @@ export default {
             smde.value(res.data.content)
           })
         }
-      }).catch(err => {
-        console.log(err)
+      } catch (e) {
         window.alert('Network error')
-      })
+      }
+    }
+  },
+  watch: {
+    currentId(val) {
+      this.change = true
+      val && this.fetchDraft(val)
     },
     tagNew(val) {
       this.searchTags(val)

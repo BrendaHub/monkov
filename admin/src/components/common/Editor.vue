@@ -18,7 +18,7 @@ export default {
       markdown: content
     }
   },
-  ready() {
+  mounted() {
     smde = new SimpleMDE({
       initialValue: this.content,
       autoDownloadFontAwesome: false,

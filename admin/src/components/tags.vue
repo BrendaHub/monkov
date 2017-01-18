@@ -55,36 +55,38 @@ export default {
       tag.newName = tag.name
       tag.editing = true
     },
-    saveTag(tag) {
+    async saveTag(tag) {
       if (tag.name === tag.newName || !tag.newName) {
         tag.editing = false
         return
-      } else {
-        api.modifyTag(tag.name, tag.newName).then(res => {
-          if (res.success) {
-            tag.name = tag.newName
-            tag.editing = false
-          } else window.alert('Tag duplicated')
-        }).catch(err => window.alert('Network error'))
+      }
+      try {
+        const res = await api.modifyTag(tag.name, tag.newName)
+        if (res.success) {
+          tag.name = tag.newName
+          tag.editing = false
+        } else window.alert('Tag duplicated')
+      } catch (e) {
+        window.alert('Network error')
       }
     },
-    deleteTag(tag) {
-      api.deleteTag(tag.name).then(res => {
-        if (res.success) {
-          if (this.tagActive === tag) {
-            this.getDraftList()
-            this.tagActive = null
-          }
-          this.tags.$remove(tag)
+    async deleteTag(tag) {
+      const res = await api.deleteTag(tag.name)
+      if (res.success) {
+        if (this.tagActive === tag) {
+          this.getDraftList()
+          this.tagActive = null
         }
-      })
+        this.tags.splice(this.tags.indexOf(tag), 1)
+      }
     },
     blurTag() {
       this.tagActive = null
       this.getDraftList()
     },
-    fetchAllTags() {
-      api.getAllTags().then(res => {
+    async fetchAllTags() {
+      try {
+        const res = await api.getAllTags()
         if (res.success) {
           res.data.forEach(i => {
             i.newName = ''
@@ -93,7 +95,9 @@ export default {
           this.tags = res.data
           this.getDraftList()
         }
-      })
+      } catch (e) {
+        window.alert('Network error')
+      }
     },
     ...mapActions(['getDraftList'])
   },
