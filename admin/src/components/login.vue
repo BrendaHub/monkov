@@ -45,7 +45,10 @@ export default {
   methods: { ...mapActions(['createToken']),
     async login() {
       try {
-        await this.createToken(this.username, md5(this.password).toUpperCase())
+        await this.createToken({
+          username: this.username,
+          password: md5(this.password).toUpperCase()
+        })
       } catch (e) {
         console.log(e)
         this.loginErr = true

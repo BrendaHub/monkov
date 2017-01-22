@@ -21,11 +21,11 @@ const mutations = {
 }
 
 const actions = {
-  async createToken(store, username, password) {
+  async createToken(store, {username, password}) {
     const res = await api.createToken(username, password)
     if (res.success) {
       store.commit(types.TOKEN_CREATE, res.data.token)
-      this.$router.replace('drafts')
+      router.replace('drafts')
     }
   },
   deleteToken({dispatch}) {

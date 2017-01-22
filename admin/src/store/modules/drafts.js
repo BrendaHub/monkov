@@ -103,7 +103,7 @@ const mutations = {
 }
 
 const actions = {
-  async getAllDrafts(store, tags, category) {
+  async getAllDrafts(store, {tags, category}) {
     const res = await api.getDraftList(tags)
     if (res.success) {
       store.commit(types.RECEIVE_ALL, res.data)
@@ -142,7 +142,7 @@ const actions = {
       store.commit(types.LAST_EDIT_TIME, res.data.lastEditTime)
     }
   },
-  submitExcerpt(store, excerpt, time) {
+  submitExcerpt(store, {excerpt, time}) {
     store.commit(types.EXCERPT_MODIFY, excerpt)
     store.commit(types.LAST_EDIT_TIME, time)
   },

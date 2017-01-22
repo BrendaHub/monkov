@@ -5,7 +5,7 @@
       <h3 class="page-title">
         <i class="icon-wenzhang iconfont"></i>
         Draft List
-        <i class="iconfont icon-jiahao draft-add" @click="newDraft"></i>
+        <i class="iconfont icon-jiahao draft-add" @click="newDraft">+</i>
       </h3>
       <draft-list></draft-list>
     </section>
@@ -32,14 +32,14 @@ export default {
   },
   computed: { ...mapGetters(['saved', 'titleSaved', 'currentId'])
   },
-  methods: { ...mapActions(['getDraftList', 'createDraft']),
+  methods: { ...mapActions(['getAllDrafts', 'createDraft']),
     newDraft() {
       if (this.saved && this.titleSaved) this.createDraft()
       else window.alert('Current draft is saving, please try again')
     }
   },
   watch: {
-    '$route': 'getDraftList'
+    '$route': 'getAllDrafts'
   }
 }
 </script>

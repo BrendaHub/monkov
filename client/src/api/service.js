@@ -20,16 +20,16 @@ export default {
 
     let reqHeaders = new Headers()
     reqHeaders.append('Accept', 'application/json');
-    var query = []
+    let query = []
     Object.keys(param).forEach((item) => {
       query.push(`${item}=${encodeURIComponent(param[item])}`)
     })
-    var params = query.length
+    let params = query.length
       ? '?' + query.join('&')
       : '' // fixme
     url = host + url + params
     console.log(host, params)
-    var init = {
+    let init = {
       method: 'GET',
       headers: reqHeaders,
       credentials: "include",
@@ -42,10 +42,9 @@ export default {
     let reqHeaders = new Headers()
     reqHeaders.append('Content-Type', 'application/json')
     reqHeaders.append('Accept', 'application/json')
-
     url = host + url
 
-    var init = {
+    let init = {
       method: 'PATCH',
       headers: reqHeaders,
       credentials: "include",
@@ -59,9 +58,8 @@ export default {
     let reqHeaders = new Headers()
     reqHeaders.append('Content-Type', 'application/json')
     reqHeaders.append('Accept', 'application/json')
-
     url = host + url
-    var init = {
+    let init = {
       method: 'POST',
       headers: reqHeaders,
       credentials: "include",
@@ -75,10 +73,9 @@ export default {
     let reqHeaders = new Headers()
     reqHeaders.append('Content-Type', 'application/json')
     reqHeaders.append('Accept', 'application/json')
-
     url = host + url
 
-    var init = {
+    let init = {
       method: 'PUT',
       headers: reqHeaders,
       credentials: "include",
@@ -92,10 +89,9 @@ export default {
     let reqHeaders = new Headers()
     reqHeaders.append('Content-Type', 'application/json')
     reqHeaders.append('Accept', 'application/json')
-
     url = host + url
 
-    var init = {
+    let init = {
       method: 'DELETE',
       credentials: "include",
       headers: reqHeaders,

@@ -4,8 +4,8 @@ export default {
   async createToken(username, password) {
     return await service.post('tokens', {username, password})
   },
-  async getDraftList(tag) {
-    return await service.get('drafts', {tag})
+  async getDraftList(tags) {
+    return await service.get('drafts', {tags})
   },
   async getDraft(title) {
     return await service.get(`drafts/${title}`)

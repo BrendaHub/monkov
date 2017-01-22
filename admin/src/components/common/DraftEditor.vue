@@ -64,7 +64,10 @@ export default {
       try {
         const res = await api.modifyDraftContent(this.currentId, smde.value())
         if (res.success) {
-          await this.submitExcerpt(res.data.excerpt, res.data.lastEditTime)
+          await this.submitExcerpt({
+            excerpt: res.data.excerpt,
+            time: res.data.lastEditTime
+          })
           this.saveDraft()
         } else return Promise.reject()
       } catch (e) {

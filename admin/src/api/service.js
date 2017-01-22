@@ -2,9 +2,7 @@ import store from '../store'
 const apihost = 'http://localhost:3000/'
 
 function parseResponse(response) {
-  return Promise.all([
-    response.status, response.statusText, response.json()
-  ])
+  return Promise.all([response.status, response.statusText, response.json()])
 }
 
 function checkStatus([status, statusText, data]) {
@@ -30,27 +28,23 @@ export default {
     let reqHeaders = new Headers()
     reqHeaders.append('Accept', 'application/json');
     store.state.token.token && reqHeaders.append('Authorization', 'Bearer ' + store.state.token.token)
-    var query = []
-    Object
-      .keys(param)
-      .forEach((item) => {
-        query.push(`${item}=${encodeURIComponent(param[item])}`)
-      })
-    var params = query.length
+    let query = []
+    Object.keys(param).forEach((item) => {
+      query.push(`${item}=${encodeURIComponent(param[item])}`)
+    })
+    let params = query.length
       ? '?' + query.join('&')
       : '' // fixme
     url = host + url + params
     console.log(host, params)
-    var init = {
+    let init = {
       method: 'GET',
       headers: reqHeaders,
       credentials: "include",
       cache: 'default',
       mode: 'cors'
     }
-    return fetch(url, init)
-      .then(parseResponse)
-      .then(checkStatus)
+    return fetch(url, init).then(parseResponse).then(checkStatus)
   },
   patch(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
@@ -59,7 +53,7 @@ export default {
     store.state.token.token && reqHeaders.append('Authorization', 'Bearer ' + store.state.token.token)
     url = host + url
 
-    var init = {
+    let init = {
       method: 'PATCH',
       headers: reqHeaders,
       credentials: "include",
@@ -67,9 +61,7 @@ export default {
       body: JSON.stringify(param)
     }
 
-    return fetch(url, init)
-      .then(parseResponse)
-      .then(checkStatus)
+    return fetch(url, init).then(parseResponse).then(checkStatus)
   },
   post(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
@@ -77,17 +69,14 @@ export default {
     reqHeaders.append('Accept', 'application/json')
     store.state.token.token && reqHeaders.append('Authorization', 'Bearer ' + store.state.token.token)
     url = host + url
-    var init = {
+    let init = {
       method: 'POST',
       headers: reqHeaders,
       credentials: "include",
       mode: 'cors',
       body: JSON.stringify(param)
     }
-
-    return fetch(url, init)
-      .then(parseResponse)
-      .then(checkStatus)
+    return fetch(url, init).then(parseResponse).then(checkStatus)
   },
   put(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
@@ -96,7 +85,7 @@ export default {
     store.state.token.token && reqHeaders.append('Authorization', 'Bearer ' + store.state.token.token)
     url = host + url
 
-    var init = {
+    let init = {
       method: 'PUT',
       headers: reqHeaders,
       credentials: "include",
@@ -104,9 +93,7 @@ export default {
       body: JSON.stringify(param)
     }
 
-    return fetch(url, init)
-      .then(parseResponse)
-      .then(checkStatus)
+    return fetch(url, init).then(parseResponse).then(checkStatus)
   },
   delete(url, param = {}, headers = {}, host = apihost) {
     let reqHeaders = new Headers()
@@ -115,16 +102,14 @@ export default {
     store.state.token.token && reqHeaders.append('Authorization', 'Bearer ' + store.state.token.token)
     url = host + url
 
-    var init = {
+    let init = {
       method: 'DELETE',
       credentials: "include",
       headers: reqHeaders,
       mode: 'cors'
     }
 
-    return fetch(url, init)
-      .then(parseResponse)
-      .then(checkStatus)
+    return fetch(url, init).then(parseResponse).then(checkStatus)
   }
 
 }

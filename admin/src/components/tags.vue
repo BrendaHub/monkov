@@ -49,7 +49,9 @@ export default {
   method: {
     searchTag(tag) {
       this.tagActive = tag
-      this.getDraftList(tag.name) //or tag
+      this.getAllDrafts({
+        tags: tag.name
+      }) //or tag
     },
     modifyTag(tag) {
       tag.newName = tag.name
@@ -74,7 +76,7 @@ export default {
       const res = await api.deleteTag(tag.name)
       if (res.success) {
         if (this.tagActive === tag) {
-          this.getDraftList()
+          this.getAllDrafts()
           this.tagActive = null
         }
         this.tags.splice(this.tags.indexOf(tag), 1)
@@ -82,7 +84,7 @@ export default {
     },
     blurTag() {
       this.tagActive = null
-      this.getDraftList()
+      this.getAllDrafts()
     },
     async fetchAllTags() {
       try {
@@ -93,13 +95,13 @@ export default {
             i.editing = false
           })
           this.tags = res.data
-          this.getDraftList()
+          this.getAllDrafts()
         }
       } catch (e) {
         window.alert('Network error')
       }
     },
-    ...mapActions(['getDraftList'])
+    ...mapActions(['getAllDrafts'])
   },
   watch: {
     '$route': 'fetchAllTags'
