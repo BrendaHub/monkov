@@ -40,6 +40,9 @@ export default {
   },
   watch: {
     '$route': 'getAllDrafts'
+  },
+  mounted() {
+    this.getAllDrafts()
   }
 }
 </script>

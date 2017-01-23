@@ -1,7 +1,7 @@
 <template lang="html">
   <section :class="{'editor-active':!saved}">
       <div :class="{'title-active':!titleSaved}">
-          <input type="text" class="form-control big only-border-bottom" :value="draftTitle" @input="updateTitle">
+          <input type="text" class="form-control big only-border-bottom" :value="title" @input="updateTitle">
       </div>
       <div class="clearfix">
           <div class="half-container">
@@ -16,7 +16,7 @@
           </div>
           <div class="half-container">
               <button type="button" class="btn btn-save r" @click="publish">PUBLISH</button>
-              <button type="button" class="btn btn-border r" v-show="PostId === null" @click="deleteDraft">DELETE</button>
+              <button type="button" class="btn btn-border r" v-show="postId === null" @click="deleteDraft">DELETE</button>
           </div>
       </div>
       <textarea id="editor" style="opacity: 0"></textarea>
@@ -53,7 +53,6 @@ export default {
     }
   },
   mounted() {
-    console.log('asdasd')
     smde = new SimpleMDE({
       autoDownloadFontAwesome: false,
       element: document.getElementById('editor'),

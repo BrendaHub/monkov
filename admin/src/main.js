@@ -6,7 +6,7 @@ import store from 'src/store'
 import MessageBox from 'vue-msgbox'
 import router from './router'
 /* eslint-disable no-new */
-window.alert = MessageBox
+// window.alert = MessageBox
 
 new Vue({
   el: '#app',

@@ -22,7 +22,7 @@ const getters = {
 
 const mutations = {
   [types.RECEIVE_ALL](state, list) {
-    if (state.save && state.titleSaved) {
+    if (state.saved && state.titleSaved) {
       state.all = list
       if (list.length == 0) {
         state.currentId = null
@@ -103,8 +103,12 @@ const mutations = {
 }
 
 const actions = {
-  async getAllDrafts(store, {tags, category}) {
-    const res = await api.getDraftList(tags)
+  async getAllDrafts(store, query) {
+    if (query) {
+      const {tags, category} = query
+    }
+    //fix me
+    const res = await api.getDraftList()
     if (res.success) {
       store.commit(types.RECEIVE_ALL, res.data)
       res.data.length && store.commit(types.FOCUS, 0)

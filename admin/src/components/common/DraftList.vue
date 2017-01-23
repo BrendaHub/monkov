@@ -16,6 +16,7 @@ import {
   mapGetters,
   mapActions
 } from 'vuex'
+import markdownDirective from 'src/directives/markdown'
 export default {
   computed: { ...mapGetters(['currentId', 'currentIndex', 'saved', 'all', 'titleSaved'])
   },
@@ -29,6 +30,9 @@ export default {
       }
     },
     ...mapActions(['focusOnDraft'])
+  },
+  directives: {
+    md: markdownDirective
   }
 }
 </script>
