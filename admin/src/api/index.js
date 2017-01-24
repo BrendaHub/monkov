@@ -32,7 +32,7 @@ export default {
     return await service.post('drafts', {title})
   },
   async publish(id) {
-    return await service.post('publication', {draftTitle: id})
+    return await service.post('publication', {id})
   },
   async deleteDraft(id) {
     return await service.delete(`drafts/${id}`)

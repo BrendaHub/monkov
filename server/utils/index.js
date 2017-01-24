@@ -2,7 +2,7 @@ import logger from 'mini-logger'
 import config from '../config'
 import debug from 'debug'
 
-Date.prototype.format = function (fmt) {
+Date.prototype.format = function(fmt) {
   let o = {
     'M+': this.getMonth() + 1,
     'd+': this.getDate(),
@@ -26,10 +26,8 @@ let _logger = logger({dir: config.dir.log, format: 'YYYY-MM-DD-[{category}][.log
 export default {
   logger : _logger,
   debug,
-  internalErrHandler : function (err) {
+  internalErrHandler : function(err) {
     _logger.error(err)
-    this.ctx && this
-      .ctx
-      .throw(500, 'internal error')
-  }
+    ctx && ctx.throw(500, 'internal error')
+  } //fix me
 }

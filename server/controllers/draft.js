@@ -100,7 +100,7 @@ let deleteDraft = async(ctx, next) => {
   const draft = await Draft.findById(id).select('post').exec().catch(utils.internalErrHandler);
   !draft && ctx.throw(400, 'draft not exist')
   draft.post && ctx.throw(403, 'draft already published')
-  const result = await Draft.remove({title}).exec().catch(utils.internalErrHandler);
+  const result = await Draft.remove({id}).exec().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true

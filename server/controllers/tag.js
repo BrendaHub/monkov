@@ -5,19 +5,11 @@ import utils from '../utils'
 import mw from '../middlewares'
 
 export default router => {
-  router
-    .post('/tags', create)
-    .get('/tags', tagList)
-    .patch('/tags/:id', modify)
-    .delete('/tags/:id', deleteTag)
+  router.post('/tags', create).get('/tags', tagList).patch('/tags/:id', modify).delete('/tags/:id', deleteTag)
 }
 
 let tagList = async(ctx, next) => {
-  const taglist = await Tag
-    .find()
-    .select('name')
-    .exec()
-    .catch(utils.internalErrHandler);
+  const taglist = await Tag.find().select('name').exec().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -28,33 +20,30 @@ let tagList = async(ctx, next) => {
 
 let create = async(ctx, next) => {
   const tagName = ctx.request.body.name
-  if (!~~ tagName) {
+  if (!tagName || !tagName.length) {
     ctx.throw(400, 'tag name expected')
   }
-  const tag = await Tag
-    .findOne({name: tagName})
-    .exec()
-    .catch(utils.internalErrHandler);
+  const tag = await Tag.findOne({name: tagName}).exec().catch(utils.internalErrHandler);
   if (tag) {
     ctx.status = 200
     ctx.body = {
       success: true,
       data: {
-        id: tag._id
+        id: tag._id,
+        name: tag.name
       }
     }
     return await next()
   }
 
   const newTag = new Tag({name: tagName})
-  const result = await newTag
-    .save()
-    .catch(utils.internalErrHandler);
+  const result = await newTag.save().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true,
     data: {
-      id: result._id
+      id: result._id,
+      name: result.name
     }
   }
   await next()
@@ -63,20 +52,15 @@ let create = async(ctx, next) => {
 let modify = async(ctx, next) => {
   const tagName = ctx.request.body.name
   const tagId = ctx.params.id
-  const tag = await Tag
-    .findOne({name: tagName})
-    .exec()
-    .catch(utils.internalErrHandler);
+  const tag = await Tag.findOne({name: tagName}).exec().catch(utils.internalErrHandler);
   if (!tag) {
     await Tag.update({
       _id: tagId
     }, {
-        $set: {
-          name: tagName
-        }
-      })
-      .exec()
-      .catch(utils.internalErrHandler);
+      $set: {
+        name: tagName
+      }
+    }).exec().catch(utils.internalErrHandler);
     ctx.status = 200
     ctx.body = {
       success: true
@@ -95,10 +79,7 @@ let modify = async(ctx, next) => {
 
 let deleteTag = async(ctx, next) => {
   const name = ctx.params.name
-  const tag = await Tag
-    .findOne({name})
-    .exec()
-    .catch(utils.internalErrHandler);
+  const tag = await Tag.findOne({name}).exec().catch(utils.internalErrHandler);
   await Promise.all([
     Draft.update({}, {
       $pull: {
@@ -110,9 +91,7 @@ let deleteTag = async(ctx, next) => {
         tags: tag.id
       }
     }).exec(),
-    Tag
-      .remove({_id: tag.id})
-      .exec()
+    Tag.remove({_id: tag.id}).exec()
   ]).catch(utils.internalErrHandler);
   await next()
 }

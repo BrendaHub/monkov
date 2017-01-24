@@ -109,7 +109,9 @@ const actions = {
     }
     //fix me
     const res = await api.getDraftList()
-    if (res.success) {
+    if (!res.success)
+      return Promise.reject()
+    else {
       store.commit(types.RECEIVE_ALL, res.data)
       res.data.length && store.commit(types.FOCUS, 0)
     }
@@ -133,17 +135,29 @@ const actions = {
     if (store.state.saved) {
       const res = await api.deleteDraft(store.state.currentId)
       res.success && store.commit(types.DELETE)
+      if (!res.success)
+        return Promise.reject()
+      else
+        return res
     }
   },
   async publish(store) {
     const res = await api.publish(store.state.currentId)
-    res.success && store.commit(types.PUBLISH, res.data.draft.id)
+    console.log(res)
+    res.success && store.commit(types.PUBLISH, res.data.id)
+    if (!res.success)
+      return Promise.reject()
+    else
+      return res
   },
   async submitTitle(store, title) {
     const res = await api.modifyDraftTitle(store.state.currentId, title)
-    if (res.success) {
+    if (!res.success)
+      return Promise.reject()
+    else {
       store.commit(types.TITLE_MODIFY, title)
       store.commit(types.LAST_EDIT_TIME, res.data.lastEditTime)
+      return res
     }
   },
   submitExcerpt(store, {excerpt, time}) {
@@ -155,6 +169,7 @@ const actions = {
     if (!res.success)
       return Promise.reject()
     store.commit(types.CREATE, res.data)
+    return res
   },
   modifyTags(store, time) {
     store.commit(types.TAG_MODIFY)

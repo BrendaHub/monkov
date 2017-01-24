@@ -6,7 +6,7 @@
       <div class="clearfix">
           <div class="half-container">
               <i class="icon-biaoqian iconfont" style="margin-right:5px"></i>
-              <span class="tag" v-for="tag in tags">{{tag['name']}} <i class="icon-chacha iconfont delete-tag" @click="deleteTag(tag.id)"></i></span>
+              <span class="tag" v-for="tag in tags">{{tag.name}} <i class="icon-chacha iconfont delete-tag" @click="deleteTag(tag.id)"></i></span>
               <div class="tag active">
                   <span v-show="!tagInput" @click="addTag()" >+</span> <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
                   <ul class="search-list reset-list" v-if="tagInput" v-show="tagsToAdd.length">
@@ -15,7 +15,7 @@
               </div>
           </div>
           <div class="half-container">
-              <button type="button" class="btn btn-save r" @click="publish">PUBLISH</button>
+              <button type="button" class="btn btn-save r" @click="publishDraft">PUBLISH</button>
               <button type="button" class="btn btn-border r" v-show="!postId" @click="deleteDraft">DELETE</button>
           </div>
       </div>
@@ -80,17 +80,19 @@ export default {
       if (!tag) return
       try {
         const res1 = await api.createTag(tag)
-        const name = res1.data.name
-        if (this.tags.some(item => item.name === name)) return
-        let newTagsArr = this.tags.map(item => item.name)
-        newTagsArr.push(name)
-        const res2 = await api.modifyDraftTags(this.title, newTagsArr)
-        if (res2.success) {
-          this.tags = res.data.tags
-          this.modifyTags(res.data.lastEditTime)
+        if (res1.success) {
+          if (this.tags.some(item => item === res1.data.name)) return
+          let newTagsArr = this.tags.concat()
+          newTagsArr.push(res1.data.id)
+          const res2 = await api.modifyDraftTags(this.currentId, newTagsArr)
+          if (res2.success) {
+            console.log(res2)
+            this.tags = res2.data.tags
+            this.modifyTags(res2.data.lastEditTime)
+          }
         }
       } catch (e) {
-        window.alert('e')
+        window.alert(e)
       }
     },
     async deleteTag(name) {
@@ -108,7 +110,7 @@ export default {
         window.alert('e')
       }
     },
-    async publish() {
+    async publishDraft() {
       if (!this.saved || !this.titleSaved) {
         window.alert('Draft is saving, please try again')
         return
@@ -185,9 +187,9 @@ export default {
     border-bottom 1px solid $border
     width:94%
   .half-container
-    float left
+    /*float left*/
     box-sizing border-box
-    width 50%
+    width 100%
     padding 15px
     .btn+.btn
       margin-right 20px

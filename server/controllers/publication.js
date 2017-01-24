@@ -6,11 +6,8 @@ import Post from '../models/post.js'
 export default router => router.post('/publication', mw.verifyToken, publish)
 
 let publish = async(ctx, next) => {
-  const draftTitle = ctx.request.body.title
-  const draft = await Draft
-    .findOne({title: draftTitle})
-    .exec()
-    .catch(utils.internalErrHandler);
+  const id = ctx.request.body.id
+  const draft = await Draft.findById(id).exec().catch(utils.internalErrHandler);
   if (!draft.title.length || !draft.excerpt.length || !draft.content.length) {
     ctx.throw(400, 'title, excerpt and content required')
   }
@@ -21,29 +18,21 @@ let publish = async(ctx, next) => {
   delete postObj.id
   delete postObj.published
   delete postObj.post
-  draft
-    .save()
-    .exec()
-    .catch(utils.internalErrHandler);
   let post
   if (draft.post) {
     delete postObj.createTime
     post = await Post.findByIdAndUpdate(draft.post, {
       $set: postObj
-    }, {new: true})
-      .populate('tags category')
-      .exec()
-      .catch(utils.internalErrHandler)
+    }, {new: true}).populate('tags category').exec().catch(utils.internalErrHandler)
   } else {
     postObj.createTime = postObj.lastEditTime
     delete postObj.lastEditTime
     postObj.visit = 0
     postObj.comments = []
-    post = await new Post(postObj)
-      .save()
-      .exec()
-      .catch(utils.internalErrHandler);
+    post = await new Post(postObj).save().catch(utils.internalErrHandler);
+    draft.post = post.id
   }
+  draft.save().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true,

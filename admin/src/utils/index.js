@@ -21,6 +21,6 @@ export default {
     }
   },
   trim(str) {
-    return str.replaceAll(/(^\s*)|(\s*$)/g, '')
+    return str.replace(/(^\s*)|(\s*$)/g, '')
   }
 }
