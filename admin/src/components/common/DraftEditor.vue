@@ -16,7 +16,7 @@
           </div>
           <div class="half-container">
               <button type="button" class="btn btn-save r" @click="publish">PUBLISH</button>
-              <button type="button" class="btn btn-border r" v-show="postId === null" @click="deleteDraft">DELETE</button>
+              <button type="button" class="btn btn-border r" v-show="!postId" @click="deleteDraft">DELETE</button>
           </div>
       </div>
       <textarea id="editor" style="opacity: 0"></textarea>
@@ -37,7 +37,7 @@ const updateTitleWithDebounce = utils._debounce(async function(title) {
     await this.submitTitle(title)
     this.saveTitle()
   } catch (e) {
-    window.alert('Network error')
+    window.alert(e)
   }
 }, 500)
 let smde
@@ -59,27 +59,13 @@ export default {
       previewRender: txt => md2html(txt),
       spellChecker: false
     })
-    const postDraft = utils._debounce(async function() {
-      try {
-        const res = await api.modifyDraftContent(this.currentId, smde.value())
-        if (res.success) {
-          await this.submitExcerpt({
-            excerpt: res.data.excerpt,
-            time: res.data.lastEditTime
-          })
-          this.saveDraft()
-        } else return Promise.reject()
-      } catch (e) {
-        window.alert('Network error')
-      }
-    }, 1000)
     smde.codemirror.on('change', () => {
       if (this.change) {
         this.change = false
         return
       }
       this.saved && this.editDraft()
-      postDraft()
+      this.postDraft()
     })
     this.change = true
     this.currentId && this.fetchDraft(this.currentId)
@@ -104,7 +90,7 @@ export default {
           this.modifyTags(res.data.lastEditTime)
         }
       } catch (e) {
-        window.alert('Network error')
+        window.alert('e')
       }
     },
     async deleteTag(name) {
@@ -119,7 +105,7 @@ export default {
           this.modifyTags(res.data.lastEditTime)
         }
       } catch (e) {
-        window.alert('Network error')
+        window.alert('e')
       }
     },
     async publish() {
@@ -155,9 +141,23 @@ export default {
           })
         }
       } catch (e) {
-        window.alert('Network error')
+        window.alert(e)
       }
-    }
+    },
+    postDraft: utils._debounce(async function() {
+      try {
+        const res = await api.modifyDraftContent(this.currentId, smde.value())
+        if (res.success) {
+          await this.submitExcerpt({
+            excerpt: res.data.excerpt,
+            time: res.data.lastEditTime
+          })
+          this.saveDraft()
+        } else return Promise.reject()
+      } catch (e) {
+        window.alert(e)
+      }
+    }, 1000)
   },
   watch: {
     currentId(val) {
@@ -183,6 +183,7 @@ export default {
   .only-border-bottom
     border 1px solid transparent
     border-bottom 1px solid $border
+    width:94%
   .half-container
     float left
     box-sizing border-box

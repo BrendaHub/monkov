@@ -85,7 +85,7 @@ const mutations = {
     state.all[state.currentIndex].title = title
   },
   [types.EXCERPT_MODIFY](state, excerpt) {
-    sate.all[state.currentIndex].excerpt = excerpt
+    state.all[state.currentIndex].excerpt = excerpt
   },
   [types.TAG_MODIFY](state) {
     state.all[state.currentIndex].published = false
@@ -130,17 +130,17 @@ const actions = {
     store.commit(types.TITLE_SAVE)
   },
   async deleteDraft(store) {
-    if (store.state.drafts.saved) {
-      const res = await api.deleteDraft(store.state.drafts.currentId)
+    if (store.state.saved) {
+      const res = await api.deleteDraft(store.state.currentId)
       res.success && store.commit(types.DELETE)
     }
   },
   async publish(store) {
-    const res = await api.publish(store.state.drafts.currentId)
+    const res = await api.publish(store.state.currentId)
     res.success && store.commit(types.PUBLISH, res.data.draft.id)
   },
   async submitTitle(store, title) {
-    const res = await api.modifyDraftTitle(store.state.drafts.currentId, title)
+    const res = await api.modifyDraftTitle(store.state.currentId, title)
     if (res.success) {
       store.commit(types.TITLE_MODIFY, title)
       store.commit(types.LAST_EDIT_TIME, res.data.lastEditTime)

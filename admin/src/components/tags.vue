@@ -69,7 +69,7 @@ export default {
           tag.editing = false
         } else window.alert('Tag duplicated')
       } catch (e) {
-        window.alert('Network error')
+        window.alert('e')
       }
     },
     async deleteTag(tag) {
@@ -98,7 +98,7 @@ export default {
           this.getAllDrafts()
         }
       } catch (e) {
-        window.alert('Network error')
+        window.alert('e')
       }
     },
     ...mapActions(['getAllDrafts'])

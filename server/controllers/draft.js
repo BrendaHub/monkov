@@ -5,12 +5,7 @@ import Tag from '../models/tag.js'
 import Category from '../models/category.js'
 
 export default router => {
-  router
-    .post('/drafts', mw.verifyToken, create)
-    .patch('/drafts/:title', mw.verifyToken, modify)
-    .get('/drafts', mw.verifyToken, draftList)
-    .get('/drafts/:title', mw.verifyToken, draftDetail)
-    .delete('/drafts/:title', mw.verifyToken, deleteDraft)
+  router.post('/drafts', mw.verifyToken, create).patch('/drafts/:id', mw.verifyToken, modify).get('/drafts', mw.verifyToken, draftList).get('/drafts/:id', mw.verifyToken, draftDetail).delete('/drafts/:id', mw.verifyToken, deleteDraft)
 }
 
 let create = async(ctx, next) => {
@@ -31,9 +26,7 @@ let create = async(ctx, next) => {
     post,
     published
   })
-  const result = await draft
-    .save()
-    .catch(utils.internalErrHandler);
+  const result = await draft.save().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -47,10 +40,7 @@ let draftList = async(ctx, next) => {
   const category = ctx.query.category
   let findOpt = {}
   if (tag) {
-    let tagId = await Tag
-      .findOne({name: tag})
-      .exec()
-      .catch(utils.internalErrHandler);
+    let tagId = await Tag.findOne({name: tag}).exec().catch(utils.internalErrHandler);
     tagId = tagId.id
     Object.assign(findOpt, {
       tags: {
@@ -59,20 +49,11 @@ let draftList = async(ctx, next) => {
     })
   }
   if (category) {
-    let catId = await Category
-      .findOne({name: category})
-      .exec()
-      .catch(utils.internalErrHandler());
+    let catId = await Category.findOne({name: category}).exec().catch(utils.internalErrHandler());
     catId = catId.id
     Object.assign(findOpt, {category: catId})
   }
-  const draftArr = await Draft
-    .find(findOpt)
-    .populate('tags category')
-    .select('title tags category createTime lastEditTime excerpt post published')
-    .sort({lastEditTime: -1})
-    .exec()
-    .catch(utils.internalErrHandler);
+  const draftArr = await Draft.find(findOpt).populate('tags category').select('title tags category createTime lastEditTime excerpt post published').sort({lastEditTime: -1}).exec().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -82,42 +63,30 @@ let draftList = async(ctx, next) => {
 }
 
 let draftDetail = async(ctx, next) => {
-  const title = ctx.params.title
-  let draft = await Draft
-    .findOne({title})
-    .populate('tags category')
-    .select('title tags category createTime lastEditTime excerpt article draftPublished content')
-    .exec()
-    .catch(utils.internalErrHandler);
+  const id = ctx.params.id
+  let draft = await Draft.findById(id).populate('tags category').select('title tags category createTime lastEditTime excerpt article draftPublished content').exec().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true,
-    body: draft
+    data: draft
   }
   await next()
 }
 
 let modify = async(ctx, next) => {
-  const title = ctx.params.title
+  const id = ctx.params.id
   const modifyOpt = ctx.request.body
   if (modifyOpt.content) {
-    const contentArr = modifyOpt
-      .content
-      .split('<!-- more -->')
+    const contentArr = modifyOpt.content.split('<!-- more -->')
     modifyOpt.excerpt = contentArr.length > 1
       ? contentArr[0]
       : ''
   }
   modifyOpt.lastEditTime = new Date()
   modifyOpt.published = false
-  let result = await Draft.findAndUpdate({
-    title
-  }, {
+  let result = await Draft.findByIdAndUpdate(id, {
     $set: modifyOpt
-  }, {new: true})
-    .populate('tags category')
-    .exec()
-    .catch(utils.internalErrHandler);
+  }, {new: true}).populate('tags category').exec().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -127,18 +96,11 @@ let modify = async(ctx, next) => {
 }
 
 let deleteDraft = async(ctx, next) => {
-  const title = ctx.params.title
-  const draft = await Draft
-    .findOne({title})
-    .select('post')
-    .exec()
-    .catch(utils.internalErrHandler);
+  const id = ctx.params.id
+  const draft = await Draft.findById(id).select('post').exec().catch(utils.internalErrHandler);
   !draft && ctx.throw(400, 'draft not exist')
   draft.post && ctx.throw(403, 'draft already published')
-  const result = await Draft
-    .remove({title})
-    .exec()
-    .catch(utils.internalErrHandler);
+  const result = await Draft.remove({title}).exec().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true

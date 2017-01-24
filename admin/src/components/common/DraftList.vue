@@ -20,7 +20,7 @@ import markdownDirective from 'src/directives/markdown'
 export default {
   computed: { ...mapGetters(['currentId', 'currentIndex', 'saved', 'all', 'titleSaved'])
   },
-  method: {
+  methods: {
     focus(index) {
       if (this.saved && this.titleSaved) {
         index !== this.currentIndex && this.focusOnDraft(index)
