@@ -5,21 +5,38 @@
       </div>
       <div class="clearfix">
           <div class="half-container">
-              <i class="icon-biaoqian iconfont" style="margin-right:5px"></i>
-              <span class="tag" v-for="tag in tags">{{tag.name}} <i class="icon-chacha iconfont delete-tag" @click="deleteTag(tag.id)"></i></span>
+              <i class="fa fa-tags" style="margin-right:15px;color:#7f8c8d"></i>
+              <span class="tag" v-for="tag in tags">{{tag.name}} <i class="fa fa-times delete-tag" @click="deleteTag(tag.id)"></i></span>
               <div class="tag active">
-                  <span v-show="!tagInput" @click="addTag()" >+</span> <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
+                  <span class="tag-add" v-show="!tagInput" @click="addTag()" ><i class="fa fa-plus" aria-hidden="true"></i></span> <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
                   <ul class="search-list reset-list" v-if="tagInput" v-show="tagsToAdd.length">
                       <li class="search-item" @click="submitTag(tag['name'])" v-for="tag in tagsToAdd">{{tag['name']}}</li>
                   </ul>
               </div>
           </div>
           <div class="half-container">
-              <button type="button" class="btn btn-save r" @click="publishDraft">PUBLISH</button>
-              <button type="button" class="btn btn-border r" v-show="!postId" @click="deleteDraft">DELETE</button>
+              <i class="fa fa-folder-open" style="margin-right:15px;color:#7f8c8d"></i>
+              <span class="tag">javascript <i class="fa fa-times delete-tag" @click="deleteTag(tag.id)"></i></span>
+              <div class="tag active">
+                  <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
+                  <ul class="search-list reset-list" v-if="tagInput" v-show="tagsToAdd.length">
+                      <li class="search-item" @click="submitTag(tag['name'])" v-for="tag in tagsToAdd">{{tag['name']}}</li>
+                  </ul>
+              </div>
+          </div>
+          <div class="half-container">
+              <i class="fa fa-picture-o" style="margin-right:15px;color:#7f8c8d"></i>
+              <span class="tag">https://some.url <i class="fa fa-times delete-tag" @click="deleteTag(tag.id)"></i></span>
+              <div class="tag active">
+                  <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
+              </div>
           </div>
       </div>
       <textarea id="editor" style="opacity: 0"></textarea>
+      <div class="half-container">
+          <button type="button" class="btn btn-save r" @click="publishDraft">PUBLISH</button>
+          <button type="button" class="btn btn-border r" v-show="!postId" @click="deleteDraft">DELETE</button>
+      </div>
   </section>
 </template>
 
@@ -175,6 +192,38 @@ export default {
 
 <style lang="stylus">
   @import '../../stylus/_settings.styl'
+  .btn
+    cursor pointer
+    border 1px solid transparent
+    border-radius 3px
+    padding 6px 10px
+    text-align center
+    vertical-align middle
+    outline 0
+    &.btn-save
+      color #fff
+      background-color $green
+      border-color $green
+    &.btn-info
+      color #fff
+      background-color $grey
+      border-color $grey
+    &.btn-border
+      color $dark
+      background-color white
+      border-color $grey
+      &:hover
+        border-color $green
+    &.btn-cancel
+      color #fff
+      background-color $red
+      border-color $red
+    &.btn-block
+      width 100%
+      box-sizing border-box
+  .tag-add
+    i
+      cursor pointer
   .title-active
     .big
       border 1px solid $yellow
@@ -187,12 +236,15 @@ export default {
     border-bottom 1px solid $border
     width:94%
   .half-container
-    /*float left*/
     box-sizing border-box
     width 100%
-    padding 15px
+    padding 15px 5px 0px 15px
+    &:last-child
+      padding-bottom 15px
+    .btn
+      float right
     .btn+.btn
-      margin-right 20px
+      margin 0 20px
   .tag
     position relative
     display inline-block
@@ -232,11 +284,14 @@ export default {
     &+&
       padding-top 10px
   .delete-tag
-    display none
+    opacity 0
     position absolute
     right -8px
     top -3px
     font-size 12px
+  span.tag:hover
+    .delete-tag
+      opacity 1
   .tag-input
     border none
     background transparent

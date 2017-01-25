@@ -39,12 +39,15 @@ export default {
 
 <style lang="stylus">
   @import '../../stylus/_settings.styl'
+  ul
+    margin 0
+    padding 0
   .draft-list
     border-top 1px solid $border
   .draft-list-item
     cursor pointer
-    margin 0 25px
-    padding 20px 0
+    margin 0px 25px
+    padding 15px 0
     border-bottom 1px solid $border
   .draft-thumb
     padding-left 5px

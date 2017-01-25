@@ -65,7 +65,7 @@ const mutations = {
       if (state.all.length) {
         state.currentIndex = 0
         state.currentId = state.all[0].id
-        state.title.state.all[0].title
+        state.title = state.all[0].title
         state.postId = state.all[0].post
       } else {
         state.currentId = null

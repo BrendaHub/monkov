@@ -1,17 +1,24 @@
 <template lang="html">
   <aside class="sidebar">
-      <!-- <img src="../../assets/image/logo.png" alt="" class="sidebar-logo"> -->
+      <img src="../../assets/image/logo.png" alt="" class="sidebar-logo">
       <nav class="aside-nav">
           <ul class="aside-nav-list">
-              <li class="aside-nav-item"><router-link class="aside-nav-button" to="/drafts"><i class="icon-wenzhang iconfont"></i></router-link></li>
-              <li class="aside-nav-item"><router-link class="aside-nav-button" to="/tags"><i class="icon-biaoqian iconfont"></i></router-link></li>
-              <li class="aside-nav-item"><router-link class="aside-nav-button" to="/categories"><i class="icon-biaoqian iconfont"></i></router-link></li>
+              <li class="aside-nav-item"><router-link class="aside-nav-button" to="/drafts"><i class="fa fa-file-text" aria-hidden="true"></i></router-link></li>
+              <li class="aside-nav-item"><router-link class="aside-nav-button" to="/tags"><i class="fa fa-tags" aria-hidden="true"></i></router-link></li>
+              <li class="aside-nav-item"><router-link class="aside-nav-button" to="/categories"><i class="fa fa-folder-open" aria-hidden="true"></i>
+              </router-link></li>
+              <li class="aside-nav-item"><router-link class="aside-nav-button" to="/users"><i class="fa fa-user" aria-hidden="true"></i>
+              </router-link></li>
+              <li class="aside-nav-item"><router-link class="aside-nav-button" to="/plugins"><i class="fa fa-plug" aria-hidden="true"></i>
+              </router-link></li>
+              <li class="aside-nav-item"><router-link class="aside-nav-button" to="/settings"><i class="fa fa-cog" aria-hidden="true"></i>
+              </router-link></li>
           </ul>
       </nav>
       <nav class="aside-menu">
           <ul class="aside-nav-list">
               <li class="aside-nav-item">
-                  <a href="javascript:void(0);" @click="deleteToken()" class="aside-nav-button"><i class="icon-icon11 iconfont"></i></a>
+                  <a href="javascript:void(0);" @click="deleteToken()" class="aside-nav-button"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
               </li>
           </ul>
       </nav>
@@ -53,7 +60,7 @@ export default {
     list-style none
     padding 0
   .aside-nav-item
-    padding 20px 0
+    padding 15px 0
   .aside-nav-button
     cursor pointer
     display inline-block
@@ -61,12 +68,11 @@ export default {
     width 45px
     height 45px
     background #fff
-    padding 0
-    padding-top 10px
+    padding 12px 0 0 1px
     border 1px solid $border
     border-radius 50%
     color $green
-    &.active
+    &.router-link-active
       border 1px solid $green
     &:hover
       color white

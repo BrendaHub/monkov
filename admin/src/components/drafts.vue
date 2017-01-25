@@ -3,9 +3,9 @@
     <nav-aside></nav-aside>
     <section class="draft-list-column">
       <h3 class="page-title">
-        <i class="icon-wenzhang iconfont"></i>
+        <i class="fa fa-file-text icon-font" aria-hidden="true"></i>
         Draft List
-        <i class="iconfont icon-jiahao draft-add" @click="newDraft">+</i>
+        <i class="fa fa-plus draft-add" @click="newDraft" aria-hidden="true">
       </h3>
       <draft-list></draft-list>
     </section>
@@ -57,17 +57,21 @@ export default {
     float left
     border-right 1px solid $border
     height 100%
-    width 300px
+    width:30%
+    max-width 300px
     overflow-y auto
   .draft-add
     cursor pointer
     float right
-    margin-right 10px
-    margin-top 2px
+    margin-right 20px
   .page-title
     color $light
     padding-left 25px
-    font-weight 400
+    font-weight 600
+    letter-spacing 2px
+    .icon-font
+     font-size:16px
+     transform:translateY(-3px)
   .draft-edit
     overflow auto
     height 100%

@@ -5,6 +5,7 @@ import Admin from './Admin'
 import store from 'src/store'
 import MessageBox from 'vue-msgbox'
 import router from './router'
+import 'normalize.css'
 /* eslint-disable no-new */
 // window.alert = MessageBox
 
