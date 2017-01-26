@@ -9,7 +9,14 @@ export default router => {
 }
 
 let tagList = async(ctx, next) => {
-  const taglist = await Tag.find().select('name').exec().catch(utils.internalErrHandler);
+  const startWith = ctx.query['start-with']
+  const queryOpt = {}
+  if (startWith) {
+    queryOpt.name = {
+      $regex: '^' + startWith
+    }
+  }
+  const taglist = await Tag.find(queryOpt).select('name').exec().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true,

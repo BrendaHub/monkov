@@ -6,9 +6,15 @@
       <div class="clearfix">
           <div class="half-container">
               <i class="fa fa-tags" style="margin-right:15px;color:#7f8c8d"></i>
-              <span class="tag" v-for="tag in tags">{{tag.name}} <i class="fa fa-times delete-tag" @click="deleteTag(tag.id)"></i></span>
+              <span class="tag" v-for="tag in tags">
+                {{tag.name}}
+                <i class="fa fa-times delete-tag" @click="deleteTag(tag.id)"></i>
+              </span>
               <div class="tag active">
-                  <span class="tag-add" v-show="!tagInput" @click="addTag()" ><i class="fa fa-plus" aria-hidden="true"></i></span> <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
+                  <span class="tag-add" v-show="!tagInput" @click="addTag()" >
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                  </span>
+                  <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag" @keyup.27="tagInput=false">
                   <ul class="search-list reset-list" v-if="tagInput" v-show="tagsToAdd.length">
                       <li class="search-item" @click="submitTag(tag['name'])" v-for="tag in tagsToAdd">{{tag['name']}}</li>
                   </ul>
@@ -16,19 +22,23 @@
           </div>
           <div class="half-container">
               <i class="fa fa-folder-open" style="margin-right:15px;color:#7f8c8d"></i>
-              <span class="tag">javascript <i class="fa fa-times delete-tag" @click="deleteTag(tag.id)"></i></span>
+              <span class="tag">
+                Uncategoried
+              </span>
               <div class="tag active">
-                  <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
-                  <ul class="search-list reset-list" v-if="tagInput" v-show="tagsToAdd.length">
+                  <input type="text" class="tag-input" v-show="false" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
+                  <ul class="search-list reset-list" v-if="false" v-show="tagsToAdd.length">
                       <li class="search-item" @click="submitTag(tag['name'])" v-for="tag in tagsToAdd">{{tag['name']}}</li>
                   </ul>
               </div>
           </div>
           <div class="half-container">
               <i class="fa fa-picture-o" style="margin-right:15px;color:#7f8c8d"></i>
-              <span class="tag">https://some.url <i class="fa fa-times delete-tag" @click="deleteTag(tag.id)"></i></span>
+              <span class="tag">
+                https://some.url.of.picture
+              </span>
               <div class="tag active">
-                  <input type="text" class="tag-input" v-show="tagInput" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
+                  <input type="text" class="tag-input" v-show="false" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
               </div>
           </div>
       </div>
@@ -98,12 +108,11 @@ export default {
       try {
         const res1 = await api.createTag(tag)
         if (res1.success) {
-          if (this.tags.some(item => item === res1.data.name)) return
+          if (this.tags.some(item => item.id === res1.data.id)) return
           let newTagsArr = this.tags.concat()
           newTagsArr.push(res1.data.id)
           const res2 = await api.modifyDraftTags(this.currentId, newTagsArr)
           if (res2.success) {
-            console.log(res2)
             this.tags = res2.data.tags
             this.modifyTags(res2.data.lastEditTime)
           }
@@ -112,10 +121,10 @@ export default {
         window.alert(e)
       }
     },
-    async deleteTag(name) {
+    async deleteTag(id) {
       let newTagsArr = []
       this.tags.forEach(t => {
-        t.name !== name && newTagsArr.push(name)
+        t.id !== id && newTagsArr.push(t.id)
       })
       try {
         const res = await api.modifyDraftTags(this.currentId, newTagsArr)
@@ -124,7 +133,7 @@ export default {
           this.modifyTags(res.data.lastEditTime)
         }
       } catch (e) {
-        window.alert('e')
+        window.alert(e)
       }
     },
     async publishDraft() {
@@ -144,10 +153,10 @@ export default {
       this.tagNew = ''
       this.searchTags('')
     },
-    async searchTags(val) {
+    searchTags: utils._debounce(async function(val) {
       const res = await api.searchTagWithWord(val)
       if (res.success) this.tagsToAdd = res.data
-    },
+    }, 500),
     async fetchDraft(id) {
       try {
         const res = await api.getDraft(id)
@@ -192,6 +201,7 @@ export default {
 
 <style lang="stylus">
   @import '../../stylus/_settings.styl'
+  @import '../../stylus/global.styl'
   .btn
     cursor pointer
     border 1px solid transparent
@@ -277,6 +287,7 @@ export default {
     border-radius 4px
     box-shadow 0 6px 12px rgba(0,0,0,.03)
   .search-item
+    cursor pointer
     color $light
     padding-left 4px
     &:hover
@@ -289,6 +300,7 @@ export default {
     right -8px
     top -3px
     font-size 12px
+    cursor pointer
   span.tag:hover
     .delete-tag
       opacity 1

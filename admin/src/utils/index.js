@@ -7,6 +7,7 @@ export default {
         let now = Date.now()
         if (_timestamp && now - _timestamp < wait) {
           _timestamp = now
+          console.log(now)
           return
         }
         _timestamp = now
@@ -15,7 +16,9 @@ export default {
     }
     return function() {
       let now = Date.now()
-      _timestamp && now - _timestamp < wait && clearTimeout(_timer)
+      if (_timestamp && now - _timestamp < wait) {
+        clearTimeout(_timer)
+      }
       _timestamp = now
       _timer = setTimeout(func.bind(this, ...arguments), wait)
     }

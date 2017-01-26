@@ -39,9 +39,7 @@ export default {
 
 <style lang="stylus">
   @import '../../stylus/_settings.styl'
-  ul
-    margin 0
-    padding 0
+  @import '../../stylus/global.styl'
   .draft-list
     border-top 1px solid $border
   .draft-list-item
