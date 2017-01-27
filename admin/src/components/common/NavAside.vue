@@ -30,7 +30,7 @@ import {
   mapActions
 } from 'vuex'
 export default {
-  method: { ...mapActions(['deleteToken'])
+  methods: { ...mapActions(['deleteToken'])
   }
 }
 </script>

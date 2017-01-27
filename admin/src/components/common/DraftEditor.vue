@@ -136,6 +136,12 @@ export default {
         window.alert(e)
       }
     },
+    async submitCategory(val) {
+      //todo
+    },
+    async submitImage(val) {
+      //todo
+    },
     async publishDraft() {
       if (!this.saved || !this.titleSaved) {
         window.alert('Draft is saving, please try again')

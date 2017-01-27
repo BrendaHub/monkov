@@ -90,6 +90,12 @@ const mutations = {
   [types.TAG_MODIFY](state) {
     state.all[state.currentIndex].published = false
   },
+  [types.CATEGORY_MODIFY](state) {
+    state.all[state.currentIndex].published = false
+  },
+  [types.IMAGE_MODIFY](state) {
+    state.all[state.currentIndex].published = false
+  },
   [types.LAST_EDIT_TIME](state, time) {
     state.all[state.currentIndex].lastEditTime = time
   },
@@ -104,11 +110,9 @@ const mutations = {
 
 const actions = {
   async getAllDrafts(store, query) {
-    if (query) {
-      const {tags, category} = query
-    }
-    //fix me
-    const res = await api.getDraftList()
+    const res = query
+      ? await api.getDraftList(query)
+      : await api.getDraftList()
     if (!res.success)
       return Promise.reject()
     else {
@@ -173,6 +177,14 @@ const actions = {
   },
   modifyTags(store, time) {
     store.commit(types.TAG_MODIFY)
+    store.commit(types.LAST_EDIT_TIME, time)
+  },
+  modifyCategory(store, time) {
+    store.commit(types.CATEGORY_MODIFY)
+    store.commit(types.LAST_EDIT_TIME, time)
+  },
+  modifyImage(store, time) {
+    store.commit(types.IMAGE_MODIFY)
     store.commit(types.LAST_EDIT_TIME, time)
   }
 }

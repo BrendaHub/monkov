@@ -28,8 +28,8 @@ const actions = {
       router.replace('drafts')
     }
   },
-  deleteToken({dispatch}) {
-    store.dispatch(type.TOKEN_DELETE)
+  deleteToken(store) {
+    store.commit(types.TOKEN_DELETE)
     router.replace('login')
   }
 }

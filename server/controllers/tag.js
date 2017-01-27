@@ -5,7 +5,7 @@ import utils from '../utils'
 import mw from '../middlewares'
 
 export default router => {
-  router.post('/tags', create).get('/tags', tagList).patch('/tags/:id', modify).delete('/tags/:id', deleteTag)
+  router.post('/tags', create).get('/tags', tagList).patch('/tags/:name', modify).delete('/tags/:name', deleteTag)
 }
 
 let tagList = async(ctx, next) => {
@@ -57,15 +57,15 @@ let create = async(ctx, next) => {
 }
 
 let modify = async(ctx, next) => {
-  const tagName = ctx.request.body.name
-  const tagId = ctx.params.id
-  const tag = await Tag.findOne({name: tagName}).exec().catch(utils.internalErrHandler);
+  const newName = ctx.request.body.name
+  const tagName = ctx.params.name
+  const tag = await Tag.findOne({name: newName}).exec().catch(utils.internalErrHandler);
   if (!tag) {
     await Tag.update({
-      _id: tagId
+      name: tagName
     }, {
       $set: {
-        name: tagName
+        name: newName
       }
     }).exec().catch(utils.internalErrHandler);
     ctx.status = 200
@@ -87,6 +87,7 @@ let modify = async(ctx, next) => {
 let deleteTag = async(ctx, next) => {
   const name = ctx.params.name
   const tag = await Tag.findOne({name}).exec().catch(utils.internalErrHandler);
+  !tag && ctx.throw('400', 'tag not exist')
   await Promise.all([
     Draft.update({}, {
       $pull: {
@@ -100,5 +101,9 @@ let deleteTag = async(ctx, next) => {
     }).exec(),
     Tag.remove({_id: tag.id}).exec()
   ]).catch(utils.internalErrHandler);
+  ctx.status = 200
+  ctx.body = {
+    success: true
+  }
   await next()
 }

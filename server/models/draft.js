@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 const draftSchema = mongoose.Schema({
   title: String,
+  imagesrc: String,
   tags: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -38,11 +39,7 @@ const draftSchema = mongoose.Schema({
   }
 })
 
-draftSchema
-  .path('createTime')
-  .get(v => new Date(v).format('yyyy-MM-dd hh:mm:ss'))
-draftSchema
-  .path('lastEditTime')
-  .get(v => new Date(v).format('yyyy-MM-dd hh:mm:ss'))
+draftSchema.path('createTime').get(v => new Date(v).format('yyyy-MM-dd hh:mm:ss'))
+draftSchema.path('lastEditTime').get(v => new Date(v).format('yyyy-MM-dd hh:mm:ss'))
 
 export default mongoose.model('draft', draftSchema)

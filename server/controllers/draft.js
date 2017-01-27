@@ -36,23 +36,15 @@ let create = async(ctx, next) => {
 }
 
 let draftList = async(ctx, next) => {
-  const tag = ctx.query.tag
+  const tags = ctx.query.tags
   const category = ctx.query.category
   let findOpt = {}
-  if (tag) {
-    let tagId = await Tag.findOne({name: tag}).exec().catch(utils.internalErrHandler);
-    tagId = tagId.id
-    Object.assign(findOpt, {
-      tags: {
-        '$all': [tagId]
-      }
-    })
-  }
-  if (category) {
-    let catId = await Category.findOne({name: category}).exec().catch(utils.internalErrHandler());
-    catId = catId.id
-    Object.assign(findOpt, {category: catId})
-  }
+  tags && Object.assign(findOpt, {
+    tags: {
+      '$all': [tags]
+    }
+  })
+  category && Object.assign(findOpt, {category})
   const draftArr = await Draft.find(findOpt).populate('tags category').select('title tags category createTime lastEditTime excerpt post published').sort({lastEditTime: -1}).exec().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
@@ -64,7 +56,7 @@ let draftList = async(ctx, next) => {
 
 let draftDetail = async(ctx, next) => {
   const id = ctx.params.id
-  let draft = await Draft.findById(id).populate('tags category').select('title tags category createTime lastEditTime excerpt article draftPublished content').exec().catch(utils.internalErrHandler);
+  let draft = await Draft.findById(id).populate('tags category').select('title tags category imagesrc createTime lastEditTime excerpt article draftPublished content').exec().catch(utils.internalErrHandler);
   ctx.status = 200
   ctx.body = {
     success: true,

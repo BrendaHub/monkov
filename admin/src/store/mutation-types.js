@@ -12,6 +12,7 @@ export const LAST_EDIT_TIME = 'LAST_EDIT_TIME'
 export const TAG_MODIFY = 'TAG_MODIFY'
 export const CATEGORY_MODIFY = 'TAG_MODIFY'
 export const CREATE = 'CREATE'
+export const IMAGE_MODIFY = 'IMAGE_MODIFY'
 
 export const TOKEN_CREATE = 'TOKEN_CREATE'
 export const TOKEN_DELETE = 'TOKEN_DELETE'

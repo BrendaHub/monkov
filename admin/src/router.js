@@ -17,6 +17,9 @@ const routes = [
   }, {
     path: '/',
     redirect: '/drafts'
+  }, {
+    path: '/categories',
+    component: resolve => require(['components/Categories'], resolve)
   }
 ]
 
