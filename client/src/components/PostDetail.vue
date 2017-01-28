@@ -1,7 +1,7 @@
 <template lang="html">
   <section class="article-list col-main">
     <article class="blog-post">
-      <post-content v-if="post" :id="post.id" :title="post.title" :time="post.createTime" :imagesrc="post.imagesrc" :comments="post.comments" :content="post.content" :category="post.category" detailmode=true></post-content>
+      <post-content v-if="post" :id="post.id" :title="post.title" :time="post.createTime" :imagesrc="post.imagesrc" :comments="post.comments" :content="post.content" :category="post.category" :tags="post.tags" detailmode=true></post-content>
     </article>
   </section>
 </template>

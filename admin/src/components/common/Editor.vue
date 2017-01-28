@@ -24,7 +24,9 @@ export default {
       autoDownloadFontAwesome: false,
       element: document.getElementById('editor'),
       previewRender: str => md2html(str),
-      spellChecker: false
+      spellChecker: false,
+      toolbar: ['code', 'heading'],
+      showIcons: ['code']
     })
   }
 }

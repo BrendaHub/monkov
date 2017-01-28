@@ -22,23 +22,20 @@
           </div>
           <div class="half-container">
               <i class="fa fa-folder-open" style="margin-right:15px;color:#7f8c8d"></i>
-              <span class="tag">
-                Uncategoried
+              <span class="tag category" @click="categoryChose=true" v-if="!categoryChose">
+                {{category?category.name:'Uncategoried'}}
               </span>
-              <div class="tag active">
-                  <input type="text" class="tag-input" v-show="false" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
-                  <ul class="search-list reset-list" v-if="false" v-show="tagsToAdd.length">
-                      <li class="search-item" @click="submitTag(tag['name'])" v-for="tag in tagsToAdd">{{tag['name']}}</li>
+              <div class="tag category active" >
+                  <input type="text" class="tag-input" v-show="categoryChose" :placeholder="category?category.name:''" readonly>
+                  <ul class="search-list reset-list" v-if="categoryChose" v-show="allCategories.length">
+                      <li class="search-item" @click="submitCategory(cat)" v-for="cat in allCategories">{{cat['name']}}</li>
                   </ul>
               </div>
           </div>
           <div class="half-container">
               <i class="fa fa-picture-o" style="margin-right:15px;color:#7f8c8d"></i>
-              <span class="tag">
-                https://some.url.of.picture
-              </span>
               <div class="tag active">
-                  <input type="text" class="tag-input" v-show="false" v-model="tagNew" placeholder="Enter to submit" @keyup.13="submitTag">
+                  <input type="text" class="image-input" v-model="imagesrc" placeholder="URL of banner picture" @keyup="submitImage(imagesrc)">
               </div>
           </div>
       </div>
@@ -76,15 +73,28 @@ export default {
       tags: [],
       tagsToAdd: [],
       tagNew: '',
-      tagInput: false
+      tagInput: false,
+      category: 'Uncategoried',
+      allCategories: [],
+      categoryChose: false,
+      imagesrc: ''
     }
   },
   mounted() {
     smde = new SimpleMDE({
+      initialValue: this.content,
       autoDownloadFontAwesome: false,
       element: document.getElementById('editor'),
-      previewRender: txt => md2html(txt),
-      spellChecker: false
+      previewRender: str => md2html(str),
+      spellChecker: false,
+      toolbar: ['bold', 'italic', 'strikethrough', 'heading-1', 'heading-2', 'heading-3', 'clean-block', '|', 'code', 'quote', 'unordered-list', 'ordered-list', 'table', '|', 'link', 'image', 'horizontal-rule', {
+        name: 'more',
+        action: function customFunction(editor) {
+          //fix
+        },
+        className: 'fa fa-chevron-circle-down',
+        title: 'More',
+      }, '|', 'preview', 'side-by-side', 'fullscreen', '|', 'guide']
     })
     smde.codemirror.on('change', () => {
       if (this.change) {
@@ -96,10 +106,11 @@ export default {
     })
     this.change = true
     this.currentId && this.fetchDraft(this.currentId)
+    this.fetchAllCategories()
   },
   computed: { ...mapGetters(['currentId', 'saved', 'titleSaved', 'title', 'postId'])
   },
-  methods: { ...mapActions(['editDraft', 'saveDraft', 'editTitle', 'saveTitle', 'deleteDraft', 'publish', 'submitTitle', 'submitExcerpt', 'modifyTags']),
+  methods: { ...mapActions(['editDraft', 'saveDraft', 'editTitle', 'saveTitle', 'deleteDraft', 'publish', 'submitTitle', 'submitExcerpt', 'modifyTags', 'modifyCategory', 'modifyImage']),
     async submitTag(val) {
       this.tagInput = false
       const tag = typeof val === 'string' ? val : utils.trim(this.tagNew)
@@ -137,11 +148,28 @@ export default {
       }
     },
     async submitCategory(val) {
-      //todo
+      this.categoryChose = false
+      try {
+        const res = await api.modifyDraftCategory(this.currentId, val.id)
+        if (res.success) {
+          this.category = val
+          this.modifyCategory(res.data.lastEditTime)
+        }
+      } catch (e) {
+        window.alert(e)
+      }
     },
-    async submitImage(val) {
-      //todo
-    },
+    submitImage: utils._debounce(async function(val) {
+      try {
+        const res = await api.modifyDraftImage(this.currentId, val)
+        if (res.success) {
+          this.imagesrc = val
+          this.modifyImage(res.data.lastEditTime)
+        }
+      } catch (e) {
+        window.alert(e)
+      }
+    }, 2000),
     async publishDraft() {
       if (!this.saved || !this.titleSaved) {
         window.alert('Draft is saving, please try again')
@@ -163,6 +191,10 @@ export default {
       const res = await api.searchTagWithWord(val)
       if (res.success) this.tagsToAdd = res.data
     }, 500),
+    async fetchAllCategories() {
+      const res = await api.getAllCategories()
+      if (res.success) this.allCategories = res.data
+    },
     async fetchDraft(id) {
       try {
         const res = await api.getDraft(id)
@@ -170,6 +202,8 @@ export default {
           this.tagNew = ''
           this.tagInput = false
           this.tags = res.data.tags
+          this.category = res.data.category
+          this.imagesrc = res.data.imagesrc
           this.$nextTick(() => {
             smde.value(res.data.content)
           })
@@ -261,6 +295,10 @@ export default {
       float right
     .btn+.btn
       margin 0 20px
+  .category
+    cursor pointer
+  .imagesrc
+    cursor pointer
   .tag
     position relative
     display inline-block
@@ -268,7 +306,6 @@ export default {
     font-size 14px
     color $light
     border-bottom 2px solid $light
-    margin-top 5px
     margin-right 20px
     .iconfont
       display none
@@ -316,6 +353,13 @@ export default {
     color $green
     font-size 14px
     outline 0
+  .image-input
+    border none
+    background transparent
+    color $green
+    font-size 14px
+    outline 0
+    width 50vw
   .editor-toolbar
     border-left 0
   .editor-active

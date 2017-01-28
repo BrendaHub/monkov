@@ -22,6 +22,9 @@ export default {
   async modifyDraftCategory(id, category) {
     return await service.patch(`drafts/${id}`, {category})
   },
+  async modifyDraftImage(id, imagesrc) {
+    return await service.patch(`drafts/${id}`, {imagesrc})
+  },
   async createTag(name) {
     return await service.post('tags', {name})
   },
