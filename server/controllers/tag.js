@@ -5,7 +5,7 @@ import utils from '../utils'
 import mw from '../middlewares'
 
 export default router => {
-  router.post('/tags', create).get('/tags', tagList).patch('/tags/:name', modify).delete('/tags/:name', deleteTag)
+  router.post('/tags', create).get('/tags', tagList).patch('/tags/:name', modify).delete('/tags/:name', deleteTag).get('/tags/:name', tagDetail)
 }
 
 let tagList = async(ctx, next) => {
@@ -23,6 +23,13 @@ let tagList = async(ctx, next) => {
     data: taglist
   }
   await next()
+}
+
+async function tagDetail(ctx, next) {
+  const tagName = ctx.params.name
+  const tag = await Tag.find({name}).exec().catch()
+  const id = tag.id
+  // const count = await Post.find({tags:})
 }
 
 let create = async(ctx, next) => {

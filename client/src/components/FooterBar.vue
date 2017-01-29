@@ -2,14 +2,14 @@
 <footer class="footer">
   <div class="subfooter-top">
     <div class="subfooter-top-container">
-      <footer-widget></footer-widget>
-      <footer-widget-gallery></footer-widget-gallery>
       <footer-widget-about></footer-widget-about>
+      <footer-widget-gallery></footer-widget-gallery>
+      <footer-widget></footer-widget>
     </div>
   </div>
   <div class="subfooter-bottom">
     <div class="subfooter-bottom-container"> <span>
-            Copyrights <i class="fa fa-copyright" aria-hidden="true"></i> 2016 <router-link to="/">Domon ji</router-link>
+            Copyrights <i class="fa fa-copyright" aria-hidden="true"></i> 2016-2017 <router-link to="/">Domon ji</router-link>
             </span>
       <div class="menu-list"> <span>
                     <router-link to="/">Home</router-link>

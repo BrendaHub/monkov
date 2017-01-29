@@ -1,7 +1,7 @@
 <template lang="html">
   <aside class="col-sub" v-scroll="scrollcallback" :style="{marginTop:offsetY+'px'}">
     <widget-recentpost ></widget-recentpost>
-    <widget-mostcomment></widget-mostcomment>
+    <!-- <widget-mostcomment></widget-mostcomment> -->
     <widget-tags></widget-tags>
     <widget-categories></widget-categories>
   </aside>
