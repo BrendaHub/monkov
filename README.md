@@ -80,7 +80,7 @@ $ npm run start
 
 --------------------------------------------------------------------------------
 
-#### Admin
+### Admin
 
 The background management system. You can write your articles (all called `draft` when not published) here with the built-in markdown editor. You can publish and deleting posts, modifying your tags and categories and all the changes will automatically synchronize to your blog pages.
 
