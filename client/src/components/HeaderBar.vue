@@ -253,7 +253,7 @@ a.selector
       color:white
 
 .logo
-  background:url('../assets/logo_impreza.png') no-repeat center /contain
+  background:url('../assets/monkov_logo.svg') no-repeat center /contain
   width:180px
   @media (max-width: 901px)
     width:120px

@@ -112,8 +112,8 @@ export default {
     outline 0
     &.btn-save
       color #fff
-      background-color $green
-      border-color $green
+      background-color $purple
+      border-color $purple
     &.btn-info
       color #fff
       background-color $grey
@@ -123,7 +123,7 @@ export default {
       background-color white
       border-color $grey
       &:hover
-        border-color $green
+        border-color $purple
     &.btn-cancel
       color #fff
       background-color $red

@@ -50,7 +50,7 @@ export default {
   .draft-thumb
     padding-left 5px
     &.published
-      border-left 2px solid $green
+      border-left 2px solid $purple
     &.updated
       border-left 2px solid $yellow
     .draft-title
@@ -64,10 +64,10 @@ export default {
       padding-bottom 0
     &.active
       .draft-title
-        color $green
+        color $purple
     &:hover
       .draft-title
-        color $green
+        color $purple
     .draft-content
       color $light
       font-size 12px

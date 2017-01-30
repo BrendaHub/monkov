@@ -252,8 +252,8 @@ export default {
     outline 0
     &.btn-save
       color #fff
-      background-color $green
-      border-color $green
+      background-color $purple
+      border-color $purple
     &.btn-info
       color #fff
       background-color $grey
@@ -263,7 +263,7 @@ export default {
       background-color white
       border-color $grey
       &:hover
-        border-color $green
+        border-color $purple
     &.btn-cancel
       color #fff
       background-color $red
@@ -310,13 +310,13 @@ export default {
     .iconfont
       display none
     &:hover
-      color $green
-      border-bottom 2px solid $green
+      color $purple
+      border-bottom 2px solid $purple
       .iconfont
         display inline
     &.active
-      color $green
-      border-bottom 2px solid $green
+      color $purple
+      border-bottom 2px solid $purple
       position relative
   .search-list
     position absolute
@@ -334,7 +334,7 @@ export default {
     color $light
     padding-left 4px
     &:hover
-      color  $green
+      color  $purple
     &+&
       padding-top 10px
   .delete-tag
@@ -350,13 +350,13 @@ export default {
   .tag-input
     border none
     background transparent
-    color $green
+    color $purple
     font-size 14px
     outline 0
   .image-input
     border none
     background transparent
-    color $green
+    color $purple
     font-size 14px
     outline 0
     width 50vw
@@ -433,13 +433,13 @@ export default {
       a
         color $dark
         &:hover
-          border-bottom 2px solid $green
+          border-bottom 2px solid $purple
     h3
       margin 3em 0 1.2em
       position relative
       &:before
         content "#"
-        color $green
+        color $purple
         position absolute
         left -0.7em
         top -2px
@@ -455,12 +455,12 @@ export default {
     ul, ol
       padding-left 1.5em
     a
-      color $green
+      color $purple
       font-weight 600
     blockquote
       margin 2em 0
       padding-left 20px
-      border-left 4px solid $green
+      border-left 4px solid $purple
       p
         font-weight 600
         margin-left 0

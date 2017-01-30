@@ -1,6 +1,6 @@
 <template lang="html">
   <aside class="sidebar">
-      <img src="../../assets/image/logo.png" alt="" class="sidebar-logo">
+      <img src="../../assets/image/logo.svg" alt="" class="sidebar-logo">
       <nav class="aside-nav">
           <ul class="aside-nav-list">
               <li class="aside-nav-item"><router-link class="aside-nav-button" to="/drafts"><i class="fa fa-file-text" aria-hidden="true"></i></router-link></li>
@@ -71,13 +71,13 @@ export default {
     padding 12px 0 0 1px
     border 1px solid $border
     border-radius 50%
-    color $green
+    color $purple
     &.router-link-active
-      border 1px solid $green
+      border 1px solid $purple
     &:hover
       color white
-      background $green
-      border 1px solid $green
+      background $purple
+      border 1px solid $purple
     .iconfont
       font-size 22px
   .aside-menu
