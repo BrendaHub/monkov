@@ -1,6 +1,8 @@
 # Monkov
 
-![](./intro_src/logo.svg)
+<center>
+  <img src="./intro_src/logo.png" alt="">
+</center>
 
 > Monkov is a blog system built with vue.js and koa.js You can easily build up your own blog with it.
 
