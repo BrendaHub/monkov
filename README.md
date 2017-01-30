@@ -109,29 +109,6 @@ $ npm run dev
 $ npm run build
 ```
 
-published) here with the built-in markdown editor. You can publish and deleting posts, modifying your tags and categories and all the changes will automatically synchronize to your blog pages.
-
-Initial username:`admin` Initial password:`admin`
-
-##### Tech Stack
-
-- vuejs 2.0 + && vue-router && vuex
-- fetch
-- stylus
-- marked && SimpleMDE
-
-##### Usage
-
-```
-$ cd admin/
-
-$ yarn install
-
-$ npm run dev
-
-$ npm run build
-```
-
 ## Todo List
 
 - [ ] comment the code
