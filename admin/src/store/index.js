@@ -5,8 +5,6 @@ import token from './modules/token.js'
 
 Vue.use(Vuex)
 
-const debug = process.env.NODE_ENV !== 'production'
-
 export default new Vuex.Store({
   actions: {},
   getters: {},
@@ -14,5 +12,5 @@ export default new Vuex.Store({
     drafts,
     token
   },
-  strict: debug
+  strict: process.env.NODE_ENV !== 'production'
 })
