@@ -43,7 +43,6 @@
     "simplemde": "^1.11.2",
     "vue": "^2.1.9",
     "vue-router": "^2.1.1",
-
     "vuex": "^2.1.1"
   },
   "devDependencies": {
@@ -62,6 +61,7 @@
     "connect-history-api-fallback": "^1.1.0",
     "cross-spawn": "^4.0.2",
     "css-loader": "^0.25.0",
+    "cz-conventional-changelog": "^1.2.0",
     "eslint": "^3.6.1",
     "eslint-config-standard": "^6.2.1",
     "eslint-friendly-formatter": "^2.0.5",

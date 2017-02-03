@@ -6,15 +6,16 @@
 
 > Monkov is a blog system built with vue.js and koa.js You can easily build up your own blog with it.
 
-## Dependents
+## Dependencies
 
 - nodejs 6.0 or higher
+- mongodb
 
 ## Features
 
 - RESTful api
 - Front end router
-- front and back seperated
+- Front and back seperated
 - ES6/7 syntax
 - Built-in markdown editor
 - Add tags and category to your articles
@@ -43,13 +44,13 @@ More features are comming.
 #### Usage
 
 ```shell
-$ cd client/
-
 $ yarn install
 
-$ npm run dev
+# run dev-server
+$ npm run dev-client
 
-$ npm run build
+# build
+$ npm run build-client
 ```
 
 --------------------------------------------------------------------------------
@@ -69,11 +70,13 @@ The login module use `jwt`
 #### Usage
 
 ```shell
-$ cd server/
-
 $ yarn install
 
-$ npm run start
+# run development
+$ npm run dev-server
+
+# run production
+$ npm run pro-server
 ```
 
 --------------------------------------------------------------------------------
@@ -98,22 +101,21 @@ Initial username:`admin` Initial password:`admin`
 ##### Usage
 
 ```shell
-$ cd client/
-
 $ yarn install
 
+# run dev-server
 $ npm run dev
 
+# build
 $ npm run build
 ```
 
 ## Todo List
 
-- [ ] add comments to code
-- [ ] comment system
-- [ ] category management system
-- [ ] customizable themes
-- [ ] user management system
-- [ ] plugin system
-- [ ] customizable header, footer and widgets
-- [ ] find a easier way to install and deploy
+- [ ] Add comments to code
+- [ ] Comment system
+- [ ] Category management system
+- [ ] Customizable themes
+- [ ] User management system
+- [ ] Plugin system
+- [ ] Customizable header, footer and widgets
