@@ -17,13 +17,13 @@
 <script>
 import api from 'src/api'
 export default {
-  data() {
+  data () {
     return {
       rencentPost: []
     }
   },
   methods: {
-    async fetchRecentPost() {
+    async fetchRecentPost () {
       try {
         const res = await api.getPostList({
           page: 1,
@@ -35,7 +35,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.fetchRecentPost()
   }
 }

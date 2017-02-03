@@ -17,7 +17,7 @@ const {
   reduce
 } = Array.prototype
 export default {
-  data() {
+  data () {
     return {
       offsetY: 0,
       blogEle: null,
@@ -31,7 +31,7 @@ export default {
     WidgetCategories
   },
   methods: {
-    scrollcallback() {
+    scrollcallback () {
       let limit = this.blogEle.offsetHeight - 174 - this.widgets::reduce((a, b) => {
         return b.offsetHeight + a
       }, 0)
@@ -42,7 +42,7 @@ export default {
   directives: {
     scroll: eventDirective('scroll')
   },
-  mounted() {
+  mounted () {
     this.blogEle = document.querySelector('.blog-page')
     this.widgets = document.querySelectorAll('.widget-container')
   }

@@ -1,11 +1,11 @@
 export default[
   {
-    path : '/',
-    component : resolve => require(['components/Home'], resolve)
+    path: '/',
+    component: resolve => require(['components/Home'], resolve)
   }, {
-    path : '/posts',
-    component : resolve => require(['components/Blog'], resolve),
-    children : [
+    path: '/posts',
+    component: resolve => require(['components/Blog'], resolve),
+    children: [
       {
         path: '',
         component: resolve => require(['components/ExcerptList'], resolve)
@@ -15,10 +15,10 @@ export default[
       }
     ]
   }, {
-    path : '/about',
-    component : resolve => require(['components/About'], resolve)
+    path: '/about',
+    component: resolve => require(['components/About'], resolve)
   }, {
-    path : '/photograph',
-    component : resolve => require(['components/Photograph'], resolve)
+    path: '/photograph',
+    component: resolve => require(['components/Photograph'], resolve)
   }
 ]

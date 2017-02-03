@@ -15,9 +15,8 @@
 </template>
 
 <script>
-import api from 'src/api'
 export default {
-  data() {
+  data () {
     return {}
   }
 }

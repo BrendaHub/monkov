@@ -56,7 +56,7 @@ import {
   mapActions
 } from 'vuex'
 import utils from 'src/utils'
-const updateTitleWithDebounce = utils._debounce(async function(title) {
+const updateTitleWithDebounce = utils._debounce(async function (title) {
   try {
     await this.submitTitle(title)
     this.saveTitle()
@@ -66,7 +66,7 @@ const updateTitleWithDebounce = utils._debounce(async function(title) {
 }, 500)
 let smde
 export default {
-  data() {
+  data () {
     return {
       change: true,
       published: '',
@@ -80,7 +80,7 @@ export default {
       imagesrc: ''
     }
   },
-  mounted() {
+  mounted () {
     smde = new SimpleMDE({
       initialValue: this.content,
       autoDownloadFontAwesome: false,
@@ -89,11 +89,11 @@ export default {
       spellChecker: false,
       toolbar: ['bold', 'italic', 'strikethrough', 'heading-1', 'heading-2', 'heading-3', 'clean-block', '|', 'code', 'quote', 'unordered-list', 'ordered-list', 'table', '|', 'link', 'image', 'horizontal-rule', {
         name: 'more',
-        action: function customFunction(editor) {
-          //fix
+        action: function customFunction (editor) {
+          //  fix
         },
         className: 'fa fa-chevron-circle-down',
-        title: 'More',
+        title: 'More'
       }, '|', 'preview', 'side-by-side', 'fullscreen', '|', 'guide']
     })
     smde.codemirror.on('change', () => {
@@ -111,7 +111,7 @@ export default {
   computed: { ...mapGetters(['currentId', 'saved', 'titleSaved', 'title', 'postId'])
   },
   methods: { ...mapActions(['editDraft', 'saveDraft', 'editTitle', 'saveTitle', 'deleteDraft', 'publish', 'submitTitle', 'submitExcerpt', 'modifyTags', 'modifyCategory', 'modifyImage']),
-    async submitTag(val) {
+    async submitTag (val) {
       this.tagInput = false
       const tag = typeof val === 'string' ? val : utils.trim(this.tagNew)
       this.tagNew = ''
@@ -132,7 +132,7 @@ export default {
         window.alert(e)
       }
     },
-    async deleteTag(id) {
+    async deleteTag (id) {
       let newTagsArr = []
       this.tags.forEach(t => {
         t.id !== id && newTagsArr.push(t.id)
@@ -147,7 +147,7 @@ export default {
         window.alert(e)
       }
     },
-    async submitCategory(val) {
+    async submitCategory (val) {
       this.categoryChose = false
       try {
         const res = await api.modifyDraftCategory(this.currentId, val.id)
@@ -159,7 +159,7 @@ export default {
         window.alert(e)
       }
     },
-    submitImage: utils._debounce(async function(val) {
+    submitImage: utils._debounce(async function (val) {
       try {
         const res = await api.modifyDraftImage(this.currentId, val)
         if (res.success) {
@@ -170,7 +170,7 @@ export default {
         window.alert(e)
       }
     }, 2000),
-    async publishDraft() {
+    async publishDraft () {
       if (!this.saved || !this.titleSaved) {
         window.alert('Draft is saving, please try again')
         return
@@ -178,24 +178,24 @@ export default {
       const res = await this.publish()
       window.alert(res.success ? 'Success!' : 'Failed')
     },
-    updateTitle(e) {
+    updateTitle (e) {
       this.editTitle
       updateTitleWithDebounce.call(this, e.target.value)
     },
-    addTag() {
+    addTag () {
       this.tagInput = true
       this.tagNew = ''
       this.searchTags('')
     },
-    searchTags: utils._debounce(async function(val) {
+    searchTags: utils._debounce(async function (val) {
       const res = await api.searchTagWithWord(val)
       if (res.success) this.tagsToAdd = res.data
     }, 500),
-    async fetchAllCategories() {
+    async fetchAllCategories () {
       const res = await api.getAllCategories()
       if (res.success) this.allCategories = res.data
     },
-    async fetchDraft(id) {
+    async fetchDraft (id) {
       try {
         const res = await api.getDraft(id)
         if (res.success) {
@@ -212,7 +212,7 @@ export default {
         window.alert(e)
       }
     },
-    postDraft: utils._debounce(async function() {
+    postDraft: utils._debounce(async function () {
       try {
         const res = await api.modifyDraftContent(this.currentId, smde.value())
         if (res.success) {
@@ -228,11 +228,11 @@ export default {
     }, 1000)
   },
   watch: {
-    currentId(val) {
+    currentId (val) {
       this.change = true
       val && this.fetchDraft(val)
     },
-    tagNew(val) {
+    tagNew (val) {
       this.searchTags(val)
     }
   }

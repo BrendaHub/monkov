@@ -10,13 +10,13 @@
 <script>
 import api from 'src/api'
 export default {
-  data() {
+  data () {
     return {
       tags: []
     }
   },
   methods: {
-    async fetchTags() {
+    async fetchTags () {
       try {
         const res = await api.getAllTags()
         if (res.success) this.tags = res.data
@@ -25,7 +25,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.fetchTags()
   }
 }

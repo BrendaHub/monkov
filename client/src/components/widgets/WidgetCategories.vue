@@ -19,13 +19,13 @@
 <script>
 import api from 'src/api'
 export default {
-  data() {
+  data () {
     return {
       categories: []
     }
   },
   computed: {
-    plainCats() {
+    plainCats () {
       let result = this.categories.slice()
       this.categories.forEach((cat, index, arr) => {
         if (cat.sub) {
@@ -37,11 +37,11 @@ export default {
       return result
     }
   },
-  created() {
+  created () {
     this.fetCategory()
   },
   methods: {
-    async fetCategory() {
+    async fetCategory () {
       try {
         const res = await api.getCategories()
         if (res.success) this.categories = res.data

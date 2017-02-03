@@ -20,7 +20,6 @@
 <script>
 import SideBar from 'components/SideBar'
 import ExcerptList from 'components/ExcerptList'
-import api from '../api'
 export default {
   components: {
     SideBar,

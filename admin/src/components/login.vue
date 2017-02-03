@@ -31,10 +31,9 @@
 import {
   mapActions
 } from 'vuex'
-import api from 'src/api'
 import md5 from 'md5'
 export default {
-  data() {
+  data () {
     return {
       username: '',
       password: '',
@@ -43,7 +42,7 @@ export default {
     }
   },
   methods: { ...mapActions(['createToken']),
-    async login() {
+    async login () {
       try {
         await this.createToken({
           username: this.username,

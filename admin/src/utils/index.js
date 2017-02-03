@@ -1,9 +1,9 @@
 export default {
-  _debounce(func, wait, immediate = false) {
+  _debounce (func, wait, immediate = false) {
     let _timestamp
     let _timer
     if (immediate) {
-      return function() {
+      return function () {
         let now = Date.now()
         if (_timestamp && now - _timestamp < wait) {
           _timestamp = now
@@ -14,7 +14,7 @@ export default {
         func.apply(this, arguments)
       }
     }
-    return function() {
+    return function () {
       let now = Date.now()
       if (_timestamp && now - _timestamp < wait) {
         clearTimeout(_timer)
@@ -23,7 +23,7 @@ export default {
       _timer = setTimeout(func.bind(this, ...arguments), wait)
     }
   },
-  trim(str) {
+  trim (str) {
     return str.replace(/(^\s*)|(\s*$)/g, '')
   }
 }

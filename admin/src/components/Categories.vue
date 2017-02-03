@@ -38,7 +38,7 @@ import {
 } from 'vuex'
 import api from 'src/api'
 export default {
-  data() {
+  data () {
     return {
       tagActive: null,
       tags: []
@@ -52,17 +52,17 @@ export default {
   computed: { ...mapGetters(['currentId'])
   },
   methods: {
-    searchTag(tag) {
+    searchTag (tag) {
       this.tagActive = tag
       this.getAllDrafts({
         tags: tag.id
-      }) //or tag
+      }) // or tag
     },
-    modifyTag(tag) {
+    modifyTag (tag) {
       tag.newName = tag.name
       tag.editing = true
     },
-    async saveTag(tag) {
+    async saveTag (tag) {
       if (tag.name === tag.newName || !tag.newName) {
         tag.editing = false
         return
@@ -77,7 +77,7 @@ export default {
         window.alert(e)
       }
     },
-    async deleteTag(tag) {
+    async deleteTag (tag) {
       const res = await api.deleteTag(tag.name)
       if (res.success) {
         if (this.tagActive === tag) {
@@ -87,11 +87,11 @@ export default {
         this.tags.splice(this.tags.indexOf(tag), 1)
       }
     },
-    blurTag() {
+    blurTag () {
       this.tagActive = null
       this.getAllDrafts()
     },
-    async fetchAllTags() {
+    async fetchAllTags () {
       try {
         const res = await api.getAllTags()
         if (res.success) {
@@ -111,7 +111,7 @@ export default {
   watch: {
     '$route': 'fetchAllTags'
   },
-  mounted() {
+  mounted () {
     this.fetchAllTags()
   }
 }

@@ -10,7 +10,7 @@
 import PostContent from 'components/PostContent'
 import api from '../api'
 export default {
-  data() {
+  data () {
     return {
       post: null
     }
@@ -19,7 +19,7 @@ export default {
     PostContent
   },
   methods: {
-    async fetchPostDetail() {
+    async fetchPostDetail () {
       try {
         const res = await api.getPost(this.$route.params.title)
         if (res.success) this.post = res.data
@@ -28,7 +28,7 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.fetchPostDetail()
   },
   watch: {

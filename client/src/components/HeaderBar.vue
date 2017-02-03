@@ -46,7 +46,7 @@
 <script>
 import eventDirective from 'src/directives/eventListener'
 export default {
-  data() {
+  data () {
     return {
       scrolled: false,
       inMenuArea: false,
@@ -54,10 +54,10 @@ export default {
     }
   },
   methods: {
-    scrollcallback() {
+    scrollcallback () {
       this.scrolled = window.scrollY > 60
     },
-    menuClickHandler() {
+    menuClickHandler () {
       this.menuShowUp = this.inMenuArea
     }
   },

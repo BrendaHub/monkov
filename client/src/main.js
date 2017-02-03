@@ -13,7 +13,7 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   mode: 'history',
   routes,
-  scrollBehavior(to, from, savedPosition) {
+  scrollBehavior (to, from, savedPosition) {
     return savedPosition || {
       x: 0,
       y: 0
@@ -21,7 +21,7 @@ const router = new VueRouter({
   }
 })
 
-const app = new Vue({
+new Vue({
   el: '#app',
   router,
   render: h => h(App)

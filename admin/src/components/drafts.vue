@@ -23,7 +23,6 @@ import {
   mapGetters,
   mapActions
 } from 'vuex'
-import api from 'src/api'
 export default {
   components: {
     NavAside,
@@ -33,7 +32,7 @@ export default {
   computed: { ...mapGetters(['saved', 'titleSaved', 'currentId'])
   },
   methods: { ...mapActions(['getAllDrafts', 'createDraft']),
-    newDraft() {
+    newDraft () {
       if (this.saved && this.titleSaved) this.createDraft()
       else window.alert('Current draft is saving, please try again')
     }
@@ -41,7 +40,7 @@ export default {
   watch: {
     '$route': 'getAllDrafts'
   },
-  mounted() {
+  mounted () {
     this.getAllDrafts()
   }
 }

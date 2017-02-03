@@ -20,18 +20,18 @@ export default {
       default: 10
     }
   },
-  data() {
+  data () {
     return {
       postList: [],
       totalPage: 2,
       currentPage: ~~this.$route.query.page || 1
     }
   },
-  created() {
+  created () {
     this.fetchPostList()
   },
   methods: {
-    async fetchPostList() {
+    async fetchPostList () {
       try {
         const res = await api.getPostList({
           page: this.currentPage,
@@ -47,7 +47,7 @@ export default {
         console.log(e)
       }
     },
-    toPage(n) {
+    toPage (n) {
       this.$router.push({
         path: 'posts',
         query: {

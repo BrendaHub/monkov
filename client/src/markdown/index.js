@@ -8,6 +8,6 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   smartypants: true
-});
+})
 
 export default str => marked(str)

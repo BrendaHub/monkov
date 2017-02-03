@@ -21,7 +21,7 @@ export default {
   computed: { ...mapGetters(['currentId', 'currentIndex', 'saved', 'all', 'titleSaved'])
   },
   methods: {
-    focus(index) {
+    focus (index) {
       if (this.saved && this.titleSaved) {
         index !== this.currentIndex && this.focusOnDraft(index)
       } else {
