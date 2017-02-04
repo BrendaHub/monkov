@@ -56,7 +56,7 @@ export default {
       this.tagActive = tag
       this.getAllDrafts({
         tags: tag.id
-      }) // or tag
+      })
     },
     modifyTag (tag) {
       tag.newName = tag.name

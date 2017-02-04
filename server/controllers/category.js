@@ -5,18 +5,17 @@ import utils from '../utils'
 import mw from '../middlewares'
 export default router => {
   router
-    .post('/categories', create)
+    .post('/categories', mw.verifyToken, create)
     .get('/categories', allCategory)
-    .patch('/categories/:id', modify)
-    .delete('/categories/:id', deleteCat)
+    .patch('/categories/:id', mw.verifyToken, modify)
+    .delete('/categories/:id', mw.verifyToken, deleteCat)
 }
 
-let allCategory = async(ctx, next) => {
+async function allCategory (ctx, next) {
   const categories = await Category
     .find()
     .populate('sub')
-    .exec()
-    .catch(utils.internalErrHandler);
+    .exec().catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -75,16 +74,16 @@ let allCategory = async(ctx, next) => {
   // }
   // await next()
 }
-
-let create = async(ctx, next) => {
+async function create (ctx, next) {
   const catName = ctx.request.body.name
-  if (!~~ catName) {
+  if (!~~catName) {
     ctx.throw(400, 'category name expected')
   }
+  // if category already exist
+  // return the existed category id
   const category = await Category
     .findOne({name: catName})
-    .exec()
-    .catch(utils.internalErrHandler);
+    .exec().catch(utils.internalErrHandler)
   if (category) {
     ctx.status = 200
     ctx.body = {
@@ -95,11 +94,11 @@ let create = async(ctx, next) => {
     }
     return await next()
   }
-
-  const newCat = new Tag({name: catName})
+  // else create new category
+  const newCat = new Category({name: catName})
   const result = await newCat
     .save()
-    .catch(utils.internalErrHandler);
+    .catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -110,23 +109,24 @@ let create = async(ctx, next) => {
   await next()
 }
 
-let modify = async(ctx, next) => {
+async function modify (ctx, next) {
   const catName = ctx.request.body.name
   const catId = ctx.params.id
+  // if new category's name duplicated return the category id
   const cat = await Category
     .findOne({name: catName})
     .exec()
-    .catch(utils.internalErrHandler);
+    .catch(utils.internalErrHandler)
   if (!cat) {
     await Category.update({
       _id: catId
     }, {
-        $set: {
-          name: tagName
-        }
-      })
+      $set: {
+        name: catName
+      }
+    })
       .exec()
-      .catch(utils.internalErrHandler);
+      .catch(utils.internalErrHandler)
     ctx.status = 200
     ctx.body = {
       success: true
@@ -143,12 +143,12 @@ let modify = async(ctx, next) => {
   await next()
 }
 
-let deleteCat = async(ctx, next) => {
+async function deleteCat (ctx, next) {
   const name = ctx.params.name
   const category = await Category
     .findOne({name})
-    .exec()
-    .catch(utils.internalErrHandler);
+    .exec().catch(utils.internalErrHandler)
+  // update posts and drafts data before deleting catefory from database
   await Promise.all([
     Draft.update({}, {
       $pull: {
@@ -163,6 +163,6 @@ let deleteCat = async(ctx, next) => {
     Category
       .remove({_id: category.id})
       .exec()
-  ]).catch(utils.internalErrHandler);
+  ]).catch(utils.internalErrHandler)
   await next()
 }

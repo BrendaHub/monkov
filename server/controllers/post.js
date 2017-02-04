@@ -24,12 +24,10 @@ let create = async(ctx, next) => {
     excerpt,
     visit: 0,
     createTime: new Date(),
-    createTime: new Date(),
+    lastEditTime: new Date(),
     comments: []
   })
-  const result = await post
-    .save()
-    .catch(utils.internalErrHandler);
+  const result = await post.save().catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -41,15 +39,14 @@ let create = async(ctx, next) => {
 let postlist = async(ctx, next) => {
   const tag = ctx.query.tag
   const category = ctx.query.category
-  const limit = ~~ctx.query.limit || 10
+  const limit = ~~ctx.query.limit || 10 // number of posts per page
   const page = ~~ctx.query.page || 1
   let skip = limit * (page - 1)
   let findOpt = {}
   if (tag) {
     let tagId = await Tag
       .findOne({name: tag})
-      .exec()
-      .catch(utils.internalErrHandler);
+      .exec().catch(utils.internalErrHandler)
     tagId = tagId.id
     Object.assign(findOpt, {
       tags: {
@@ -60,22 +57,19 @@ let postlist = async(ctx, next) => {
   if (category) {
     let catId = await Category
       .findOne({name: category})
-      .exec()
-      .catch(utils.internalErrHandler());
+      .exec().catch(utils.internalErrHandler())
     catId = catId.id
     Object.assign(findOpt, {category: catId})
   }
   const {postArr, totalNumber} = {
     postArr: await Post
       .find(findOpt)
-      .populate('tags')
-      .populate('category')
+      .populate('tags category')
       .select('title imagesrc category tags createTime excerpt')
       .sort({createTime: -1})
       .limit(limit)
       .skip(skip)
-      .exec()
-      .catch(utils.internalErrHandler),
+      .exec().catch(utils.internalErrHandler),
     totalNumber: await Post
       .find(findOpt)
       .count()
@@ -98,10 +92,10 @@ let postDetail = async(ctx, next) => {
   let post = await Post
     .findOne({title})
     .populate('tags category')
-    .select('title imagesrc category tags createTime content')
-    .exec()
-    .catch(utils.internalErrHandler);
+    .select('title imagesrc category tags createTime content comments')
+    .exec().catch(utils.internalErrHandler)
   ctx.status = 200
+  // also find the pre and next post
   if (post) {
     post = post.toObject();
     ({prevPost: post.prevPost, nextPost: post.nextPost} = {
@@ -110,16 +104,14 @@ let postDetail = async(ctx, next) => {
           $gt: post._id
         }
       }, 'title imagesrc _id')
-        .exec()
-        .catch(utils.internalErrHandler),
+        .exec().catch(utils.internalErrHandler),
       nextPost: await Post.findOne({
         _id: {
           $lt: post._id
         }
       }, 'title imagesrc _id')
         .sort({_id: -1})
-        .exec()
-        .catch(utils.internalErrHandler)
+        .exec().catch(utils.internalErrHandler)
     })
   }
   ctx.body = {
@@ -136,8 +128,7 @@ let modify = async(ctx, next) => {
   }, {
     $set: ctx.request.body
   }, {new: true})
-    .exec()
-    .catch(utils.internalErrHandler);
+    .exec().catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true,

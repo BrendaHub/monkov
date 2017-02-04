@@ -1,14 +1,19 @@
 import utils from '../utils'
 import mw from '../middlewares'
 import Draft from '../models/draft.js'
-import Tag from '../models/tag.js'
-import Category from '../models/category.js'
+// import Tag from '../models/tag.js'
+// import Category from '../models/category.js'
 
 export default router => {
-  router.post('/drafts', mw.verifyToken, create).patch('/drafts/:id', mw.verifyToken, modify).get('/drafts', mw.verifyToken, draftList).get('/drafts/:id', mw.verifyToken, draftDetail).delete('/drafts/:id', mw.verifyToken, deleteDraft)
+  router
+    .post('/drafts', mw.verifyToken, create)
+    .patch('/drafts/:id', mw.verifyToken, modify)
+    .get('/drafts', mw.verifyToken, draftList)
+    .get('/drafts/:id', mw.verifyToken, draftDetail)
+    .delete('/drafts/:id', mw.verifyToken, deleteDraft)
 }
 
-let create = async(ctx, next) => {
+async function create (ctx, next) {
   const title = ctx.request.body.title
   const createTime = new Date()
   const lastEditTime = new Date()
@@ -26,7 +31,7 @@ let create = async(ctx, next) => {
     post,
     published
   })
-  const result = await draft.save().catch(utils.internalErrHandler);
+  await draft.save().catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -35,7 +40,7 @@ let create = async(ctx, next) => {
   await next()
 }
 
-let draftList = async(ctx, next) => {
+async function draftList (ctx, next) {
   const tags = ctx.query.tags
   const category = ctx.query.category
   let findOpt = {}
@@ -45,7 +50,12 @@ let draftList = async(ctx, next) => {
     }
   })
   category && Object.assign(findOpt, {category})
-  const draftArr = await Draft.find(findOpt).populate('tags category').select('title tags category createTime lastEditTime excerpt post published').sort({lastEditTime: -1}).exec().catch(utils.internalErrHandler);
+  const draftArr = await Draft
+    .find(findOpt)
+    .populate('tags category')
+    .select('title tags category createTime lastEditTime excerpt post published')
+    .sort({lastEditTime: -1})
+    .exec().catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -54,9 +64,13 @@ let draftList = async(ctx, next) => {
   await next()
 }
 
-let draftDetail = async(ctx, next) => {
+async function draftDetail (ctx, next) {
   const id = ctx.params.id
-  let draft = await Draft.findById(id).populate('tags category').select('title tags category imagesrc createTime lastEditTime excerpt article draftPublished content').exec().catch(utils.internalErrHandler);
+  let draft = await Draft
+    .findById(id)
+    .populate('tags category')
+    .select('title tags category imagesrc createTime lastEditTime excerpt article draftPublished content')
+    .exec().catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -65,9 +79,10 @@ let draftDetail = async(ctx, next) => {
   await next()
 }
 
-let modify = async(ctx, next) => {
+async function modify (ctx, next) {
   const id = ctx.params.id
   const modifyOpt = ctx.request.body
+  // modify the excerpt if the content is modified
   if (modifyOpt.content) {
     const contentArr = modifyOpt.content.split('<!-- more -->')
     modifyOpt.excerpt = contentArr.length > 1
@@ -76,9 +91,10 @@ let modify = async(ctx, next) => {
   }
   modifyOpt.lastEditTime = new Date()
   modifyOpt.published = false
-  let result = await Draft.findByIdAndUpdate(id, {
-    $set: modifyOpt
-  }, {new: true}).populate('tags category').exec().catch(utils.internalErrHandler);
+  let result = await Draft
+    .findByIdAndUpdate(id, {$set: modifyOpt}, {new: true})
+    .populate('tags category')
+    .exec().catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -87,12 +103,17 @@ let modify = async(ctx, next) => {
   await next()
 }
 
-let deleteDraft = async(ctx, next) => {
+async function deleteDraft (ctx, next) {
   const id = ctx.params.id
-  const draft = await Draft.findById(id).select('post').exec().catch(utils.internalErrHandler);
+  const draft = await Draft
+    .findById(id)
+    .select('post')
+    .exec().catch(utils.internalErrHandler)
   !draft && ctx.throw(400, 'draft not exist')
+  // if the draft is published, it cannot be deleted
+  // later I will add a function to delete published draft
   draft.post && ctx.throw(403, 'draft already published')
-  await draft.remove().catch(utils.internalErrHandler);
+  await draft.remove().catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true

@@ -68,16 +68,16 @@ let smde
 export default {
   data () {
     return {
-      change: true,
-      published: '',
-      tags: [],
-      tagsToAdd: [],
-      tagNew: '',
-      tagInput: false,
-      category: 'Uncategoried',
-      allCategories: [],
-      categoryChose: false,
-      imagesrc: ''
+      change: true, // true when switching current draft
+      published: '', // is current draft published
+      tags: [], // tags of current draft
+      tagsToAdd: [], // tags to chose when adding tags
+      tagNew: '', // the new tag to add
+      tagInput: false, // true when typing a new tag
+      category: 'Uncategoried', // category of cuurent draft
+      allCategories: [], // all categories
+      categoryChose: false, // true when chosing a category
+      imagesrc: '' // URL of image
     }
   },
   mounted () {
@@ -90,12 +90,13 @@ export default {
       toolbar: ['bold', 'italic', 'strikethrough', 'heading-1', 'heading-2', 'heading-3', 'clean-block', '|', 'code', 'quote', 'unordered-list', 'ordered-list', 'table', '|', 'link', 'image', 'horizontal-rule', {
         name: 'more',
         action: function customFunction (editor) {
-          //  fix
+          //  fix me
         },
         className: 'fa fa-chevron-circle-down',
         title: 'More'
       }, '|', 'preview', 'side-by-side', 'fullscreen', '|', 'guide']
     })
+    // autosave when editing the draft
     smde.codemirror.on('change', () => {
       if (this.change) {
         this.change = false
@@ -119,6 +120,7 @@ export default {
       try {
         const res1 = await api.createTag(tag)
         if (res1.success) {
+          // return if the tag duplicated
           if (this.tags.some(item => item.id === res1.data.id)) return
           let newTagsArr = this.tags.concat()
           newTagsArr.push(res1.data.id)
@@ -159,6 +161,10 @@ export default {
         window.alert(e)
       }
     },
+    /**
+     * image URL is auto submited
+     * so it's wrapped by a debounce function
+     */
     submitImage: utils._debounce(async function (val) {
       try {
         const res = await api.modifyDraftImage(this.currentId, val)
@@ -212,6 +218,10 @@ export default {
         window.alert(e)
       }
     },
+    /**
+     * auto submit the draft when editing
+     * so wrapped by debounce
+     */
     postDraft: utils._debounce(async function () {
       try {
         const res = await api.modifyDraftContent(this.currentId, smde.value())
@@ -232,6 +242,7 @@ export default {
       this.change = true
       val && this.fetchDraft(val)
     },
+    // search tags match the letters when typing a new tag
     tagNew (val) {
       this.searchTags(val)
     }

@@ -15,3 +15,5 @@ const commentSchema = mongoose.Schema({
     default: ''
   }
 })
+
+export default mongoose.model('comment', commentSchema)

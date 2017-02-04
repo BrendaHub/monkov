@@ -1,4 +1,11 @@
 export default {
+  /**
+   * transform a funtion to a debounced function
+   * @param {Function} func - the function to debounce
+   * @param {Number} wait - debounce time
+   * @param {Boolean} immediate - whether apply the function immediatly
+   * @return {Fcuntion} the wrapped funciton
+   */
   _debounce (func, wait, immediate = false) {
     let _timestamp
     let _timer

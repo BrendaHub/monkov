@@ -5,10 +5,15 @@ import utils from '../utils'
 import mw from '../middlewares'
 
 export default router => {
-  router.post('/tags', create).get('/tags', tagList).patch('/tags/:name', modify).delete('/tags/:name', deleteTag).get('/tags/:name', tagDetail)
+  router
+    .post('/tags', mw.verifyToken, create)
+    .get('/tags', tagList)
+    .patch('/tags/:name', mw.verifyToken, modify)
+    .delete('/tags/:name', mw.verifyToken, deleteTag)
+    .get('/tags/:name', tagDetail)
 }
 
-let tagList = async(ctx, next) => {
+async function tagList (ctx, next) {
   const startWith = ctx.query['start-with']
   const queryOpt = {}
   if (startWith) {
@@ -16,7 +21,10 @@ let tagList = async(ctx, next) => {
       $regex: '^' + startWith
     }
   }
-  const taglist = await Tag.find(queryOpt).select('name').exec().catch(utils.internalErrHandler);
+  const taglist = await Tag
+    .find(queryOpt)
+    .select('name')
+    .exec().catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -25,19 +33,25 @@ let tagList = async(ctx, next) => {
   await next()
 }
 
-async function tagDetail(ctx, next) {
+/**
+ * look up posts and drafts belong to this tag
+ */
+async function tagDetail (ctx, next) {
   const tagName = ctx.params.name
   const tag = await Tag.find({name}).exec().catch()
   const id = tag.id
   // const count = await Post.find({tags:})
 }
 
-let create = async(ctx, next) => {
+async function create (ctx, next) {
   const tagName = ctx.request.body.name
   if (!tagName || !tagName.length) {
     ctx.throw(400, 'tag name expected')
   }
-  const tag = await Tag.findOne({name: tagName}).exec().catch(utils.internalErrHandler);
+  // if tag name duplicated, return the duplicated tag
+  const tag = await Tag
+    .findOne({name: tagName})
+    .exec().catch(utils.internalErrHandler)
   if (tag) {
     ctx.status = 200
     ctx.body = {
@@ -49,9 +63,9 @@ let create = async(ctx, next) => {
     }
     return await next()
   }
-
+  // else create a new tag
   const newTag = new Tag({name: tagName})
-  const result = await newTag.save().catch(utils.internalErrHandler);
+  const result = await newTag.save().catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true,
@@ -63,10 +77,12 @@ let create = async(ctx, next) => {
   await next()
 }
 
-let modify = async(ctx, next) => {
+async function modify (ctx, next) {
   const newName = ctx.request.body.name
   const tagName = ctx.params.name
-  const tag = await Tag.findOne({name: newName}).exec().catch(utils.internalErrHandler);
+  const tag = await Tag
+    .findOne({name: newName})
+    .exec().catch(utils.internalErrHandler)
   if (!tag) {
     await Tag.update({
       name: tagName
@@ -74,7 +90,7 @@ let modify = async(ctx, next) => {
       $set: {
         name: newName
       }
-    }).exec().catch(utils.internalErrHandler);
+    }).exec().catch(utils.internalErrHandler)
     ctx.status = 200
     ctx.body = {
       success: true
@@ -91,10 +107,13 @@ let modify = async(ctx, next) => {
   await next()
 }
 
-let deleteTag = async(ctx, next) => {
+async function deleteTag (ctx, next) {
   const name = ctx.params.name
-  const tag = await Tag.findOne({name}).exec().catch(utils.internalErrHandler);
+  const tag = await Tag
+    .findOne({name})
+    .exec().catch(utils.internalErrHandler)
   !tag && ctx.throw('400', 'tag not exist')
+  // update data of posts and draft before deleting the tag in batabse
   await Promise.all([
     Draft.update({}, {
       $pull: {
@@ -107,7 +126,7 @@ let deleteTag = async(ctx, next) => {
       }
     }).exec(),
     Tag.remove({_id: tag.id}).exec()
-  ]).catch(utils.internalErrHandler);
+  ]).catch(utils.internalErrHandler)
   ctx.status = 200
   ctx.body = {
     success: true

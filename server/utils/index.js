@@ -2,7 +2,7 @@ import logger from 'mini-logger'
 import config from '../config'
 import debug from 'debug'
 
-Date.prototype.format = function(fmt) {
+Date.prototype.format = function (fmt) {
   let o = {
     'M+': this.getMonth() + 1,
     'd+': this.getDate(),
@@ -12,22 +12,25 @@ Date.prototype.format = function(fmt) {
     'q+': Math.floor((this.getMonth() + 3) / 3),
     'S': this.getMilliseconds()
   }
-  if (/(y+)/.test(fmt))
-    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
-  for (let k in o)
-    if (new RegExp('(' + k + ')').test(fmt))
-      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1)
+  if (/(y+)/.test(fmt)) {
+    fmt = fmt.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length))
+  }
+  for (let k in o) {
+    if (new RegExp('(' + k + ')').test(fmt)) {
+      fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1)
         ? (o[k])
         : (('00' + o[k]).substr(('' + o[k]).length)))
+    }
+  }
   return fmt
 }
 let _logger = logger({dir: config.dir.log, format: 'YYYY-MM-DD-[{category}][.log]'})
 
 export default {
-  logger : _logger,
+  logger: _logger,
   debug,
-  internalErrHandler : function(err) {
+  internalErrHandler: function (err) {
     _logger.error(err)
-    ctx && ctx.throw(500, 'internal error')
-  } //fix me
+    // ctx && ctx.throw(500, 'internal error')
+  } // fix me
 }

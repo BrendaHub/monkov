@@ -1,10 +1,10 @@
 import * as types from '../mutation-types'
 import api from 'src/api'
 const state = {
-  all: [],
-  currentId: null,
+  all: [], // list of drafts
+  currentId: null, // the focused draft
   currentIndex: -1,
-  postId: null,
+  postId: null, // id of published post of the focused draft (null if not published)
   title: '',
   saved: true,
   titleSaved: true

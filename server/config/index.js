@@ -1,6 +1,6 @@
 import path from 'path'
 import dev from './dev.js'
-import fs from 'fs'
+// import fs from 'fs'
 import merge from 'lodash/merge'
 
 const serverRoot = path.dirname(__dirname)

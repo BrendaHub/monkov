@@ -1,8 +1,14 @@
+/**
+ * wrap fetch function
+ */
+
 import store from '../store'
 const apihost = 'http://localhost:3000/'
+
 const alert = window.alert
 const Headers = global.Headers
 const fetch = global.fetch
+
 function parseResponse (response) {
   return Promise.all([response.status, response.statusText, response.json()])
 }
