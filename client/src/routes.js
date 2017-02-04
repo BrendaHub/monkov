@@ -20,5 +20,8 @@ export default[
   }, {
     path: '/photograph',
     component: resolve => require(['components/Photograph'], resolve)
+  }, {
+    path: '*',
+    component: resolve => require(['components/NotFound'], resolve)
   }
 ]

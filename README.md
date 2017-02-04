@@ -113,8 +113,9 @@ $ npm run build
 ## Todo List
 
 - [ ] Add comments to code
+- [ ] CSS refactor
 - [ ] Comment system
-- [ ] Category management system
+- [ ] Category management
 - [ ] Customizable themes
 - [ ] User management system
 - [ ] Plugin system
