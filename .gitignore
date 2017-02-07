@@ -6,5 +6,5 @@ npm-debug.log
 */test/e2e/reports
 */selenium-debug.log
 .tern-project
-*/logs/
+server/logs/*
 server/config/private.js
