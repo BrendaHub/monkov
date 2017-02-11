@@ -15,7 +15,7 @@
 
 - RESTful api
 - Front end router
-- Front and back seperated
+- Front and back separated
 - ES6/7 syntax
 - Built-in markdown editor
 - Add tags and category to your articles
@@ -26,9 +26,9 @@
 
 The blog pages on your website.
 
-You can customize the widgets, the themes, the navigation menu and the personal informations.
+You can customize the widgets, the themes, the navigation menu and the personal information.
 
-More features are comming.
+More features are coming.
 
 #### Demo
 
