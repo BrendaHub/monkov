@@ -1,9 +1,23 @@
 <template lang="html">
   <section class="article-list col-main">
     <article class="blog-post">
-      <post-content v-for="post in postList" :key="post._id" :id="post._id" :imagesrc="post.imagesrc" :title="post.title" :time="post.createTime" :tags="post.tags" :comments="post.comments" :content="post.excerpt" :category="post.category"> </post-content>
+      <post-content v-for="post in postList" 
+        :key="post._id" 
+        :id="post._id" 
+        :imagesrc="post.imagesrc" 
+        :title="post.title" 
+        :time="post.createTime" 
+        :tags="post.tags" 
+        :comments="post.comments" 
+        :content="post.excerpt" 
+        :category="post.category"> 
+      </post-content>
     </article>
-    <nav class="pagination"> <a href="javascript:void(0)" @click="toPage(currentPage-1)" class="page-numbers next-page" v-show="currentPage > 1">&lt;</a> <a href="javascript:void(0)" @click="toPage(n)" v-for="n in totalPage" :class="[{'current-page':n==currentPage},'page-numbers']">{{n}}</a>          <a href="javascript:void(0)" @click="toPage(currentPage+1)" class="page-numbers next-page" v-show="currentPage < totalPage">&gt;</a> </nav>
+    <nav class="pagination"> 
+      <a href="javascript:void(0)" @click="toPage(currentPage-1)" class="page-numbers next-page" v-show="currentPage > 1">&lt;</a> 
+      <a href="javascript:void(0)" @click="toPage(n)" v-for="n in totalPage" :class="[{'current-page':n==currentPage},'page-numbers']">{{n}}</a>          
+      <a href="javascript:void(0)" @click="toPage(currentPage+1)" class="page-numbers next-page" v-show="currentPage < totalPage">&gt;</a> 
+    </nav>
   </section>
 </template>
 
