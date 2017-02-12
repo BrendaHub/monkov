@@ -46,7 +46,7 @@ More features are comming.
 ```shell
 $ yarn install
 
-# run dev-server
+# run dev
 $ npm run dev-client
 
 # build
@@ -103,11 +103,11 @@ Initial username:`admin` Initial password:`admin`
 ```shell
 $ yarn install
 
-# run dev-server
-$ npm run dev
+# run dev
+$ npm run dev-admin
 
 # build
-$ npm run build
+$ npm run build-admin
 ```
 
 ## Todo List
