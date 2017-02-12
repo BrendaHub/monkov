@@ -36,7 +36,15 @@
     "la": "npm run lint-admin",
     "ds": "npm run dev-server",
     "ps": "npm run pro-server",
-    "ls": "npm run lint-server"
+    "ls": "npm run lint-server",
+    "fdc": "forever start --minUptime 1000 --spinSleepTime 1000 client/build/dev-server.js",
+    "sdc": "forever stop client/build/dev-server.js",
+    "fda": "forever start --minUptime 1000 --spinSleepTime 1000 admin/build/build.js",
+    "sda": "forever stop admin/build/build.js",
+    "fds": "forever start --minUptime 1000 --spinSleepTime 1000 -c 'babel-node' server/bin/run",
+    "sds": "forever stop server/bin/run",
+    "dev": "npm run fds && npm run fdc && npm run fda",
+    "stop": "npm run sda && npm run sdc && npm run sds"
   },
   "dependencies": {
     "github-markdown-css": "^2.4.1",
@@ -90,6 +98,7 @@
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
+    "forever": "^0.15.3",
     "function-bind": "^1.0.2",
     "html-webpack-plugin": "^2.8.1",
     "http-proxy-middleware": "^0.17.2",

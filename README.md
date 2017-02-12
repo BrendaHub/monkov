@@ -6,10 +6,10 @@
 
 > Monkov is a blog system built with vue.js and koa.js You can easily build up your own blog with it.
 
-## Dependencies
+## Requirements
 
 - nodejs 6.0 or higher
-- mongodb
+- mongodb installed
 
 ## Features
 
@@ -30,7 +30,7 @@ You can customize the widgets, the themes, the navigation menu and the personal 
 
 More features are coming.
 
-#### Demo
+#### Screen Shot
 
 ![](intro_src/client.png)
 
@@ -41,9 +41,10 @@ More features are coming.
 - stylus
 - marked
 
-#### Usage
+#### Run
 
 ```shell
+# install dependencies
 $ yarn install
 
 # run dev
@@ -67,11 +68,9 @@ The login module use `jwt`
 - mongoose
 - jwt
 
-#### Usage
+#### Run
 
 ```shell
-$ yarn install
-
 # run development
 $ npm run dev-server
 
@@ -87,7 +86,7 @@ The background management system. You can write your articles (all called `draft
 
 Initial username:`admin` Initial password:`admin`
 
-#### Demo
+#### Screen Shot
 
 ![](./intro_src/admin.png)
 
@@ -98,11 +97,9 @@ Initial username:`admin` Initial password:`admin`
 - stylus
 - marked && SimpleMDE
 
-##### Usage
+##### Run
 
 ```shell
-$ yarn install
-
 # run dev
 $ npm run dev-admin
 
