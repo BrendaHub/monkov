@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
 <div class="post-content">
     <router-link :to="'/posts/'+title" v-if="imagesrc"><img class="post-image" :src="imagesrc" alt=""></router-link>
     <div class="post-body">
@@ -12,7 +12,7 @@
             <span class="tags" v-if="tags.length>0">
                 <router-link :to="'/posts?tag='+tag.name" v-for="tag in tags"> {{tag.name}} </router-link>
             </span>
-            <span class="comments" v-if="comments"><router-link to="/">{{comments}} comments</router-link></span>
+            <span class="comments" v-if="comments.length>0"><router-link to="/">{{comments.length}} comments</router-link></span>
         </div>
         <div class="markdown-body" v-md="content"></div>
         <router-link :to="'/posts/'+title" class="readmore" v-if="detailmode=='false'">
@@ -51,8 +51,8 @@ export default {
       default: () => []
     },
     comments: {
-      type: Number,
-      default: 0
+      type: Array,
+      default: () => []
     },
     content: {
       type: String,

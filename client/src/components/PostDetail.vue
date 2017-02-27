@@ -1,7 +1,18 @@
-<template lang="html">
+<template>
   <section class="article-list col-main">
     <article class="blog-post">
-      <post-content v-if="post" :id="post.id" :title="post.title" :time="post.createTime" :imagesrc="post.imagesrc" :comments="post.comments" :content="post.content" :category="post.category" :tags="post.tags" detailmode=true></post-content>
+      <post-content v-if="post"
+        :id="post.id"
+        :title="post.title"
+        :time="post.createTime"
+        :imagesrc="post.imagesrc"
+        :comments="post.comments"
+        :content="post.content"
+        :category="post.category"
+        :tags="post.tags"
+        detailmode=true>
+      </post-content>
+      <comments v-if="post" :comments="post.comments"></comments>
     </article>
   </section>
 </template>
@@ -9,6 +20,7 @@
 <script>
 import PostContent from 'components/PostContent'
 import api from '../api'
+import Comments from 'components/Comments'
 export default {
   data () {
     return {
@@ -16,7 +28,8 @@ export default {
     }
   },
   components: {
-    PostContent
+    PostContent,
+    Comments
   },
   methods: {
     async fetchPostDetail () {
