@@ -2,13 +2,13 @@
 <div class="comments-list-container">
   <h4 class="title"><span>{{comments.length || 0}} comments</span></h4>
   <div class="comments-list">
-    <div class="comments-item">
+    <div class="comments-item" v-for="comment in comments">
       <div class="comments-item-meta">
-        <img class="avator" src="http://2.gravatar.com/avatar/b8cbfac8510a3974e3828e62fe77f6be?s=50&d=mm&r=g" alt="">
-        <div class="author">Domon</div>
-        <div class="date">December 13,2016 10:51 am</div>
+        <img class="avator" :src="comment.author.avator" alt="">
+        <div class="author">{{comment.author.name}}</div>
+        <div class="date">{{comment.date}}</div>
       </div>
-      <div class="comments-item-text">test comment</div>
+      <div class="comments-item-text">{{comment.text}}</div>
       <div class="comments-item-reply">
         <!--<a href="#">Reply</a>-->
       </div>
@@ -40,6 +40,7 @@ export default {
     margin-right .8rem
     opacity .33
   border-top 1px solid #eee
+  padding-top 2rem
 
 .comments-item
   padding 2rem 0
