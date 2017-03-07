@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <section :class="{'editor-active':!saved}">
       <div :class="{'title-active':!titleSaved}">
           <input type="text" class="form-control big only-border-bottom" :value="title" @input="updateTitle">

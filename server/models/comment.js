@@ -9,11 +9,12 @@ const commentSchema = mongoose.Schema({
   createTime: {
     type: Date
   },
-  author: String,
-  authorAvator: {
+  user: String,
+  userAvator: {
     type: String,
     default: ''
-  }
+  },
+  replyTo: Number
 })
 
 export default mongoose.model('comment', commentSchema)

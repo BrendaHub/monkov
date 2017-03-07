@@ -9,20 +9,46 @@
         <div class="date">{{comment.date}}</div>
       </div>
       <div class="comments-item-text">{{comment.text}}</div>
-      <div class="comments-item-reply">
-        <!--<a href="#">Reply</a>-->
-      </div>
     </div>
+  </div>
+  <div class="comments-item-reply">
+    <textarea id="editor" style="opacity:0"></textarea>
   </div>
 </div>
 </template>
 
 <script>
+import SimpleMDE from 'simpleMDE'
+import api from '../api'
+
+let smde
 export default {
   props: {
     comments: {
       type: Array,
       default: () => []
+    }
+  },
+  date() {
+    return {
+    }
+  },
+  mounted() {
+    smde = new SimpleMDE({
+      initialValue: 'Text your reply here',
+      autoDownloadFontAwesome: false,
+      element: document.getElementById('editor'),
+      spellChecker: false,
+      toolbar: []
+    })
+    smde.codemirror
+  },
+  methods: {
+    async submitComment() {
+      await api.submitComment({
+        content: smde.value
+      })
+      smde.value = ''
     }
   }
 }
@@ -40,7 +66,7 @@ export default {
     margin-right .8rem
     opacity .33
   border-top 1px solid #eee
-  padding-top 2rem
+  padding 2rem 0
 
 .comments-item
   padding 2rem 0
