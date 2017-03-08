@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
   <section class="article-list col-main">
     <article class="blog-post">
       <post-content v-for="post in postList" 
