@@ -13,7 +13,7 @@ export default {
   async getCategories (params) {
     return await service.get('categories', params)
   },
-  async postComments (params) {
+  async postComment (params) {
     return await service.post('comments', params)
   }
 }

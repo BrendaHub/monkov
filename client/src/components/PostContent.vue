@@ -12,7 +12,7 @@
             <span class="tags" v-if="tags.length>0">
                 <router-link :to="'/posts?tag='+tag.name" v-for="tag in tags"> {{tag.name}} </router-link>
             </span>
-            <span class="comments" v-if="comments.length>0"><router-link to="/">{{comments.length}} comments</router-link></span>
+            <span class="comments" v-if="comments.length>0"><a href="#comments">{{comments.length}} comments</a></span>
         </div>
         <div class="markdown-body" v-md="content"></div>
         <router-link :to="'/posts/'+title" class="readmore" v-if="detailmode=='false'">

@@ -1,18 +1,25 @@
 <template>
-<div class="comments-list-container">
+<div class="comments-list-container" id="comments">
   <h4 class="title"><span>{{comments.length || 0}} comments</span></h4>
   <div class="comments-list">
     <div class="comments-item" v-for="comment in comments">
       <div class="comments-item-meta">
-        <img class="avator" :src="comment.author.avator" alt="">
-        <div class="author">{{comment.author.name}}</div>
-        <div class="date">{{comment.date}}</div>
+        <img v-if="comment.userAvator" class="avator" :src="comment.userAvator" alt="">
+        <div class="author">{{comment.user}}</div>
+        <div class="date">{{comment.createTime}}</div>
       </div>
-      <div class="comments-item-text">{{comment.text}}</div>
+      <div class="comments-item-text">{{comment.content}}</div>
     </div>
   </div>
   <div class="comments-item-reply">
     <textarea id="editor" style="opacity:0"></textarea>
+    <span class="username comment-meta-input">
+        Username: <input v-model="username" type="text">
+    </span>
+    <span class="email comment-meta-input">
+        Email: <input v-model="email" type="text">
+    </span>
+    <span id="post-comment" @click="submitComment()">Comment</span>
   </div>
 </div>
 </template>
@@ -20,7 +27,7 @@
 <script>
 import SimpleMDE from 'simpleMDE'
 import api from '../api'
-
+import utils from 'src/utils'
 let smde
 export default {
   props: {
@@ -31,11 +38,13 @@ export default {
   },
   date() {
     return {
+      username: 'anonymous',
+      email: ''
     }
   },
   mounted() {
     smde = new SimpleMDE({
-      initialValue: 'Text your reply here',
+      placeholder: 'Please type your comment here...\n\nMarkdown supported.',
       autoDownloadFontAwesome: false,
       element: document.getElementById('editor'),
       spellChecker: false,
@@ -45,10 +54,16 @@ export default {
   },
   methods: {
     async submitComment() {
-      await api.submitComment({
-        content: smde.value
+      if (!utils.trim(smde.value)) {
+        return
+      }
+      await api.postComment({
+        content: smde.value(),
+        user: this.username,
+        email: this.email,
+        postTitle: this.$route.params.title
       })
-      smde.value = ''
+      smde.value('')
     }
   }
 }
@@ -67,9 +82,19 @@ export default {
     opacity .33
   border-top 1px solid #eee
   padding 2rem 0
+.comments-list-container
+  margin 4em 0
+  overflow hidden
+
+.comments-list
+  margin 2em 0
+
+.comments-item-reply
+  margin 2em 0
+  padding 2em 1em
 
 .comments-item
-  padding 2rem 0
+  padding 0 0 2rem 0
   margin-bottom 2rem
   position relative
   border-bottom 1px solid #eee
@@ -98,4 +123,46 @@ export default {
   overflow hidden
   top 2rem
   left 0
+
+#post-comment
+  cursor pointer
+  display:inline-block
+  margin:25px 0 0 0
+  color:#666
+  font-weight:800
+  font-family:Verdana
+  font-size:15px
+  line-height:2
+  padding:0 1.8em
+  letter-spacing:0
+  text-transform: uppercase
+  box-shadow: 0 0 0 2px #e8e8e8
+  border-radius: 0.3em
+  position:relative
+  overflow:hidden
+  border:none
+  float right
+  &::before
+      display: block;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0;
+      background-color: rgba(0,0,0,.1);
+      transition: height 0.3s;
+  &:hover
+    &::before
+      height 42px
+
+.comment-meta-input
+  color #666
+  font-size 18px
+  padding 0 1.6em 0 0
+  line-height 4.5
+
+.CodeMirror-scroll
+  min-height 100px
+  height 100px
 </style>

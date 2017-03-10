@@ -48,6 +48,7 @@ export default {
     }
   },
   trim(str) {
-    return str.replace(/(^\s*)|(\s*$)/g, '')
+    const {replace} = String.prototype
+    return str::replace(/(^\s*)|(\s*$)/g, '')
   }
 }

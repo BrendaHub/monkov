@@ -91,7 +91,7 @@ let postDetail = async(ctx, next) => {
   const title = ctx.params.title
   let post = await Post
     .findOne({title})
-    .populate('tags category')
+    .populate('tags category comments')
     .select('title imagesrc category tags createTime content comments')
     .exec().catch(utils.internalErrHandler)
   ctx.status = 200
