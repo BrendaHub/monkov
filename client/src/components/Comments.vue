@@ -8,7 +8,7 @@
         <div class="author">{{comment.user}}</div>
         <div class="date">{{comment.createTime}}</div>
       </div>
-      <div class="comments-item-text">{{comment.content}}</div>
+      <div class="comments-item-text markdown-body" v-html="comment.content"></div>
     </div>
   </div>
   <div class="comments-item-reply">
@@ -28,6 +28,7 @@
 import SimpleMDE from 'simpleMDE'
 import api from '../api'
 import utils from 'src/utils'
+import md2html from 'src/markdown'
 let smde
 export default {
   props: {
@@ -38,7 +39,7 @@ export default {
   },
   date() {
     return {
-      username: 'anonymous',
+      username: '',
       email: ''
     }
   },
@@ -54,16 +55,17 @@ export default {
   },
   methods: {
     async submitComment() {
-      if (!utils.trim(smde.value)) {
+      if (!utils.trim(md2html(smde.value()))) {
         return
       }
       await api.postComment({
-        content: smde.value(),
-        user: this.username,
+        content: md2html(smde.value()),
+        user: this.username || 'anonymous',
         email: this.email,
         postTitle: this.$route.params.title
       })
       smde.value('')
+      this.$emit('newComment')
     }
   }
 }

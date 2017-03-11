@@ -12,7 +12,7 @@
         :tags="post.tags"
         detailmode=true>
       </post-content>
-      <comments v-if="post" :comments="post.comments"></comments>
+      <comments v-if="post" @newComment="fetchPostDetail" :comments="post.comments"></comments>
     </article>
   </section>
 </template>
